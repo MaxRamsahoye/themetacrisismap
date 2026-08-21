@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Metacrisis</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Theme & Multi-Accent Variables --- */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #121212;
+            --toggle-color: #121212;
+            --cursor-color: #121212;
+            --indicator-color: rgba(18, 18, 18, 0.4);
+            
+            --ring-color: #121212;   
+            --interactive-color: var(--text-color); 
+        }
+
+        :root[data-accent="green"] { --ring-color: #059669; --interactive-color: #059669; }
+        :root[data-accent="orange"] { --ring-color: #FF6719; --interactive-color: #FF6719; }
+        :root[data-accent="blue"] { --ring-color: #00bfff; --interactive-color: #00bfff; }
+        :root[data-accent="red"] { --ring-color: #ff0000; --interactive-color: #ff0000; }
+
+        :root[data-theme="dark"] {
+            --bg-color: #000000; 
+            --text-color: #ffffff;
+            --toggle-color: #ffffff;
+            --cursor-color: #ffffff;
+            --indicator-color: rgba(255, 255, 255, 0.4);
+            
+            --ring-color: #ffffff;   
+            --interactive-color: var(--text-color);
+        }
+
+        :root[data-theme="dark"][data-accent="green"] { --ring-color: #059669; --interactive-color: #059669; }
+        :root[data-theme="dark"][data-accent="orange"] { --ring-color: #FF6719; --interactive-color: #FF6719; }
+        :root[data-theme="dark"][data-accent="blue"] { --ring-color: #00bfff; --interactive-color: #00bfff; }
+        :root[data-theme="dark"][data-accent="red"] { --ring-color: #ff0000; --interactive-color: #ff0000; }
+
+        /* --- Hide Default Scrollbar --- */
+        ::-webkit-scrollbar { display: none; width: 0; background: transparent; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* --- Base Styles --- */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden; 
+            cursor: none; 
+            padding: 4rem 2rem;
+            box-sizing: border-box;
+        }
+
+        /* --- Loading Screen Overlay --- */
+        #loading-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 9998; 
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.6s ease;
+        }
+
+        #loading-svg { width: 340px; height: 340px; }
+        .lvl1 path, .lvl2 path, .lvl3 path {
+            stroke-dasharray: 120;
+            stroke-dashoffset: 120;
+        }
+        
+        .loading-node {
+            opacity: 0;
+            fill: var(--bg-color);
+            transition: opacity 0.2s ease;
+        }
+
+        /* --- View Manager --- */
+        #view-manager {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex: 1; 
+            max-width: 1400px;
+        }
+
+        .view-panel {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.98);
+            visibility: hidden;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .view-panel.active {
+            position: relative;
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+            visibility: visible;
+        }
+
+        /* --- HUD Timing System --- */
+        body:not(.hud-ready) #bottom-left-controls,
+        body:not(.hud-ready) #toggle-container,
+        body:not(.hud-ready) #footer,
+        body:not(.hud-ready) #scroll-progress-container,
+        body:not(.hud-ready) #main-breadcrumbs {
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        #bottom-left-controls, #toggle-container, #footer, #main-breadcrumbs, #scroll-progress-container {
+            transition: opacity 1.2s ease;
+        }
+
+        /* --- Main View Breadcrumbs (Top Left) --- */
+        #main-breadcrumbs {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 100;
+            font-family: 'Courier New', Courier, monospace;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            color: var(--interactive-color);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease, color 0.4s ease;
+        }
+        
+        #main-breadcrumbs.visible {
+            opacity: 1;
+        }
+
+        /* --- Navigation Controls (Bottom Left) --- */
+        #bottom-left-controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            align-items: flex-start;
+        }
+
+        .nav-item { display: flex; align-items: center; gap: 0.8rem; }
+        .nav-toggle-btn {
+            width: 28px; height: 28px; color: var(--text-color);
+            transition: color 0.4s ease, transform 0.2s ease;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .nav-item:hover .nav-toggle-btn { transform: scale(1.1); }
+        .nav-label {
+            font-family: 'Courier New', Courier, monospace;
+            text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.1em;
+            color: var(--text-color); transition: color 0.4s ease; padding-bottom: 2px;
+        }
+        .nav-item.active .nav-toggle-btn, .nav-item.active .nav-label { color: var(--interactive-color); }
+        .nav-item.active .clickable-indicator::after { transform: scaleX(1); transform-origin: left; }
+
+        /* --- Top Right: Toggles --- */
+        #toggle-container {
+            position: fixed; top: 2rem; right: 2rem;
+            width: 36px; height: 36px; display: flex;
+            justify-content: center; align-items: center; z-index: 100;
+        }
+        #theme-toggle {
+            position: absolute; width: 16px; height: 16px; border-radius: 50%;
+            background-color: var(--toggle-color); border: none;
+            transition: transform 0.2s ease, background-color 0.4s ease; z-index: 2; 
+        }
+        #accent-toggle {
+            position: absolute; width: 32px; height: 32px; border-radius: 50%;
+            background: transparent; border: 3px solid var(--ring-color);
+            transition: border-color 0.4s ease; z-index: 1; 
+        }
+
+        /* --- Custom Progress Bar --- */
+        #scroll-progress-container {
+            position: fixed; top: 0; right: 0;
+            width: 8px; height: 100vh;
+            background-color: var(--indicator-color); 
+            z-index: 1000; opacity: 0; pointer-events: none;
+        }
+        #scroll-progress-container.active { opacity: 1; }
+        #scroll-progress-fill {
+            width: 100%; height: 0%;
+            background-color: var(--interactive-color);
+            transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease;
+        }
+
+        /* --- Collapse Tree Arrow (Bottom Right) --- */
+        #collapse-tree-btn {
+            position: fixed; bottom: 2rem; right: 2rem;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: transparent; border: 2px solid var(--indicator-color);
+            color: var(--text-color); opacity: 0; pointer-events: none;
+            transform: translateY(10px); display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s ease, color 0.4s ease;
+            z-index: 100;
+        }
+        #collapse-tree-btn svg { width: 18px; height: 18px; }
+        #collapse-tree-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        #collapse-tree-btn:hover { border-color: var(--interactive-color); color: var(--interactive-color); }
+
+        /* --- Title Corners / Focus Frame --- */
+        #title-wrapper {
+            position: relative; 
+            display: inline-block; 
+            padding: 10px 24px;
+        }
+        
+        /* The wrapper controls the clean fade-in and hover fade-out */
+        .camera-corners {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+        }
+        .camera-corners.visible {
+            opacity: 1;
+        }
+        
+        /* Fade out cleanly on hover to show just the underline */
+        #title-wrapper:hover .camera-corners {
+            opacity: 0 !important;
+            transition: opacity 0.3s ease;
+        }
+
+        /* The inner div handles the continuous breathing animation without snapping */
+        .camera-corners-inner {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            animation: corners-focus 2.5s infinite ease-in-out;
+        }
+
+        .camera-corners-inner .corner {
+            position: absolute;
+            width: 14px; height: 14px;
+            border-color: var(--interactive-color);
+            border-style: solid;
+            transition: border-color 0.4s ease;
+        }
+        .corner.tl { top: 0; left: 0; border-width: 3px 0 0 3px; }
+        .corner.tr { top: 0; right: 0; border-width: 3px 3px 0 0; }
+        .corner.bl { bottom: 0; left: 0; border-width: 0 0 3px 3px; }
+        .corner.br { bottom: 0; right: 0; border-width: 0 3px 3px 0; }
+        
+        @keyframes corners-focus {
+            0%, 100% { transform: scale(1); opacity: 0.25; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+
+        /* --- Map View: CSS Structural Tree --- */
+        .css-tree { display: flex; justify-content: center; width: 100%; overflow-x: auto; padding: 1rem 0; }
+        .css-tree ul { padding-top: 30px; position: relative; display: flex; justify-content: center; align-items: flex-start; padding-left: 0; margin: 0; width: 100%; }
+        .css-tree > ul > li { width: 100%; flex: none; }
+        .css-tree li { flex: 1 1 0; min-width: 0; text-align: center; list-style-type: none; position: relative; padding: 30px 2px 0 2px; display: flex; flex-direction: column; align-items: center; }
+        
+        .css-tree li::before, .css-tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid var(--indicator-color); width: 50%; height: 30px; transition: border-color 0.4s ease; }
+        .css-tree li::after { right: auto; left: 50%; border-left: 2px solid var(--indicator-color); }
+        .css-tree li:only-child::after, .css-tree li:only-child::before { display: none; }
+        .css-tree li:only-child { padding-top: 0; }
+        .css-tree li:first-child::before, .css-tree li:last-child::after { border: 0 none; }
+        .css-tree li:last-child::before { border-right: 2px solid var(--indicator-color); border-radius: 0 6px 0 0; }
+        .css-tree li:first-child::after { border-radius: 6px 0 0 0; }
+        .css-tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid var(--indicator-color); width: 0; height: 30px; transition: border-color 0.4s ease; }
+
+        .node-box {
+            border: 2px solid var(--indicator-color); padding: 8px 12px; color: var(--text-color);
+            display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; 
+            transition: all 0.4s ease; background: var(--bg-color); position: relative; z-index: 1; white-space: nowrap; 
+        }
+        .node-box.root { font-size: 1.6rem; font-weight: 600; border-color: var(--interactive-color); }
+        .node-box.l2 { font-size: 1.1rem; font-weight: 500; }
+        .node-box.l3 { font-size: 0.75rem; font-weight: 400; opacity: 0.9; padding: 6px 8px; }
+        .node-box:hover { border-color: var(--interactive-color); transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); color: var(--interactive-color); }
+
+        /* --- Module View Styles --- */
+        #glossary-list-view { width: 100%; max-width: 600px; display: flex; flex-direction: column; }
+        .archive-list { list-style: none; padding-left: 0; margin: 0; width: 100%; }
+        .archive-list ul { list-style: none; padding-left: 2rem; margin-left: 1rem; border-left: 2px solid var(--indicator-color); margin-top: 1rem; margin-bottom: 1rem; }
+        .archive-list li { margin: 1.2rem 0; }
+        .glossary-item { font-size: 1.25rem; transition: color 0.3s ease; display: inline-block; }
+        .glossary-item:hover { color: var(--interactive-color); }
+        .archive-list > li > .glossary-item { font-size: 2rem; font-weight: 500; }
+        .archive-list > li > ul > li > .glossary-item { font-size: 1.4rem; font-weight: 500;}
+        .archive-list > li > ul > li > ul > li > .glossary-item { font-size: 1.1rem; opacity: 0.9;}
+
+        #glossary-detail-view { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .breadcrumb-layer { margin-bottom: 0.3rem; text-align: center; transition: color 0.3s ease; text-transform: uppercase; letter-spacing: 0.05em; }
+        .focused-title { font-size: 3.5rem; font-weight: 500; margin: 0.5rem 0 1.5rem 0; text-align: center; letter-spacing: -0.02em; }
+        #glossary-back-btn { position: relative; margin-bottom: 2rem; right: auto; transform: none; opacity: 1; pointer-events: auto; }
+
+        /* --- Maximal View Styles --- */
+        #maximal-list-view { width: 100%; max-width: 800px; display: flex; flex-direction: column; text-align: left; margin-top: 2rem; margin-bottom: 4rem; }
+        .maximal-list { list-style: none; padding-left: 0; margin: 0; width: 100%; }
+        .maximal-list ul { list-style: none; padding-left: 2rem; margin-left: 1rem; border-left: 2px solid var(--indicator-color); margin-top: 1.5rem; margin-bottom: 2.5rem; }
+        .maximal-list li { margin: 2.5rem 0; }
+        
+        .max-title { color: var(--interactive-color); font-weight: 500; margin-bottom: 0.5rem; transition: color 0.4s ease; display: inline-block; }
+        .max-desc { font-weight: 400; line-height: 1.6; color: var(--text-color); opacity: 0.9; margin: 0; }
+        
+        .maximal-list > li > .max-title { font-size: 2.2rem; }
+        .maximal-list > li > ul > li > .max-title { font-size: 1.6rem; }
+        .maximal-list > li > ul > li > ul > li > .max-title { font-size: 1.25rem; }
+
+        /* --- Footer --- */
+        #footer {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            font-family: 'Courier New', Courier, monospace; text-transform: uppercase;
+            font-size: 0.85rem; letter-spacing: 0.1em; opacity: 0.6; pointer-events: none; 
+            white-space: nowrap;
+        }
+
+        /* --- App Container Content Styling --- */
+        .content-panel { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease; width: 100%; pointer-events: none; }
+        .content-panel.active { grid-template-rows: 1fr; opacity: 1; pointer-events: auto; }
+        .content-panel-inner { overflow: hidden; display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .menu-row { display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 4rem; width: 100%; margin-top: 2.5rem; opacity: 0; transform: translateY(15px); transition: opacity 0.8s ease, transform 0.8s ease; pointer-events: none; }
+        .menu-row.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .l3-menu { gap: 3rem; margin-top: 2rem; }
+        .menu-item { font-weight: 500; font-size: 1.6rem; transition: opacity 0.5s ease, transform 0.5s ease; white-space: nowrap; }
+        .l3-menu .menu-item { font-size: 1.25rem; }
+        .menu-item.greyed-out { opacity: 0.25; }
+        .menu-item.greyed-out:hover { opacity: 0.6; }
+
+        .selected-header { position: relative; display: inline-flex; align-items: center; justify-content: center; margin-top: 3rem; }
+        .selected-header h2 { font-weight: 500; font-size: 2rem; margin: 0; }
+        .selected-header h3 { font-weight: 500; font-size: 1.5rem; margin: 0; }
+
+        .clickable-indicator { position: relative; display: inline-block; padding-bottom: 2px; }
+        .clickable-indicator::after { content: ''; position: absolute; width: 100%; height: 2px; bottom: 0; left: 0; background-color: var(--interactive-color); transform: scaleX(0); transform-origin: right; transition: transform 0.3s ease, background-color 0.4s ease; }
+        .clickable-indicator:hover::after, .clickable-indicator.active::after { transform: scaleX(1); transform-origin: left; }
+
+        @keyframes autoUnderline { 0% { transform: scaleX(0); transform-origin: left; } 50% { transform: scaleX(1); transform-origin: left; } 51% { transform: scaleX(1); transform-origin: right; } 100% { transform: scaleX(0); transform-origin: right; } }
+        .auto-pulse::after { animation: autoUnderline 1.2s ease-in-out 1; }
+
+        h1 { font-weight: 600; font-size: 4.2rem; margin: 0; letter-spacing: -0.02em; text-align: center; min-height: 1.2em; display: inline-block; }
+        .desc-text { font-weight: 400; line-height: 1.6; text-align: center; max-width: 650px;}
+        .desc-text i { font-style: italic; }
+        
+        #definition { font-size: 1.25rem; max-width: 700px; margin: 1.5rem auto 0 auto; }
+        .concept-desc { font-size: 1.1rem; max-width: 600px; margin: 1.5rem auto 0 auto; }
+        .subconcept-desc { font-size: 1rem; max-width: 450px; margin: 1.5rem auto 0 auto; }
+
+        .local-back-btn { position: absolute; right: 100%; margin-right: 15px; width: 30px; height: 30px; border-radius: 50%; background: none; border: 2px solid var(--indicator-color); color: var(--interactive-color); opacity: 0; pointer-events: none; transform: translateX(10px); transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s ease, color 0.4s ease; display: flex; align-items: center; justify-content: center; z-index: 100; }
+        .local-back-btn.visible { opacity: 1; pointer-events: auto; transform: translateX(0); }
+        .local-back-btn:hover { border-color: var(--interactive-color); }
+        .l3-header .local-back-btn { margin-right: 12px; width: 26px; height: 26px; }
+
+        /* --- Custom Cursor --- */
+        .cursor-dot, .cursor-outline { position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; z-index: 9999; }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--cursor-color); }
+        .cursor-outline { width: 40px; height: 40px; border: 1px solid var(--cursor-color); opacity: 0; transition: opacity 0.3s ease, transform 0.2s ease, width 0.3s ease, height 0.3s ease; }
+        .cursor-outline.hovered { opacity: 0.5; transform: translate(-50%, -50%) scale(1.5); }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <!-- Loading Overlay Animation -->
+    <div id="loading-screen">
+        <svg id="loading-svg" viewBox="0 0 200 200" stroke="var(--interactive-color)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <circle cx="100" cy="100" r="4" fill="var(--bg-color)" />
+            
+            <g class="lvl1">
+                <path d="M 100 96 L 100 64" />
+                <path d="M 100 104 L 100 136" />
+                <circle class="loading-node node1" cx="100" cy="60" r="3.5" />
+                <circle class="loading-node node1" cx="100" cy="140" r="3.5" />
+            </g>
+
+            <g class="lvl2">
+                <path d="M 100 56 L 100 34" />
+                <path d="M 96 60 L 40 60 L 40 34" />
+                <path d="M 104 60 L 160 60 L 160 34" />
+                <path d="M 100 144 L 100 166" />
+                <path d="M 96 140 L 40 140 L 40 166" />
+                <path d="M 104 140 L 160 140 L 160 166" />
+                
+                <circle class="loading-node node2" cx="100" cy="30" r="3" />
+                <circle class="loading-node node2" cx="40" cy="30" r="3" />
+                <circle class="loading-node node2" cx="160" cy="30" r="3" />
+                <circle class="loading-node node2" cx="100" cy="170" r="3" />
+                <circle class="loading-node node2" cx="40" cy="170" r="3" />
+                <circle class="loading-node node2" cx="160" cy="170" r="3" />
+            </g>
+
+            <g class="lvl3">
+                <path d="M 40 26 L 40 13" />
+                <path d="M 36 30 L 20 30 L 20 13" />
+                <path d="M 44 30 L 60 30 L 60 13" />
+                
+                <path d="M 100 26 L 100 13" />
+                <path d="M 96 30 L 80 30 L 80 13" />
+                <path d="M 104 30 L 120 30 L 120 13" />
+                
+                <path d="M 160 26 L 160 13" />
+                <path d="M 156 30 L 140 30 L 140 13" />
+                <path d="M 164 30 L 180 30 L 180 13" />
+
+                <path d="M 40 174 L 40 187" />
+                <path d="M 36 170 L 20 170 L 20 187" />
+                <path d="M 44 170 L 60 170 L 60 187" />
+                
+                <path d="M 100 174 L 100 187" />
+                <path d="M 96 170 L 80 170 L 80 187" />
+                <path d="M 104 170 L 120 170 L 120 187" />
+                
+                <path d="M 160 174 L 160 187" />
+                <path d="M 156 170 L 140 170 L 140 187" />
+                <path d="M 164 170 L 180 170 L 180 187" />
+
+                <circle class="loading-node node3" cx="40" cy="10" r="2.5" />
+                <circle class="loading-node node3" cx="20" cy="10" r="2.5" />
+                <circle class="loading-node node3" cx="60" cy="10" r="2.5" />
+                <circle class="loading-node node3" cx="100" cy="10" r="2.5" />
+                <circle class="loading-node node3" cx="80" cy="10" r="2.5" />
+                <circle class="loading-node node3" cx="120" cy="10" r="2.5" />
+                <circle class="loading-node node3" cx="160" cy="10" r="2.5" />
+                <circle class="loading-node node3" cx="140" cy="10" r="2.5" />
+                <circle class="loading-node node3" cx="180" cy="10" r="2.5" />
+                <circle class="loading-node node3" cx="40" cy="190" r="2.5" />
+                <circle class="loading-node node3" cx="20" cy="190" r="2.5" />
+                <circle class="loading-node node3" cx="60" cy="190" r="2.5" />
+                <circle class="loading-node node3" cx="100" cy="190" r="2.5" />
+                <circle class="loading-node node3" cx="80" cy="190" r="2.5" />
+                <circle class="loading-node node3" cx="120" cy="190" r="2.5" />
+                <circle class="loading-node node3" cx="160" cy="190" r="2.5" />
+                <circle class="loading-node node3" cx="140" cy="190" r="2.5" />
+                <circle class="loading-node node3" cx="180" cy="190" r="2.5" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- Thick Level Progress Bar -->
+    <div id="scroll-progress-container" class="active">
+        <div id="scroll-progress-fill"></div>
+    </div>
+
+    <!-- Breadcrumb Top Left Tracker -->
+    <div id="main-breadcrumbs"></div>
+
+    <!-- Navigation Controls (Bottom Left) -->
+    <div id="bottom-left-controls">
+        <div class="nav-item hoverable active" data-target="app">
+            <div class="nav-toggle-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="7" y="3" width="10" height="4" rx="1"></rect>
+                    <path d="M12 7v4"></path>
+                    <rect x="7" y="11" width="10" height="4" rx="1"></rect>
+                    <path d="M12 15v4"></path>
+                    <rect x="7" y="19" width="10" height="4" rx="1"></rect>
+                </svg>
+            </div>
+            <span class="nav-label clickable-indicator">Main View</span>
+        </div>
+        <div class="nav-item hoverable" data-target="map">
+            <div class="nav-toggle-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="4" r="2.5"></circle>
+                    <circle cx="5" cy="20" r="2.5"></circle>
+                    <circle cx="12" cy="20" r="2.5"></circle>
+                    <circle cx="19" cy="20" r="2.5"></circle>
+                    <path d="M12 6.5v5"></path>
+                    <path d="M12 11.5H5v6"></path>
+                    <path d="M12 11.5h7v6"></path>
+                    <path d="M12 11.5v6"></path>
+                </svg>
+            </div>
+            <span class="nav-label clickable-indicator">Map View</span>
+        </div>
+        <div class="nav-item hoverable" data-target="glossary">
+            <div class="nav-toggle-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+            </div>
+            <span class="nav-label clickable-indicator">Module View</span>
+        </div>
+        <div class="nav-item hoverable" data-target="maximal">
+            <div class="nav-toggle-btn">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <line x1="10" y1="9" x2="8" y2="9"></line>
+                </svg>
+            </div>
+            <span class="nav-label clickable-indicator">Maximal View</span>
+        </div>
+    </div>
+
+    <!-- Toggles (Top Right) -->
+    <div id="toggle-container">
+        <button id="accent-toggle" class="hoverable" aria-label="Toggle Accent Color"></button>
+        <button id="theme-toggle" class="hoverable" aria-label="Toggle Theme"></button>
+    </div>
+
+    <!-- View Manager -->
+    <div id="view-manager">
+        
+        <!-- MAIN APP VIEW (Default) -->
+        <main id="app-container" class="view-panel active">
+            <div style="text-align: center; width: 100%;">
+                
+                <div id="title-wrapper">
+                    <div id="title-corners" class="camera-corners">
+                        <div class="camera-corners-inner">
+                            <div class="corner tl"></div>
+                            <div class="corner tr"></div>
+                            <div class="corner bl"></div>
+                            <div class="corner br"></div>
+                        </div>
+                    </div>
+                    <h1 id="title" class="hoverable"></h1>
+                </div>
+
+                <div id="def-wrapper" class="content-panel">
+                    <div class="content-panel-inner">
+                        <p id="definition" class="desc-text"><span style="font-weight: 600;">The Metacrisis</span> is (a conceptual frame for capturing) civilisation’s total <i>problem complex</i>, the <i>generative dynamics</i> that (re)produce it and the <i>attractor states</i> its vectors towards. It marks the <i>terminal phase</i> in the <i>developmental process</i> of the current <i>world-system</i>, which is now emergently posing <i>existential risk</i> to humanity.</p>
+                        <!-- L2 MENU -->
+                        <div class="menu-row" id="menu-2">
+                            <div class="menu-item hoverable clickable-indicator" data-target="s2-1">Problem Complex</div>
+                            <div class="menu-item hoverable clickable-indicator" data-target="s2-2">Generative Dynamics</div>
+                            <div class="menu-item hoverable clickable-indicator" data-target="s2-3">Attractor States</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="stage-2-contents" style="width: 100%;">
+                
+                <!-- CONCEPT 1 -->
+                <div id="s2-1" class="content-panel">
+                    <div class="content-panel-inner">
+                        <div class="selected-header">
+                            <button class="local-back-btn hoverable"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                            <h2 class="hoverable">Problem Complex</h2>
+                        </div>
+                        <p class="desc-text concept-desc">The interconnected web of global crises—ecological, economic, and social—that cannot be isolated or resolved independently without triggering cascading effects.</p>
+                        
+                        <div class="menu-row l3-menu">
+                            <div class="menu-item hoverable clickable-indicator" data-target="s3-1-1">Ecological Breakdown</div>
+                            <div class="menu-item hoverable clickable-indicator" data-target="s3-1-2">Socio-Economic Decay</div>
+                            <div class="menu-item hoverable clickable-indicator" data-target="s3-1-3">Meaning Crisis</div>
+                        </div>
+
+                        <div id="s3-1-1" class="content-panel"><div class="content-panel-inner"><div class="selected-header l3-header"><button class="local-back-btn hoverable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h3 class="hoverable">Ecological Breakdown</h3></div><p class="desc-text subconcept-desc">Destabilisation of planetary boundaries, rapid biodiversity loss, and critical resource depletion.</p></div></div>
+                        <div id="s3-1-2" class="content-panel"><div class="content-panel-inner"><div class="selected-header l3-header"><button class="local-back-btn hoverable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h3 class="hoverable">Socio-Economic Decay</h3></div><p class="desc-text subconcept-desc">Extreme wealth stratification, systemic institutional failure, and structural fragility.</p></div></div>
+                        <div id="s3-1-3" class="content-panel"><div class="content-panel-inner"><div class="selected-header l3-header"><button class="local-back-btn hoverable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h3 class="hoverable">Meaning Crisis</h3></div><p class="desc-text subconcept-desc">The erosion of shared truth, cultural coherence, and our collective capacity for sense-making.</p></div></div>
+                    </div>
+                </div>
+
+                <!-- CONCEPT 2 -->
+                <div id="s2-2" class="content-panel">
+                    <div class="content-panel-inner">
+                        <div class="selected-header">
+                            <button class="local-back-btn hoverable"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                            <h2 class="hoverable">Generative Dynamics</h2>
+                        </div>
+                        <p class="desc-text concept-desc">The underlying systems, incentive structures, cultural paradigms, and cognitive biases that continuously drive, exacerbate, and reproduce these crises.</p>
+                        
+                        <div class="menu-row l3-menu">
+                            <div class="menu-item hoverable clickable-indicator" data-target="s3-2-1">Exponential Tech</div>
+                            <div class="menu-item hoverable clickable-indicator" data-target="s3-2-2">Rivalrous Traps</div>
+                            <div class="menu-item hoverable clickable-indicator" data-target="s3-2-3">Epistemic Fracturing</div>
+                        </div>
+
+                        <div id="s3-2-1" class="content-panel"><div class="content-panel-inner"><div class="selected-header l3-header"><button class="local-back-btn hoverable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h3 class="hoverable">Exponential Tech</h3></div><p class="desc-text subconcept-desc">Unregulated power scaling of technology without the corresponding wisdom to steward it safely.</p></div></div>
+                        <div id="s3-2-2" class="content-panel"><div class="content-panel-inner"><div class="selected-header l3-header"><button class="local-back-btn hoverable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h3 class="hoverable">Rivalrous Traps</h3></div><p class="desc-text subconcept-desc">Win-lose game theory structures that incentivize extraction over large-scale coordination.</p></div></div>
+                        <div id="s3-2-3" class="content-panel"><div class="content-panel-inner"><div class="selected-header l3-header"><button class="local-back-btn hoverable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h3 class="hoverable">Epistemic Fracturing</h3></div><p class="desc-text subconcept-desc">The algorithmic degradation of information ecosystems polarizing shared reality.</p></div></div>
+                    </div>
+                </div>
+
+                <!-- CONCEPT 3 -->
+                <div id="s2-3" class="content-panel">
+                    <div class="content-panel-inner">
+                        <div class="selected-header">
+                            <button class="local-back-btn hoverable"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+                            <h2 class="hoverable">Attractor States</h2>
+                        </div>
+                        <p class="desc-text concept-desc">The inevitable future conditions, ranging from systemic collapse to radical paradigm transformation, that current trajectories are gravitationally pulling civilisation towards.</p>
+                        
+                        <div class="menu-row l3-menu">
+                            <div class="menu-item hoverable clickable-indicator" data-target="s3-3-1">Systemic Collapse</div>
+                            <div class="menu-item hoverable clickable-indicator" data-target="s3-3-2">Totalitarianism</div>
+                            <div class="menu-item hoverable clickable-indicator" data-target="s3-3-3">Phase Shift</div>
+                        </div>
+
+                        <div id="s3-3-1" class="content-panel"><div class="content-panel-inner"><div class="selected-header l3-header"><button class="local-back-btn hoverable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h3 class="hoverable">Systemic Collapse</h3></div><p class="desc-text subconcept-desc">The uncontrolled fragmentation and cascading failure of global coordination mechanisms.</p></div></div>
+                        <div id="s3-3-2" class="content-panel"><div class="content-panel-inner"><div class="selected-header l3-header"><button class="local-back-btn hoverable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h3 class="hoverable">Totalitarianism</h3></div><p class="desc-text subconcept-desc">The application of draconian surveillance and AI control to artificially force system stability.</p></div></div>
+                        <div id="s3-3-3" class="content-panel"><div class="content-panel-inner"><div class="selected-header l3-header"><button class="local-back-btn hoverable"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h3 class="hoverable">Phase Shift</h3></div><p class="desc-text subconcept-desc">The emergence of a higher-order, symbiotic socio-economic paradigm solving root issues.</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- MAP VIEW -->
+        <main id="map-container" class="view-panel">
+            <div class="css-tree">
+                <ul>
+                    <li>
+                        <div class="node-box root hoverable" data-trigger="root">The Metacrisis</div>
+                        <ul>
+                            <li>
+                                <div class="node-box l2 hoverable" data-trigger="s2-1">Problem Complex</div>
+                                <ul>
+                                    <li><div class="node-box l3 hoverable" data-trigger="s3-1-1">Ecological Breakdown</div></li>
+                                    <li><div class="node-box l3 hoverable" data-trigger="s3-1-2">Socio-Economic Decay</div></li>
+                                    <li><div class="node-box l3 hoverable" data-trigger="s3-1-3">Meaning Crisis</div></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="node-box l2 hoverable" data-trigger="s2-2">Generative Dynamics</div>
+                                <ul>
+                                    <li><div class="node-box l3 hoverable" data-trigger="s3-2-1">Exponential Tech</div></li>
+                                    <li><div class="node-box l3 hoverable" data-trigger="s3-2-2">Rivalrous Traps</div></li>
+                                    <li><div class="node-box l3 hoverable" data-trigger="s3-2-3">Epistemic Fracturing</div></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="node-box l2 hoverable" data-trigger="s2-3">Attractor States</div>
+                                <ul>
+                                    <li><div class="node-box l3 hoverable" data-trigger="s3-3-1">Systemic Collapse</div></li>
+                                    <li><div class="node-box l3 hoverable" data-trigger="s3-3-2">Totalitarianism</div></li>
+                                    <li><div class="node-box l3 hoverable" data-trigger="s3-3-3">Phase Shift</div></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </main>
+
+        <!-- MODULE VIEW (GLOSSARY) -->
+        <main id="glossary-container" class="view-panel">
+            
+            <div id="glossary-list-view">
+                <ul class="archive-list">
+                    <li>
+                        <span class="glossary-item hoverable clickable-indicator" data-gid="root">The Metacrisis</span>
+                        <ul>
+                            <li>
+                                <span class="glossary-item hoverable clickable-indicator" data-gid="s2-1">Problem Complex</span>
+                                <ul>
+                                    <li><span class="glossary-item hoverable clickable-indicator" data-gid="s3-1-1">Ecological Breakdown</span></li>
+                                    <li><span class="glossary-item hoverable clickable-indicator" data-gid="s3-1-2">Socio-Economic Decay</span></li>
+                                    <li><span class="glossary-item hoverable clickable-indicator" data-gid="s3-1-3">Meaning Crisis</span></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="glossary-item hoverable clickable-indicator" data-gid="s2-2">Generative Dynamics</span>
+                                <ul>
+                                    <li><span class="glossary-item hoverable clickable-indicator" data-gid="s3-2-1">Exponential Tech</span></li>
+                                    <li><span class="glossary-item hoverable clickable-indicator" data-gid="s3-2-2">Rivalrous Traps</span></li>
+                                    <li><span class="glossary-item hoverable clickable-indicator" data-gid="s3-2-3">Epistemic Fracturing</span></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span class="glossary-item hoverable clickable-indicator" data-gid="s2-3">Attractor States</span>
+                                <ul>
+                                    <li><span class="glossary-item hoverable clickable-indicator" data-gid="s3-3-1">Systemic Collapse</span></li>
+                                    <li><span class="glossary-item hoverable clickable-indicator" data-gid="s3-3-2">Totalitarianism</span></li>
+                                    <li><span class="glossary-item hoverable clickable-indicator" data-gid="s3-3-3">Phase Shift</span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="glossary-detail-view" style="display: none;">
+                <button id="glossary-back-btn" class="local-back-btn hoverable">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <div id="g-breadcrumbs"></div>
+                <h2 id="g-title" class="focused-title"></h2>
+                <p id="g-desc" class="desc-text"></p>
+            </div>
+        </main>
+
+        <!-- MAXIMAL VIEW -->
+        <main id="maximal-container" class="view-panel">
+            <div id="maximal-list-view">
+                <ul class="maximal-list">
+                    <li>
+                        <div class="max-title hoverable">The Metacrisis</div>
+                        <p class="max-desc"><span style="font-weight: 600;">The Metacrisis</span> is (a conceptual frame for capturing) civilisation’s total <i>problem complex</i>, the <i>generative dynamics</i> that (re)produce it and the <i>attractor states</i> its vectors towards. It marks the <i>terminal phase</i> in the <i>developmental process</i> of the current <i>world-system</i>, which is now emergently posing <i>existential risk</i> to humanity.</p>
+                        <ul>
+                            <li>
+                                <div class="max-title hoverable">Problem Complex</div>
+                                <p class="max-desc">The interconnected web of global crises—ecological, economic, and social—that cannot be isolated or resolved independently without triggering cascading effects.</p>
+                                <ul>
+                                    <li>
+                                        <div class="max-title hoverable">Ecological Breakdown</div>
+                                        <p class="max-desc">Destabilisation of planetary boundaries, rapid biodiversity loss, and critical resource depletion.</p>
+                                    </li>
+                                    <li>
+                                        <div class="max-title hoverable">Socio-Economic Decay</div>
+                                        <p class="max-desc">Extreme wealth stratification, systemic institutional failure, and structural fragility.</p>
+                                    </li>
+                                    <li>
+                                        <div class="max-title hoverable">Meaning Crisis</div>
+                                        <p class="max-desc">The erosion of shared truth, cultural coherence, and our collective capacity for sense-making.</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="max-title hoverable">Generative Dynamics</div>
+                                <p class="max-desc">The underlying systems, incentive structures, cultural paradigms, and cognitive biases that continuously drive, exacerbate, and reproduce these crises.</p>
+                                <ul>
+                                    <li>
+                                        <div class="max-title hoverable">Exponential Tech</div>
+                                        <p class="max-desc">Unregulated power scaling of technology without the corresponding wisdom to steward it safely.</p>
+                                    </li>
+                                    <li>
+                                        <div class="max-title hoverable">Rivalrous Traps</div>
+                                        <p class="max-desc">Win-lose game theory structures that incentivize extraction over large-scale coordination.</p>
+                                    </li>
+                                    <li>
+                                        <div class="max-title hoverable">Epistemic Fracturing</div>
+                                        <p class="max-desc">The algorithmic degradation of information ecosystems polarizing shared reality.</p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="max-title hoverable">Attractor States</div>
+                                <p class="max-desc">The inevitable future conditions, ranging from systemic collapse to radical paradigm transformation, that current trajectories are gravitationally pulling civilisation towards.</p>
+                                <ul>
+                                    <li>
+                                        <div class="max-title hoverable">Systemic Collapse</div>
+                                        <p class="max-desc">The uncontrolled fragmentation and cascading failure of global coordination mechanisms.</p>
+                                    </li>
+                                    <li>
+                                        <div class="max-title hoverable">Totalitarianism</div>
+                                        <p class="max-desc">The application of draconian surveillance and AI control to artificially force system stability.</p>
+                                    </li>
+                                    <li>
+                                        <div class="max-title hoverable">Phase Shift</div>
+                                        <p class="max-desc">The emergence of a higher-order, symbiotic socio-economic paradigm solving root issues.</p>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <!-- Collapse Tree Action Arrow (Bottom Right) -->
+    <button id="collapse-tree-btn" class="hoverable" aria-label="Collapse Tree">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <div id="footer">Conceptual Architecture &bull; construction-in-progress</div>
+
+    <script>
+        // Ensure accurate vertical centering upon manual refresh
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        // --- Dynamic Favicon Generator ---
+        function updateFavicon() {
+            setTimeout(() => {
+                const rootStyle = getComputedStyle(document.documentElement);
+                const color = rootStyle.getPropertyValue('--interactive-color').trim() || '#121212';
+                const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M15,80 V20 L50,60 L85,20 V80" fill="none" stroke="${color}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+                const encoded = encodeURIComponent(svg);
+                let link = document.getElementById('dynamic-favicon');
+                if (!link) {
+                    link = document.createElement('link');
+                    link.id = 'dynamic-favicon';
+                    link.rel = 'icon';
+                    link.type = 'image/svg+xml';
+                    document.head.appendChild(link);
+                }
+                link.href = `data:image/svg+xml,${encoded}`;
+            }, 50); 
+        }
+
+        // --- Web Audio API Synth ---
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function getAudioContext() {
+            if (!audioCtx) audioCtx = new AudioContext();
+            if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+            return audioCtx;
+        }
+
+        function playSound(type) {
+            const ctx = getAudioContext();
+            if (ctx.state === 'suspended') return;
+
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            const now = ctx.currentTime;
+
+            if (type === 'type') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(300 + Math.random() * 50, now);
+                gain.gain.setValueAtTime(0.015, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                osc.start(now);
+                osc.stop(now + 0.05);
+            } else if (type === 'underline') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(500, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(0.02, now + 0.1);
+                gain.gain.linearRampToValueAtTime(0, now + 0.4);
+                osc.start(now);
+                osc.stop(now + 0.4);
+            } else if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(150, now + 0.1);
+                gain.gain.setValueAtTime(0.04, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                osc.start(now);
+                osc.stop(now + 0.1);
+            }
+        }
+
+        document.addEventListener('click', (e) => {
+            getAudioContext(); 
+            if (e.target.closest('.menu-item') || e.target.closest('.local-back-btn') || 
+                e.target.closest('#theme-toggle') || e.target.closest('#accent-toggle') || 
+                e.target.closest('.nav-item') || e.target.closest('#title') ||
+                e.target.closest('.selected-header h2') || e.target.closest('.selected-header h3') ||
+                e.target.closest('.node-box') || e.target.closest('.glossary-item') ||
+                e.target.closest('#collapse-tree-btn')) {
+                if (!e.target.closest('.local-back-btn')) playSound('click');
+            }
+        });
+
+        // --- Custom Cursor & Hover Sounds ---
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorOutline = document.getElementById('cursor-outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            cursorOutline.animate({ left: `${posX}px`, top: `${posY}px` }, { duration: 100, fill: "forwards" });
+        });
+
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('.hoverable')) cursorOutline.classList.add('hovered');
+            const clickable = e.target.closest('.clickable-indicator, .nav-item, .node-box, #collapse-tree-btn, .max-title');
+            if (clickable && !clickable.dataset.hovered) {
+                clickable.dataset.hovered = 'true';
+                playSound('underline');
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('.hoverable')) cursorOutline.classList.remove('hovered');
+            const clickable = e.target.closest('.clickable-indicator, .nav-item, .node-box, #collapse-tree-btn, .max-title');
+            if (clickable) delete clickable.dataset.hovered;
+        });
+
+        document.addEventListener('mouseenter', (e) => {
+            if (e.target.classList && e.target.classList.contains('clickable-indicator')) e.target.classList.remove('auto-pulse');
+        }, true);
+
+        // --- Level Progress Bar & Top-Left Breadcrumbs ---
+        function updateTreeProgress() {
+            const bcEl = document.getElementById('main-breadcrumbs');
+
+            if (currentView !== 'app') {
+                if (bcEl) bcEl.classList.remove('visible');
+                return;
+            }
+
+            let progress = 0;
+            const defWrapper = document.getElementById('def-wrapper');
+            const activeL2 = document.querySelector('#stage-2-contents > .content-panel.active');
+            let crumbs = [];
+
+            if (defWrapper.classList.contains('active')) {
+                progress = 33.33;
+                crumbs.push('The Metacrisis');
+                if (activeL2) {
+                    progress = 66.66;
+                    crumbs.push(activeL2.querySelector('h2.hoverable').innerText);
+                    const activeL3 = activeL2.querySelector('.content-panel.active');
+                    if (activeL3) {
+                        progress = 100;
+                        crumbs.push(activeL3.querySelector('h3.hoverable').innerText);
+                    }
+                }
+            }
+
+            document.getElementById('scroll-progress-fill').style.height = `${progress}%`;
+
+            if (bcEl) {
+                if (crumbs.length > 0) {
+                    bcEl.innerHTML = crumbs.join('<span style="opacity: 0.4; margin: 0 0.5rem;">&gt;</span>');
+                    bcEl.classList.add('visible');
+                } else {
+                    bcEl.classList.remove('visible');
+                }
+            }
+        }
+
+        // --- View Manager (App / Map / Glossary / Maximal) ---
+        let currentView = 'app';
+        
+        function switchView(target) {
+            if (currentView === target) return; 
+            
+            document.querySelectorAll('.view-panel').forEach(panel => panel.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+
+            const activeNavItem = document.querySelector(`.nav-item[data-target="${target}"]`);
+            activeNavItem.classList.add('active');
+            
+            currentView = target; 
+
+            if (target === 'app') {
+                document.getElementById('app-container').classList.add('active');
+                document.getElementById('scroll-progress-container').classList.add('active');
+                if (document.getElementById('def-wrapper').classList.contains('active')) {
+                    document.getElementById('collapse-tree-btn').classList.add('visible');
+                }
+                updateTreeProgress();
+            } else {
+                document.getElementById('scroll-progress-container').classList.remove('active');
+                document.getElementById('collapse-tree-btn').classList.remove('visible');
+                updateTreeProgress(); 
+                
+                if (target === 'map') {
+                    document.getElementById('map-container').classList.add('active');
+                } else if (target === 'glossary') {
+                    document.getElementById('glossary-container').classList.add('active');
+                    document.getElementById('glossary-list-view').style.display = 'block';
+                    document.getElementById('glossary-detail-view').style.display = 'none';
+                } else if (target === 'maximal') {
+                    document.getElementById('maximal-container').classList.add('active');
+                }
+            }
+        }
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => switchView(item.getAttribute('data-target')));
+        });
+
+        // --- Glossary Logic & Data ---
+        const glossaryData = {
+            'root': { title: 'The Metacrisis', desc: '<span style="font-weight: 600;">The Metacrisis</span> is (a conceptual frame for capturing) civilisation’s total <i>problem complex</i>, the <i>generative dynamics</i> that (re)produce it and the <i>attractor states</i> its vectors towards. It marks the <i>terminal phase</i> in the <i>developmental process</i> of the current <i>world-system</i>, which is now emergently posing <i>existential risk</i> to humanity.', breadcrumbs: [] },
+            's2-1': { title: 'Problem Complex', desc: 'The interconnected web of global crises—ecological, economic, and social—that cannot be isolated or resolved independently without triggering cascading effects.', breadcrumbs: ['The Metacrisis'] },
+            's3-1-1': { title: 'Ecological Breakdown', desc: 'Destabilisation of planetary boundaries, rapid biodiversity loss, and critical resource depletion.', breadcrumbs: ['The Metacrisis', 'Problem Complex'] },
+            's3-1-2': { title: 'Socio-Economic Decay', desc: 'Extreme wealth stratification, systemic institutional failure, and structural fragility.', breadcrumbs: ['The Metacrisis', 'Problem Complex'] },
+            's3-1-3': { title: 'Meaning Crisis', desc: 'The erosion of shared truth, cultural coherence, and our collective capacity for sense-making.', breadcrumbs: ['The Metacrisis', 'Problem Complex'] },
+            's2-2': { title: 'Generative Dynamics', desc: 'The underlying systems, incentive structures, cultural paradigms, and cognitive biases that continuously drive, exacerbate, and reproduce these crises.', breadcrumbs: ['The Metacrisis'] },
+            's3-2-1': { title: 'Exponential Tech', desc: 'Unregulated power scaling of technology without the corresponding wisdom to steward it safely.', breadcrumbs: ['The Metacrisis', 'Generative Dynamics'] },
+            's3-2-2': { title: 'Rivalrous Traps', desc: 'Win-lose game theory structures that incentivize extraction over large-scale coordination.', breadcrumbs: ['The Metacrisis', 'Generative Dynamics'] },
+            's3-2-3': { title: 'Epistemic Fracturing', desc: 'The algorithmic degradation of information ecosystems polarizing shared reality.', breadcrumbs: ['The Metacrisis', 'Generative Dynamics'] },
+            's2-3': { title: 'Attractor States', desc: 'The inevitable future conditions, ranging from systemic collapse to radical paradigm transformation, that current trajectories are gravitationally pulling civilisation towards.', breadcrumbs: ['The Metacrisis'] },
+            's3-3-1': { title: 'Systemic Collapse', desc: 'The uncontrolled fragmentation and cascading failure of global coordination mechanisms.', breadcrumbs: ['The Metacrisis', 'Attractor States'] },
+            's3-3-2': { title: 'Totalitarianism', desc: 'The application of draconian surveillance and AI control to artificially force system stability.', breadcrumbs: ['The Metacrisis', 'Attractor States'] },
+            's3-3-3': { title: 'Phase Shift', desc: 'The emergence of a higher-order, symbiotic socio-economic paradigm solving root issues.', breadcrumbs: ['The Metacrisis', 'Attractor States'] }
+        };
+
+        document.querySelectorAll('.glossary-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const data = glossaryData[item.getAttribute('data-gid')];
+                if (!data) return;
+
+                const bcContainer = document.getElementById('g-breadcrumbs');
+                bcContainer.innerHTML = '';
+                
+                data.breadcrumbs.forEach((bc, index) => {
+                    const distance = data.breadcrumbs.length - index; 
+                    const div = document.createElement('div');
+                    div.className = 'breadcrumb-layer';
+                    
+                    if (distance === 2) {
+                        div.style.fontSize = '0.9rem'; div.style.opacity = '0.4';
+                    } else if (distance === 1) {
+                        div.style.fontSize = '1.25rem'; div.style.opacity = '0.7';
+                    }
+                    div.textContent = bc;
+                    bcContainer.appendChild(div);
+                });
+
+                document.getElementById('g-title').textContent = data.title;
+                document.getElementById('g-desc').innerHTML = data.desc;
+
+                document.getElementById('glossary-list-view').style.display = 'none';
+                document.getElementById('glossary-detail-view').style.display = 'flex';
+                document.getElementById('glossary-detail-view').animate([
+                    { opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'translateY(0)' }
+                ], { duration: 600, easing: 'ease', fill: 'forwards' });
+            });
+        });
+
+        document.getElementById('glossary-back-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (e.isTrusted) playSound('click');
+            
+            document.getElementById('glossary-list-view').style.display = 'block';
+            document.getElementById('glossary-detail-view').style.display = 'none';
+            document.getElementById('glossary-list-view').animate([
+                { opacity: 0 }, { opacity: 1 }
+            ], { duration: 600, easing: 'ease', fill: 'forwards' });
+        });
+
+        // --- Map Auto-Navigation Logic ---
+        document.querySelectorAll('.css-tree .node-box').forEach(node => {
+            node.addEventListener('click', () => {
+                const triggerId = node.getAttribute('data-trigger');
+                if (!triggerId) return;
+
+                switchView('app'); 
+
+                setTimeout(() => {
+                    let openDelay = 0;
+                    if (!document.getElementById('def-wrapper').classList.contains('active')) {
+                        document.getElementById('title').click(); openDelay = 1300; 
+                    }
+
+                    if (triggerId === 'root') {
+                        updateTreeProgress();
+                        return; 
+                    }
+
+                    setTimeout(() => {
+                        if (triggerId.startsWith('s2')) {
+                            const targetBtn = document.querySelector(`.menu-row#menu-2 .menu-item[data-target="${triggerId}"]`);
+                            if (targetBtn && !targetBtn.classList.contains('active')) targetBtn.click();
+                        } else if (triggerId.startsWith('s3')) {
+                            const l2Id = 's2-' + triggerId.split('-')[1];
+                            const l2Btn = document.querySelector(`.menu-row#menu-2 .menu-item[data-target="${l2Id}"]`);
+                            
+                            let l3Delay = 0;
+                            if (l2Btn && !l2Btn.classList.contains('active')) {
+                                l2Btn.click(); l3Delay = 1300; 
+                            }
+
+                            setTimeout(() => {
+                                const l3Btn = document.querySelector(`#${l2Id} .l3-menu .menu-item[data-target="${triggerId}"]`);
+                                if (l3Btn && !l3Btn.classList.contains('active')) l3Btn.click();
+                            }, l3Delay);
+                        }
+                    }, openDelay);
+                }, 300); 
+            });
+        });
+
+        // --- Toggles & Shortcuts (Theme & Multi-Accent Cycler) ---
+        const root = document.documentElement;
+        const accents = [null, 'green', 'orange', 'blue', 'red'];
+        let accentIndex = 0;
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            root.getAttribute('data-theme') === 'dark' ? root.removeAttribute('data-theme') : root.setAttribute('data-theme', 'dark');
+            updateFavicon();
+        });
+
+        document.getElementById('accent-toggle').addEventListener('click', () => {
+            accentIndex = (accentIndex + 1) % accents.length;
+            const currentAccent = accents[accentIndex];
+            if (currentAccent) {
+                root.setAttribute('data-accent', currentAccent);
+            } else {
+                root.removeAttribute('data-accent');
+            }
+            updateFavicon();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            let changed = false;
+            if (e.key === '1') { root.removeAttribute('data-theme'); changed = true; }
+            else if (e.key === '2') { root.setAttribute('data-theme', 'dark'); changed = true; }
+            else if (e.key === '3') { root.setAttribute('data-accent', 'green'); accentIndex = 1; changed = true; }
+            else if (e.key === '4') { root.setAttribute('data-accent', 'orange'); accentIndex = 2; changed = true; }
+            else if (e.key === '5') { root.setAttribute('data-accent', 'blue'); accentIndex = 3; changed = true; }
+            else if (e.key === '6') { root.setAttribute('data-accent', 'red'); accentIndex = 4; changed = true; }
+            if (changed) updateFavicon();
+        });
+
+        // --- Master Collapse Logic ---
+        function collapseMainTree() {
+            if (!document.getElementById('def-wrapper').classList.contains('active')) return;
+            
+            const activeL2Panels = document.querySelectorAll('#stage-2-contents > .content-panel.active');
+            activeL2Panels.forEach(panel => {
+                const backBtn = panel.querySelector(':scope > .content-panel-inner > .selected-header > .local-back-btn');
+                if (backBtn) backBtn.click();
+            });
+            
+            const titleElement = document.getElementById('title');
+            const defWrapper = document.getElementById('def-wrapper');
+            
+            titleElement.classList.remove('active');
+            defWrapper.classList.remove('active');
+            
+            const menu2 = document.getElementById('menu-2');
+            menu2.classList.remove('visible');
+            menu2.querySelectorAll('.clickable-indicator').forEach(el => el.classList.remove('auto-pulse'));
+            
+            document.getElementById('collapse-tree-btn').classList.remove('visible');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            updateTreeProgress();
+
+            document.getElementById('title-corners').classList.remove('visible');
+            
+            // Re-trigger the pulse/focus sequence just like initial load
+            setTimeout(() => {
+                if (currentView === 'app') {
+                    titleElement.classList.remove('auto-pulse');
+                    void titleElement.offsetWidth; 
+                    titleElement.classList.add('auto-pulse');
+                    playSound('underline');
+                    
+                    setTimeout(() => {
+                        if (!defWrapper.classList.contains('active') && currentView === 'app') {
+                            document.getElementById('title-corners').classList.add('visible');
+                        }
+                    }, 1800);
+                }
+            }, 800);
+        }
+
+        document.getElementById('collapse-tree-btn').addEventListener('click', collapseMainTree);
+
+        // --- Initialization & Loading Animation Sequence ---
+        const titleElement = document.getElementById('title');
+        const defWrapper = document.getElementById('def-wrapper');
+        let charIndex = 0;
+        const textToType = "The Metacrisis";
+        let isTyping = true;
+
+        window.addEventListener('load', () => {
+            updateFavicon();
+            
+            const lvl1 = document.querySelectorAll('.lvl1 path');
+            const lvl2 = document.querySelectorAll('.lvl2 path');
+            const lvl3 = document.querySelectorAll('.lvl3 path');
+            const node1 = document.querySelectorAll('.node1');
+            const node2 = document.querySelectorAll('.node2');
+            const node3 = document.querySelectorAll('.node3');
+
+            const setOffset = (els, val) => els.forEach(el => el.style.strokeDashoffset = val);
+            const setOpacity = (els, val) => els.forEach(el => el.style.opacity = val);
+            const transitionLines = (els) => els.forEach(el => el.style.transition = 'stroke-dashoffset 0.4s ease-in-out');
+            
+            transitionLines([...lvl1, ...lvl2, ...lvl3]);
+
+            // Expand Outward
+            setTimeout(() => setOffset(lvl1, 0), 300);
+            setTimeout(() => setOpacity(node1, 1), 650);
+
+            setTimeout(() => setOffset(lvl2, 0), 700);
+            setTimeout(() => setOpacity(node2, 1), 1050);
+
+            setTimeout(() => setOffset(lvl3, 0), 1100);
+            setTimeout(() => setOpacity(node3, 1), 1450);
+            
+            // Retract Inward
+            setTimeout(() => { setOffset(lvl3, 120); setOpacity(node3, 0); }, 1900);
+            setTimeout(() => { setOffset(lvl2, 120); setOpacity(node2, 0); }, 2300);
+            setTimeout(() => { setOffset(lvl1, 120); setOpacity(node1, 0); }, 2700);
+
+            // Hide Screen & Run Typewriter
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                    
+                    function typeWriter() {
+                        if (charIndex < textToType.length) {
+                            titleElement.textContent += textToType.charAt(charIndex);
+                            playSound('type'); charIndex++; setTimeout(typeWriter, 100);
+                        } else {
+                            isTyping = false;
+                            titleElement.classList.add('clickable-indicator', 'auto-pulse');
+                            playSound('underline');
+                            
+                            setTimeout(() => {
+                                document.getElementById('title-corners').classList.add('visible');
+                                
+                                setTimeout(() => {
+                                    document.body.classList.add('hud-ready');
+                                }, 2500); // Waits exactly 1 full camera breath to load HUD
+                            }, 1800);
+                        }
+                    }
+                    typeWriter();
+                }, 600); 
+            }, 3200); 
+        });
+
+        // --- Click Root Title (Main App) ---
+        titleElement.addEventListener('click', () => {
+            if (isTyping) return;
+            
+            if (titleElement.classList.contains('active')) {
+                collapseMainTree();
+                return;
+            }
+
+            document.getElementById('title-corners').classList.remove('visible');
+
+            titleElement.classList.remove('auto-pulse');
+            titleElement.classList.add('active');
+            defWrapper.classList.add('active');
+            document.getElementById('collapse-tree-btn').classList.add('visible');
+            updateTreeProgress();
+            
+            setTimeout(() => {
+                const menu2 = document.getElementById('menu-2');
+                menu2.classList.add('visible');
+                setTimeout(() => {
+                    menu2.querySelectorAll('.clickable-indicator').forEach(el => {
+                        el.classList.remove('auto-pulse'); void el.offsetWidth; el.classList.add('auto-pulse');
+                    });
+                }, 400); 
+            }, 1200); 
+        });
+
+        // --- Main App Hierarchy Traversal Logic ---
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const row = item.closest('.menu-row');
+                const targetId = item.getAttribute('data-target');
+                const targetContent = document.getElementById(targetId);
+
+                if (item.classList.contains('active')) {
+                    if (targetContent) {
+                        const backBtn = targetContent.querySelector(':scope > .content-panel-inner > .selected-header > .local-back-btn');
+                        if (backBtn) backBtn.click();
+                    }
+                    return; 
+                }
+
+                const activeSibling = row.querySelector('.menu-item.active');
+                if (activeSibling) {
+                    const oldTarget = document.getElementById(activeSibling.getAttribute('data-target'));
+                    if (oldTarget) {
+                        oldTarget.classList.remove('active');
+                        const oldBackBtn = oldTarget.querySelector(':scope > .content-panel-inner > .selected-header > .local-back-btn');
+                        if (oldBackBtn) oldBackBtn.classList.remove('visible');
+                        const oldL3Menu = oldTarget.querySelector('.l3-menu');
+                        if (oldL3Menu) oldL3Menu.classList.remove('visible');
+                        const activeChildrenBtns = oldTarget.querySelectorAll('.content-panel.active > .content-panel-inner > .selected-header > .local-back-btn');
+                        activeChildrenBtns.forEach(childBtn => childBtn.click());
+                    }
+                    activeSibling.classList.remove('active');
+                }
+
+                row.querySelectorAll('.menu-item').forEach(sibling => {
+                    if (sibling !== item) {
+                        sibling.classList.add('greyed-out');
+                        sibling.classList.remove('active', 'auto-pulse');
+                    }
+                });
+
+                item.classList.remove('greyed-out', 'auto-pulse');
+                item.classList.add('active');
+                cursorOutline.classList.remove('hovered');
+
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                    updateTreeProgress();
+                    const backBtn = targetContent.querySelector(':scope > .content-panel-inner > .selected-header > .local-back-btn');
+                    
+                    setTimeout(() => { if (backBtn) backBtn.classList.add('visible'); }, 400);
+
+                    const l3Menu = targetContent.querySelector('.l3-menu');
+                    if (l3Menu) {
+                        setTimeout(() => {
+                            l3Menu.classList.add('visible');
+                            setTimeout(() => {
+                                l3Menu.querySelectorAll('.menu-item').forEach(childItem => {
+                                    childItem.classList.remove('auto-pulse'); void childItem.offsetWidth; childItem.classList.add('auto-pulse');
+                                });
+                            }, 400);
+                        }, 1200); 
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.selected-header h2, .selected-header h3').forEach(headingText => {
+            headingText.addEventListener('click', (e) => {
+                const backBtn = e.target.closest('.selected-header').querySelector('.local-back-btn');
+                if (backBtn) backBtn.click();
+            });
+        });
+
+        document.querySelectorAll('.local-back-btn:not(#glossary-back-btn)').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                if (e.isTrusted) playSound('click'); 
+                
+                const targetContent = btn.closest('.content-panel');
+                const targetId = targetContent.id;
+                const menuItem = document.querySelector(`.menu-item[data-target="${targetId}"]`);
+                const row = menuItem.closest('.menu-row');
+
+                btn.classList.remove('visible');
+                cursorOutline.classList.remove('hovered');
+                targetContent.classList.remove('active');
+                
+                const l3Menu = targetContent.querySelector('.l3-menu');
+                if (l3Menu) l3Menu.classList.remove('visible');
+                
+                const activeChildrenBtns = targetContent.querySelectorAll('.content-panel.active > .content-panel-inner > .selected-header > .local-back-btn');
+                activeChildrenBtns.forEach(childBtn => childBtn.click());
+
+                menuItem.classList.remove('active');
+                updateTreeProgress();
+
+                setTimeout(() => {
+                    row.querySelectorAll('.menu-item').forEach(sibling => sibling.classList.remove('greyed-out'));
+                }, 600); 
+            });
+        });
+    </script>
+</body>
+</html>
