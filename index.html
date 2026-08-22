@@ -47,7 +47,7 @@
         ::-webkit-scrollbar { display: none; width: 0; background: transparent; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* --- Base Styles --- */
+        /* --- Base Layout --- */
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
@@ -56,12 +56,11 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             transition: background-color 0.4s ease, color 0.4s ease;
             overflow-x: hidden; 
             cursor: none; 
-            padding: 4rem 2rem;
             box-sizing: border-box;
         }
 
@@ -75,19 +74,25 @@
             transition: opacity 0.6s ease;
         }
 
-        #loading-svg { width: 340px; height: 340px; }
-        .lvl1 path, .lvl2 path, .lvl3 path {
-            stroke-dasharray: 120;
-            stroke-dashoffset: 120;
-        }
+        #loading-svg { width: 340px; height: 340px; overflow: visible; }
         
+        .draw-trunk1 { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset 0.2s linear; }
+        .draw-arms1 { stroke-dasharray: 62; stroke-dashoffset: 62; transition: stroke-dashoffset 0.2s linear; }
+        .draw-drops1 { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset 0.2s linear; }
+        
+        .draw-trunk2 { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset 0.2s linear; }
+        .draw-arms2 { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset 0.2s linear; }
+        .draw-drops2 { stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset 0.2s linear; }
+
         .loading-node {
             opacity: 0;
             fill: var(--bg-color);
+            stroke: var(--interactive-color);
+            stroke-width: 2.5;
             transition: opacity 0.2s ease;
         }
 
-        /* --- View Manager --- */
+        /* --- View Manager & Perfect Centering --- */
         #view-manager {
             position: relative;
             display: flex;
@@ -97,27 +102,28 @@
             width: 100%;
             flex: 1; 
             max-width: 1400px;
+            padding: 9rem 2rem 9rem 2rem;
+            box-sizing: border-box;
         }
 
         .view-panel {
             position: absolute;
             width: 100%;
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             opacity: 0;
             pointer-events: none;
             transform: scale(0.98);
-            visibility: hidden;
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
         .view-panel.active {
             position: relative;
+            display: flex;
             opacity: 1;
             pointer-events: auto;
             transform: scale(1);
-            visibility: visible;
         }
 
         /* --- HUD Timing System --- */
@@ -128,6 +134,11 @@
         body:not(.hud-ready) #main-breadcrumbs {
             opacity: 0 !important;
             pointer-events: none !important;
+        }
+
+        body:not(.cursor-ready) .cursor-dot,
+        body:not(.cursor-ready) .cursor-outline {
+            opacity: 0 !important;
         }
 
         #bottom-left-controls, #toggle-container, #footer, #main-breadcrumbs, #scroll-progress-container {
@@ -201,14 +212,20 @@
         /* --- Custom Progress Bar --- */
         #scroll-progress-container {
             position: fixed; top: 0; right: 0;
-            width: 8px; height: 100vh;
+            width: 12px; height: 100vh;
             background-color: var(--indicator-color); 
             z-index: 1000; opacity: 0; pointer-events: none;
         }
         #scroll-progress-container.active { opacity: 1; }
+        
         #scroll-progress-fill {
             width: 100%; height: 0%;
             background-color: var(--interactive-color);
+            transition: background-color 0.4s ease; 
+        }
+        
+        /* Smooth filling jump exclusively on Main View */
+        body[data-view="app"] #scroll-progress-fill {
             transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s ease;
         }
 
@@ -226,6 +243,20 @@
         #collapse-tree-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
         #collapse-tree-btn:hover { border-color: var(--interactive-color); color: var(--interactive-color); }
 
+        /* --- Scroll Top Arrow (Bottom Right) --- */
+        #scroll-top-btn {
+            position: fixed; bottom: 2rem; right: 2rem;
+            width: 36px; height: 36px; border-radius: 50%;
+            background: transparent; border: 2px solid var(--indicator-color);
+            color: var(--text-color); opacity: 0; pointer-events: none;
+            transform: translateY(10px); display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s ease, color 0.4s ease;
+            z-index: 100;
+        }
+        #scroll-top-btn svg { width: 18px; height: 18px; }
+        #scroll-top-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        #scroll-top-btn:hover { border-color: var(--interactive-color); color: var(--interactive-color); }
+
         /* --- Title Corners / Focus Frame --- */
         #title-wrapper {
             position: relative; 
@@ -233,7 +264,6 @@
             padding: 10px 24px;
         }
         
-        /* The wrapper controls the clean fade-in and hover fade-out */
         .camera-corners {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -241,17 +271,13 @@
             opacity: 0;
             transition: opacity 1.2s ease;
         }
-        .camera-corners.visible {
-            opacity: 1;
-        }
+        .camera-corners.visible { opacity: 1; }
         
-        /* Fade out cleanly on hover to show just the underline */
         #title-wrapper:hover .camera-corners {
             opacity: 0 !important;
             transition: opacity 0.3s ease;
         }
 
-        /* The inner div handles the continuous breathing animation without snapping */
         .camera-corners-inner {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -276,28 +302,30 @@
         }
 
         /* --- Map View: CSS Structural Tree --- */
-        .css-tree { display: flex; justify-content: center; width: 100%; overflow-x: auto; padding: 1rem 0; }
-        .css-tree ul { padding-top: 30px; position: relative; display: flex; justify-content: center; align-items: flex-start; padding-left: 0; margin: 0; width: 100%; }
+        /* Redesigned to fit within 100% viewport dynamically and fix corner clipping */
+        .css-tree { display: flex; justify-content: center; width: 100%; overflow: hidden; padding: 2rem 0; box-sizing: border-box; }
+        .css-tree ul { padding-top: 40px; position: relative; display: flex; justify-content: center; align-items: flex-start; padding-left: 0; margin: 0; width: 100%; }
         .css-tree > ul > li { width: 100%; flex: none; }
-        .css-tree li { flex: 1 1 0; min-width: 0; text-align: center; list-style-type: none; position: relative; padding: 30px 2px 0 2px; display: flex; flex-direction: column; align-items: center; }
+        .css-tree li { flex: 1 1 0; min-width: 0; text-align: center; list-style-type: none; position: relative; padding: 40px 4px 0 4px; display: flex; flex-direction: column; align-items: center; }
         
-        .css-tree li::before, .css-tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid var(--indicator-color); width: 50%; height: 30px; transition: border-color 0.4s ease; }
-        .css-tree li::after { right: auto; left: 50%; border-left: 2px solid var(--indicator-color); }
+        .css-tree li::before, .css-tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid var(--indicator-color); width: 50%; height: 40px; transition: border-color 0.4s ease; z-index: 0; }
+        .css-tree li::after { right: auto; left: 50%; border-left: 2px solid var(--indicator-color); width: 50%; }
         .css-tree li:only-child::after, .css-tree li:only-child::before { display: none; }
         .css-tree li:only-child { padding-top: 0; }
         .css-tree li:first-child::before, .css-tree li:last-child::after { border: 0 none; }
-        .css-tree li:last-child::before { border-right: 2px solid var(--indicator-color); border-radius: 0 6px 0 0; }
-        .css-tree li:first-child::after { border-radius: 6px 0 0 0; }
-        .css-tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid var(--indicator-color); width: 0; height: 30px; transition: border-color 0.4s ease; }
+        .css-tree li:last-child::before { border-right: 2px solid var(--indicator-color); border-radius: 0 6px 0 0; right: 50%; width: 50%; }
+        .css-tree li:first-child::after { border-radius: 6px 0 0 0; left: 50%; }
+        .css-tree ul ul::before { content: ''; position: absolute; top: 0; left: 50%; border-left: 2px solid var(--indicator-color); width: 0; height: 40px; transition: border-color 0.4s ease; z-index: 0; transform: translateX(-1px); }
 
         .node-box {
-            border: 2px solid var(--indicator-color); padding: 8px 12px; color: var(--text-color);
+            border: 2px solid var(--indicator-color); padding: 12px 14px; color: var(--text-color);
             display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; 
-            transition: all 0.4s ease; background: var(--bg-color); position: relative; z-index: 1; white-space: nowrap; 
+            transition: all 0.4s ease; background: var(--bg-color); position: relative; z-index: 1; 
+            white-space: normal; text-align: center; line-height: 1.3;
         }
-        .node-box.root { font-size: 1.6rem; font-weight: 600; border-color: var(--interactive-color); }
-        .node-box.l2 { font-size: 1.1rem; font-weight: 500; }
-        .node-box.l3 { font-size: 0.75rem; font-weight: 400; opacity: 0.9; padding: 6px 8px; }
+        .node-box.root { font-size: 1.6rem; font-weight: 600; border-color: var(--interactive-color); padding: 14px 20px; white-space: nowrap; }
+        .node-box.l2 { font-size: 1.1rem; font-weight: 500; min-width: 120px; }
+        .node-box.l3 { font-size: 0.8rem; font-weight: 400; opacity: 0.9; padding: 8px 6px; width: 100%; max-width: 110px; }
         .node-box:hover { border-color: var(--interactive-color); transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); color: var(--interactive-color); }
 
         /* --- Module View Styles --- */
@@ -315,15 +343,17 @@
         .breadcrumb-layer { margin-bottom: 0.3rem; text-align: center; transition: color 0.3s ease; text-transform: uppercase; letter-spacing: 0.05em; }
         .focused-title { font-size: 3.5rem; font-weight: 500; margin: 0.5rem 0 1.5rem 0; text-align: center; letter-spacing: -0.02em; }
         #glossary-back-btn { position: relative; margin-bottom: 2rem; right: auto; transform: none; opacity: 1; pointer-events: auto; }
+        #g-desc { font-size: 1.2rem; max-width: 700px; text-align: center; line-height: 1.6; }
 
         /* --- Maximal View Styles --- */
-        #maximal-list-view { width: 100%; max-width: 800px; display: flex; flex-direction: column; text-align: left; margin-top: 2rem; margin-bottom: 4rem; }
+        #maximal-list-view { width: 100%; max-width: 800px; display: flex; flex-direction: column; text-align: left; padding-top: 2rem;}
         .maximal-list { list-style: none; padding-left: 0; margin: 0; width: 100%; }
         .maximal-list ul { list-style: none; padding-left: 2rem; margin-left: 1rem; border-left: 2px solid var(--indicator-color); margin-top: 1.5rem; margin-bottom: 2.5rem; }
         .maximal-list li { margin: 2.5rem 0; }
         
-        .max-title { color: var(--interactive-color); font-weight: 500; margin-bottom: 0.5rem; transition: color 0.4s ease; display: inline-block; }
-        .max-desc { font-weight: 400; line-height: 1.6; color: var(--text-color); opacity: 0.9; margin: 0; }
+        .max-title { color: var(--text-color); font-weight: 500; margin-bottom: 0.5rem; transition: color 0.4s ease; display: inline-block; }
+        .max-title:hover { color: var(--interactive-color); }
+        .max-desc { font-weight: 400; line-height: 1.6; color: var(--text-color); opacity: 0.9; margin: 0; font-size: 1.15rem; }
         
         .maximal-list > li > .max-title { font-size: 2.2rem; }
         .maximal-list > li > ul > li > .max-title { font-size: 1.6rem; }
@@ -334,8 +364,24 @@
             position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
             font-family: 'Courier New', Courier, monospace; text-transform: uppercase;
             font-size: 0.85rem; letter-spacing: 0.1em; opacity: 0.6; pointer-events: none; 
-            white-space: nowrap;
+            white-space: nowrap; z-index: 50;
+            transition: opacity 1.2s ease;
         }
+        #footer.header-mode {
+            bottom: auto;
+            top: 2rem;
+            left: 2rem;
+            transform: none; 
+        }
+        
+        /* Fade out footer top-left header quicker on scroll */
+        body.scrolled-down #footer.header-mode {
+            opacity: 0 !important;
+            pointer-events: none;
+            transition: opacity 0.2s ease !important;
+        }
+        
+        #footer span { color: var(--interactive-color); transition: color 0.4s ease; }
 
         /* --- App Container Content Styling --- */
         .content-panel { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease; width: 100%; pointer-events: none; }
@@ -380,83 +426,61 @@
         .cursor-outline.hovered { opacity: 0.5; transform: translate(-50%, -50%) scale(1.5); }
     </style>
 </head>
-<body>
+<body data-view="app">
 
     <!-- Custom Cursor -->
     <div class="cursor-dot" id="cursor-dot"></div>
     <div class="cursor-outline" id="cursor-outline"></div>
 
-    <!-- Loading Overlay Animation -->
+    <!-- Loading Overlay Animation (Stadial Centered Downward Tree) -->
     <div id="loading-screen">
-        <svg id="loading-svg" viewBox="0 0 200 200" stroke="var(--interactive-color)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
-            <circle cx="100" cy="100" r="4" fill="var(--bg-color)" />
-            
-            <g class="lvl1">
-                <path d="M 100 96 L 100 64" />
-                <path d="M 100 104 L 100 136" />
-                <circle class="loading-node node1" cx="100" cy="60" r="3.5" />
-                <circle class="loading-node node1" cx="100" cy="140" r="3.5" />
-            </g>
+        <svg id="loading-svg" viewBox="0 0 200 200" stroke="var(--interactive-color)" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" fill="none">
+            <g id="tree-group">
+                <!-- Root Center Node (Remains absolutely fixed at center of SVG) -->
+                <circle class="loading-node node0" cx="100" cy="100" r="4" />
+                
+                <g class="lvl1">
+                    <path class="draw-trunk1" d="M 100 104 L 100 124" />
+                    <path class="draw-arms1" d="M 100 124 L 40 124" />
+                    <path class="draw-arms1" d="M 100 124 L 160 124" />
+                    <path class="draw-drops1" d="M 40 124 L 40 144" />
+                    <path class="draw-drops1" d="M 100 124 L 100 144" />
+                    <path class="draw-drops1" d="M 160 124 L 160 144" />
+                    <circle class="loading-node node1" cx="40" cy="148" r="3.5" />
+                    <circle class="loading-node node1" cx="100" cy="148" r="3.5" />
+                    <circle class="loading-node node1" cx="160" cy="148" r="3.5" />
+                </g>
 
-            <g class="lvl2">
-                <path d="M 100 56 L 100 34" />
-                <path d="M 96 60 L 40 60 L 40 34" />
-                <path d="M 104 60 L 160 60 L 160 34" />
-                <path d="M 100 144 L 100 166" />
-                <path d="M 96 140 L 40 140 L 40 166" />
-                <path d="M 104 140 L 160 140 L 160 166" />
-                
-                <circle class="loading-node node2" cx="100" cy="30" r="3" />
-                <circle class="loading-node node2" cx="40" cy="30" r="3" />
-                <circle class="loading-node node2" cx="160" cy="30" r="3" />
-                <circle class="loading-node node2" cx="100" cy="170" r="3" />
-                <circle class="loading-node node2" cx="40" cy="170" r="3" />
-                <circle class="loading-node node2" cx="160" cy="170" r="3" />
-            </g>
-
-            <g class="lvl3">
-                <path d="M 40 26 L 40 13" />
-                <path d="M 36 30 L 20 30 L 20 13" />
-                <path d="M 44 30 L 60 30 L 60 13" />
-                
-                <path d="M 100 26 L 100 13" />
-                <path d="M 96 30 L 80 30 L 80 13" />
-                <path d="M 104 30 L 120 30 L 120 13" />
-                
-                <path d="M 160 26 L 160 13" />
-                <path d="M 156 30 L 140 30 L 140 13" />
-                <path d="M 164 30 L 180 30 L 180 13" />
-
-                <path d="M 40 174 L 40 187" />
-                <path d="M 36 170 L 20 170 L 20 187" />
-                <path d="M 44 170 L 60 170 L 60 187" />
-                
-                <path d="M 100 174 L 100 187" />
-                <path d="M 96 170 L 80 170 L 80 187" />
-                <path d="M 104 170 L 120 170 L 120 187" />
-                
-                <path d="M 160 174 L 160 187" />
-                <path d="M 156 170 L 140 170 L 140 187" />
-                <path d="M 164 170 L 180 170 L 180 187" />
-
-                <circle class="loading-node node3" cx="40" cy="10" r="2.5" />
-                <circle class="loading-node node3" cx="20" cy="10" r="2.5" />
-                <circle class="loading-node node3" cx="60" cy="10" r="2.5" />
-                <circle class="loading-node node3" cx="100" cy="10" r="2.5" />
-                <circle class="loading-node node3" cx="80" cy="10" r="2.5" />
-                <circle class="loading-node node3" cx="120" cy="10" r="2.5" />
-                <circle class="loading-node node3" cx="160" cy="10" r="2.5" />
-                <circle class="loading-node node3" cx="140" cy="10" r="2.5" />
-                <circle class="loading-node node3" cx="180" cy="10" r="2.5" />
-                <circle class="loading-node node3" cx="40" cy="190" r="2.5" />
-                <circle class="loading-node node3" cx="20" cy="190" r="2.5" />
-                <circle class="loading-node node3" cx="60" cy="190" r="2.5" />
-                <circle class="loading-node node3" cx="100" cy="190" r="2.5" />
-                <circle class="loading-node node3" cx="80" cy="190" r="2.5" />
-                <circle class="loading-node node3" cx="120" cy="190" r="2.5" />
-                <circle class="loading-node node3" cx="160" cy="190" r="2.5" />
-                <circle class="loading-node node3" cx="140" cy="190" r="2.5" />
-                <circle class="loading-node node3" cx="180" cy="190" r="2.5" />
+                <g class="lvl2">
+                    <path class="draw-trunk2" d="M 40 152 L 40 172" />
+                    <path class="draw-trunk2" d="M 100 152 L 100 172" />
+                    <path class="draw-trunk2" d="M 160 152 L 160 172" />
+                    <path class="draw-arms2" d="M 40 172 L 20 172" />
+                    <path class="draw-arms2" d="M 40 172 L 60 172" />
+                    <path class="draw-arms2" d="M 100 172 L 80 172" />
+                    <path class="draw-arms2" d="M 100 172 L 120 172" />
+                    <path class="draw-arms2" d="M 160 172 L 140 172" />
+                    <path class="draw-arms2" d="M 160 172 L 180 172" />
+                    <path class="draw-drops2" d="M 20 172 L 20 192" />
+                    <path class="draw-drops2" d="M 40 172 L 40 192" />
+                    <path class="draw-drops2" d="M 60 172 L 60 192" />
+                    <path class="draw-drops2" d="M 80 172 L 80 192" />
+                    <path class="draw-drops2" d="M 100 172 L 100 192" />
+                    <path class="draw-drops2" d="M 120 172 L 120 192" />
+                    <path class="draw-drops2" d="M 140 172 L 140 192" />
+                    <path class="draw-drops2" d="M 160 172 L 160 192" />
+                    <path class="draw-drops2" d="M 180 172 L 180 192" />
+                    
+                    <circle class="loading-node node2" cx="20" cy="195" r="3" />
+                    <circle class="loading-node node2" cx="40" cy="195" r="3" />
+                    <circle class="loading-node node2" cx="60" cy="195" r="3" />
+                    <circle class="loading-node node2" cx="80" cy="195" r="3" />
+                    <circle class="loading-node node2" cx="100" cy="195" r="3" />
+                    <circle class="loading-node node2" cx="120" cy="195" r="3" />
+                    <circle class="loading-node node2" cx="140" cy="195" r="3" />
+                    <circle class="loading-node node2" cx="160" cy="195" r="3" />
+                    <circle class="loading-node node2" cx="180" cy="195" r="3" />
+                </g>
             </g>
         </svg>
     </div>
@@ -552,7 +576,7 @@
 
                 <div id="def-wrapper" class="content-panel">
                     <div class="content-panel-inner">
-                        <p id="definition" class="desc-text"><span style="font-weight: 600;">The Metacrisis</span> is (a conceptual frame for capturing) civilisation’s total <i>problem complex</i>, the <i>generative dynamics</i> that (re)produce it and the <i>attractor states</i> its vectors towards. It marks the <i>terminal phase</i> in the <i>developmental process</i> of the current <i>world-system</i>, which is now emergently posing <i>existential risk</i> to humanity.</p>
+                        <p id="definition" class="desc-text">The Metacrisis is a conceptual frame for capturing civilisation’s total <i>problem complex</i>, the <i>generative dynamics</i> that (re)produce it and the <i>attractor states</i> its vectors towards. It marks the terminal phase in the developmental process of the current world-system, which is now emergently posing an existential risk to humanity.</p>
                         <!-- L2 MENU -->
                         <div class="menu-row" id="menu-2">
                             <div class="menu-item hoverable clickable-indicator" data-target="s2-1">Problem Complex</div>
@@ -721,59 +745,59 @@
             <div id="maximal-list-view">
                 <ul class="maximal-list">
                     <li>
-                        <div class="max-title hoverable">The Metacrisis</div>
-                        <p class="max-desc"><span style="font-weight: 600;">The Metacrisis</span> is (a conceptual frame for capturing) civilisation’s total <i>problem complex</i>, the <i>generative dynamics</i> that (re)produce it and the <i>attractor states</i> its vectors towards. It marks the <i>terminal phase</i> in the <i>developmental process</i> of the current <i>world-system</i>, which is now emergently posing <i>existential risk</i> to humanity.</p>
+                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="root">The Metacrisis</div>
+                        <p class="max-desc">The Metacrisis is a conceptual frame for capturing civilisation’s total <i>problem complex</i>, the <i>generative dynamics</i> that (re)produce it and the <i>attractor states</i> its vectors towards. It marks the terminal phase in the developmental process of the current world-system, which is now emergently posing an existential risk to humanity.</p>
                         <ul>
                             <li>
-                                <div class="max-title hoverable">Problem Complex</div>
+                                <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s2-1">Problem Complex</div>
                                 <p class="max-desc">The interconnected web of global crises—ecological, economic, and social—that cannot be isolated or resolved independently without triggering cascading effects.</p>
                                 <ul>
                                     <li>
-                                        <div class="max-title hoverable">Ecological Breakdown</div>
+                                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s3-1-1">Ecological Breakdown</div>
                                         <p class="max-desc">Destabilisation of planetary boundaries, rapid biodiversity loss, and critical resource depletion.</p>
                                     </li>
                                     <li>
-                                        <div class="max-title hoverable">Socio-Economic Decay</div>
+                                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s3-1-2">Socio-Economic Decay</div>
                                         <p class="max-desc">Extreme wealth stratification, systemic institutional failure, and structural fragility.</p>
                                     </li>
                                     <li>
-                                        <div class="max-title hoverable">Meaning Crisis</div>
+                                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s3-1-3">Meaning Crisis</div>
                                         <p class="max-desc">The erosion of shared truth, cultural coherence, and our collective capacity for sense-making.</p>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <div class="max-title hoverable">Generative Dynamics</div>
+                                <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s2-2">Generative Dynamics</div>
                                 <p class="max-desc">The underlying systems, incentive structures, cultural paradigms, and cognitive biases that continuously drive, exacerbate, and reproduce these crises.</p>
                                 <ul>
                                     <li>
-                                        <div class="max-title hoverable">Exponential Tech</div>
+                                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s3-2-1">Exponential Tech</div>
                                         <p class="max-desc">Unregulated power scaling of technology without the corresponding wisdom to steward it safely.</p>
                                     </li>
                                     <li>
-                                        <div class="max-title hoverable">Rivalrous Traps</div>
+                                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s3-2-2">Rivalrous Traps</div>
                                         <p class="max-desc">Win-lose game theory structures that incentivize extraction over large-scale coordination.</p>
                                     </li>
                                     <li>
-                                        <div class="max-title hoverable">Epistemic Fracturing</div>
+                                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s3-2-3">Epistemic Fracturing</div>
                                         <p class="max-desc">The algorithmic degradation of information ecosystems polarizing shared reality.</p>
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <div class="max-title hoverable">Attractor States</div>
+                                <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s2-3">Attractor States</div>
                                 <p class="max-desc">The inevitable future conditions, ranging from systemic collapse to radical paradigm transformation, that current trajectories are gravitationally pulling civilisation towards.</p>
                                 <ul>
                                     <li>
-                                        <div class="max-title hoverable">Systemic Collapse</div>
+                                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s3-3-1">Systemic Collapse</div>
                                         <p class="max-desc">The uncontrolled fragmentation and cascading failure of global coordination mechanisms.</p>
                                     </li>
                                     <li>
-                                        <div class="max-title hoverable">Totalitarianism</div>
+                                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s3-3-2">Totalitarianism</div>
                                         <p class="max-desc">The application of draconian surveillance and AI control to artificially force system stability.</p>
                                     </li>
                                     <li>
-                                        <div class="max-title hoverable">Phase Shift</div>
+                                        <div class="max-title hoverable glossary-item clickable-indicator" data-gid="s3-3-3">Phase Shift</div>
                                         <p class="max-desc">The emergence of a higher-order, symbiotic socio-economic paradigm solving root issues.</p>
                                     </li>
                                 </ul>
@@ -791,8 +815,15 @@
             <polyline points="18 15 12 9 6 15"></polyline>
         </svg>
     </button>
+    
+    <!-- Scroll Top Arrow (Bottom Right) -->
+    <button id="scroll-top-btn" class="hoverable" aria-label="Scroll to Top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
 
-    <div id="footer">Conceptual Architecture &bull; construction-in-progress</div>
+    <div id="footer">Conceptual Architecture <span style="color: var(--interactive-color)">&bull;</span> construction-in-progress</div>
 
     <script>
         // Ensure accurate vertical centering upon manual refresh
@@ -801,12 +832,18 @@
         }
         window.scrollTo(0, 0);
 
-        // --- Dynamic Favicon Generator ---
+        // --- Dynamic Favicon Generator (IBM Plex Sans Arabic) ---
         function updateFavicon() {
             setTimeout(() => {
                 const rootStyle = getComputedStyle(document.documentElement);
                 const color = rootStyle.getPropertyValue('--interactive-color').trim() || '#121212';
-                const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M15,80 V20 L50,60 L85,20 V80" fill="none" stroke="${color}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+                const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                    <style>
+                        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@600&amp;display=swap');
+                        text { font-family: 'IBM Plex Sans Arabic', sans-serif; }
+                    </style>
+                    <text x="50" y="75" font-size="75" font-weight="600" text-anchor="middle" fill="${color}">M</text>
+                </svg>`;
                 const encoded = encodeURIComponent(svg);
                 let link = document.getElementById('dynamic-favicon');
                 if (!link) {
@@ -874,7 +911,7 @@
                 e.target.closest('.nav-item') || e.target.closest('#title') ||
                 e.target.closest('.selected-header h2') || e.target.closest('.selected-header h3') ||
                 e.target.closest('.node-box') || e.target.closest('.glossary-item') ||
-                e.target.closest('#collapse-tree-btn')) {
+                e.target.closest('#collapse-tree-btn') || e.target.closest('#scroll-top-btn')) {
                 if (!e.target.closest('.local-back-btn')) playSound('click');
             }
         });
@@ -893,7 +930,7 @@
 
         document.addEventListener('mouseover', (e) => {
             if (e.target.closest('.hoverable')) cursorOutline.classList.add('hovered');
-            const clickable = e.target.closest('.clickable-indicator, .nav-item, .node-box, #collapse-tree-btn, .max-title');
+            const clickable = e.target.closest('.clickable-indicator, .nav-item, .node-box, #collapse-tree-btn, #scroll-top-btn, .max-title');
             if (clickable && !clickable.dataset.hovered) {
                 clickable.dataset.hovered = 'true';
                 playSound('underline');
@@ -902,7 +939,7 @@
 
         document.addEventListener('mouseout', (e) => {
             if (e.target.closest('.hoverable')) cursorOutline.classList.remove('hovered');
-            const clickable = e.target.closest('.clickable-indicator, .nav-item, .node-box, #collapse-tree-btn, .max-title');
+            const clickable = e.target.closest('.clickable-indicator, .nav-item, .node-box, #collapse-tree-btn, #scroll-top-btn, .max-title');
             if (clickable) delete clickable.dataset.hovered;
         });
 
@@ -911,90 +948,180 @@
         }, true);
 
         // --- Level Progress Bar & Top-Left Breadcrumbs ---
-        function updateTreeProgress() {
+        function updateProgress() {
             const bcEl = document.getElementById('main-breadcrumbs');
 
-            if (currentView !== 'app') {
-                if (bcEl) bcEl.classList.remove('visible');
-                return;
-            }
+            // Handle Breadcrumbs on Main View
+            if (currentView === 'app') {
+                let crumbs = [];
+                const defWrapper = document.getElementById('def-wrapper');
+                const activeL2 = document.querySelector('#stage-2-contents > .content-panel.active');
 
-            let progress = 0;
-            const defWrapper = document.getElementById('def-wrapper');
-            const activeL2 = document.querySelector('#stage-2-contents > .content-panel.active');
-            let crumbs = [];
-
-            if (defWrapper.classList.contains('active')) {
-                progress = 33.33;
-                crumbs.push('The Metacrisis');
-                if (activeL2) {
-                    progress = 66.66;
-                    crumbs.push(activeL2.querySelector('h2.hoverable').innerText);
-                    const activeL3 = activeL2.querySelector('.content-panel.active');
-                    if (activeL3) {
-                        progress = 100;
-                        crumbs.push(activeL3.querySelector('h3.hoverable').innerText);
+                if (defWrapper && defWrapper.classList.contains('active')) {
+                    crumbs.push('The Metacrisis');
+                    if (activeL2) {
+                        crumbs.push(activeL2.querySelector('h2.hoverable').innerText);
+                        const activeL3 = activeL2.querySelector('.content-panel.active');
+                        if (activeL3) {
+                            crumbs.push(activeL3.querySelector('h3.hoverable').innerText);
+                        }
                     }
                 }
-            }
-
-            document.getElementById('scroll-progress-fill').style.height = `${progress}%`;
-
-            if (bcEl) {
-                if (crumbs.length > 0) {
-                    bcEl.innerHTML = crumbs.join('<span style="opacity: 0.4; margin: 0 0.5rem;">&gt;</span>');
-                    bcEl.classList.add('visible');
-                } else {
-                    bcEl.classList.remove('visible');
+                if (bcEl) {
+                    if (crumbs.length > 0) {
+                        bcEl.innerHTML = crumbs.join('<span style="opacity: 0.4; margin: 0 0.5rem;">&gt;</span>');
+                        bcEl.classList.add('visible');
+                    } else {
+                        bcEl.classList.remove('visible');
+                    }
                 }
+            } else if (bcEl) {
+                bcEl.classList.remove('visible');
             }
+
+            // Handle Scroll Progress Tracker
+            let progress = 0;
+            if (currentView === 'app') {
+                const defWrapper = document.getElementById('def-wrapper');
+                const activeL2 = document.querySelector('#stage-2-contents > .content-panel.active');
+                if (defWrapper && defWrapper.classList.contains('active')) {
+                    progress = 33.33;
+                    if (activeL2) {
+                        progress = 66.66;
+                        const activeL3 = activeL2.querySelector('.content-panel.active');
+                        if (activeL3) {
+                            progress = 100;
+                        }
+                    }
+                }
+            } else if (currentView === 'maximal') {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (scrollHeight > 0) {
+                    progress = (scrollTop / scrollHeight) * 100;
+                } else {
+                    progress = 100;
+                }
+                
+                // Toggle Scroll Top Arrow
+                if (scrollTop > 200) {
+                    document.getElementById('scroll-top-btn').classList.add('visible');
+                } else {
+                    document.getElementById('scroll-top-btn').classList.remove('visible');
+                }
+            } else {
+                document.getElementById('scroll-top-btn').classList.remove('visible');
+            }
+            
+            // Apply fill update
+            const fill = document.getElementById('scroll-progress-fill');
+            if (fill) fill.style.height = `${Math.min(100, Math.max(0, progress))}%`;
         }
+
+        window.addEventListener('scroll', () => {
+            // Apply scroll fade for header-mode footer
+            if (window.scrollY > 40) {
+                document.body.classList.add('scrolled-down');
+            } else {
+                document.body.classList.remove('scrolled-down');
+            }
+            updateProgress();
+        });
+        
+        window.addEventListener('resize', updateProgress);
+        const resizeObserver = new ResizeObserver(() => updateProgress());
+        resizeObserver.observe(document.body);
+
+        // Scroll Top Button Action
+        document.getElementById('scroll-top-btn').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
         // --- View Manager (App / Map / Glossary / Maximal) ---
         let currentView = 'app';
+        let glossarySourceView = 'glossary';
+        let viewScrollStates = { app: 0, map: 0, glossary: 0, maximal: 0 };
+        let glossaryListScroll = 0;
         
         function switchView(target) {
             if (currentView === target) return; 
             
-            document.querySelectorAll('.view-panel').forEach(panel => panel.classList.remove('active'));
+            // Save current scroll
+            viewScrollStates[currentView] = window.scrollY;
+            
             document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
-
             const activeNavItem = document.querySelector(`.nav-item[data-target="${target}"]`);
-            activeNavItem.classList.add('active');
+            if (activeNavItem) activeNavItem.classList.add('active');
             
             currentView = target; 
+            document.body.setAttribute('data-view', target);
 
+            // Hard toggle display states to mathematically remove scroll space
+            document.querySelectorAll('.view-panel').forEach(panel => {
+                if (panel.id === target + '-container') {
+                    panel.style.display = 'flex'; // make flex before scrolling so it has height
+                    void panel.offsetWidth; 
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                    setTimeout(() => {
+                        if (!panel.classList.contains('active')) {
+                            panel.style.display = 'none';
+                        }
+                    }, 600);
+                }
+            });
+
+            // Jump strictly to previous scroll position for target view (or 0) after elements are rendered
+            const targetScroll = viewScrollStates[target] || 0;
+            window.scrollTo({ top: targetScroll, behavior: 'instant' });
+
+            // Toggle Footer Mode
+            if (target === 'maximal') {
+                document.getElementById('footer').classList.add('header-mode');
+            } else {
+                document.getElementById('footer').classList.remove('header-mode');
+            }
+
+            // Target-specific UI logic
             if (target === 'app') {
-                document.getElementById('app-container').classList.add('active');
                 document.getElementById('scroll-progress-container').classList.add('active');
                 if (document.getElementById('def-wrapper').classList.contains('active')) {
                     document.getElementById('collapse-tree-btn').classList.add('visible');
                 }
-                updateTreeProgress();
+            } else if (target === 'maximal') {
+                document.getElementById('scroll-progress-container').classList.add('active');
+                document.getElementById('collapse-tree-btn').classList.remove('visible');
             } else {
                 document.getElementById('scroll-progress-container').classList.remove('active');
                 document.getElementById('collapse-tree-btn').classList.remove('visible');
-                updateTreeProgress(); 
                 
-                if (target === 'map') {
-                    document.getElementById('map-container').classList.add('active');
-                } else if (target === 'glossary') {
-                    document.getElementById('glossary-container').classList.add('active');
+                if (target === 'glossary') {
                     document.getElementById('glossary-list-view').style.display = 'block';
                     document.getElementById('glossary-detail-view').style.display = 'none';
-                } else if (target === 'maximal') {
-                    document.getElementById('maximal-container').classList.add('active');
                 }
             }
+
+            updateProgress();
         }
 
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', () => switchView(item.getAttribute('data-target')));
+            item.addEventListener('click', () => {
+                const target = item.getAttribute('data-target');
+                if (target === 'maximal' && currentView === 'maximal') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                if (target === 'maximal') {
+                    viewScrollStates['maximal'] = 0; // Force to top when explicitly clicked from Nav Menu
+                }
+                switchView(target);
+            });
         });
 
         // --- Glossary Logic & Data ---
         const glossaryData = {
-            'root': { title: 'The Metacrisis', desc: '<span style="font-weight: 600;">The Metacrisis</span> is (a conceptual frame for capturing) civilisation’s total <i>problem complex</i>, the <i>generative dynamics</i> that (re)produce it and the <i>attractor states</i> its vectors towards. It marks the <i>terminal phase</i> in the <i>developmental process</i> of the current <i>world-system</i>, which is now emergently posing <i>existential risk</i> to humanity.', breadcrumbs: [] },
+            'root': { title: 'The Metacrisis', desc: 'The Metacrisis is a conceptual frame for capturing civilisation’s total <i>problem complex</i>, the <i>generative dynamics</i> that (re)produce it and the <i>attractor states</i> its vectors towards. It marks the terminal phase in the developmental process of the current world-system, which is now emergently posing an existential risk to humanity.', breadcrumbs: [] },
             's2-1': { title: 'Problem Complex', desc: 'The interconnected web of global crises—ecological, economic, and social—that cannot be isolated or resolved independently without triggering cascading effects.', breadcrumbs: ['The Metacrisis'] },
             's3-1-1': { title: 'Ecological Breakdown', desc: 'Destabilisation of planetary boundaries, rapid biodiversity loss, and critical resource depletion.', breadcrumbs: ['The Metacrisis', 'Problem Complex'] },
             's3-1-2': { title: 'Socio-Economic Decay', desc: 'Extreme wealth stratification, systemic institutional failure, and structural fragility.', breadcrumbs: ['The Metacrisis', 'Problem Complex'] },
@@ -1009,10 +1136,22 @@
             's3-3-3': { title: 'Phase Shift', desc: 'The emergence of a higher-order, symbiotic socio-economic paradigm solving root issues.', breadcrumbs: ['The Metacrisis', 'Attractor States'] }
         };
 
+        // Shared click handler for both regular Glossary items and Maximal View titles
         document.querySelectorAll('.glossary-item').forEach(item => {
             item.addEventListener('click', () => {
-                const data = glossaryData[item.getAttribute('data-gid')];
+                const gid = item.getAttribute('data-gid');
+                const data = glossaryData[gid];
                 if (!data) return;
+
+                if (currentView === 'glossary') {
+                    glossaryListScroll = window.scrollY;
+                    glossarySourceView = 'glossary'; 
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                } else {
+                    glossarySourceView = currentView;
+                    viewScrollStates['glossary'] = 0; 
+                    switchView('glossary');
+                }
 
                 const bcContainer = document.getElementById('g-breadcrumbs');
                 bcContainer.innerHTML = '';
@@ -1046,53 +1185,69 @@
             e.stopPropagation();
             if (e.isTrusted) playSound('click');
             
-            document.getElementById('glossary-list-view').style.display = 'block';
-            document.getElementById('glossary-detail-view').style.display = 'none';
-            document.getElementById('glossary-list-view').animate([
-                { opacity: 0 }, { opacity: 1 }
-            ], { duration: 600, easing: 'ease', fill: 'forwards' });
+            if (glossarySourceView !== 'glossary') {
+                switchView(glossarySourceView);
+                setTimeout(() => {
+                    document.getElementById('glossary-list-view').style.display = 'block';
+                    document.getElementById('glossary-detail-view').style.display = 'none';
+                }, 600);
+            } else {
+                document.getElementById('glossary-list-view').style.display = 'block';
+                document.getElementById('glossary-detail-view').style.display = 'none';
+                
+                // Allow DOM to update display block before restoring scroll
+                requestAnimationFrame(() => {
+                    window.scrollTo({ top: glossaryListScroll, behavior: 'instant' });
+                });
+                
+                document.getElementById('glossary-list-view').animate([
+                    { opacity: 0 }, { opacity: 1 }
+                ], { duration: 600, easing: 'ease', fill: 'forwards' });
+            }
         });
 
-        // --- Map Auto-Navigation Logic ---
-        document.querySelectorAll('.css-tree .node-box').forEach(node => {
-            node.addEventListener('click', () => {
-                const triggerId = node.getAttribute('data-trigger');
-                if (!triggerId) return;
+        // --- Map Auto-Navigation Logic
+        document.addEventListener('click', (e) => {
+            const triggerEl = e.target.closest('[data-trigger]:not(.nav-item)');
+            if (!triggerEl) return;
+            
+            e.stopPropagation();
+            const triggerId = triggerEl.getAttribute('data-trigger');
+            if (!triggerId) return;
 
-                switchView('app'); 
+            switchView('app'); 
+
+            setTimeout(() => {
+                let openDelay = 0;
+                if (!document.getElementById('def-wrapper').classList.contains('active')) {
+                    document.getElementById('title').click(); openDelay = 1300; 
+                }
+
+                if (triggerId === 'root') {
+                    updateProgress();
+                    return; 
+                }
 
                 setTimeout(() => {
-                    let openDelay = 0;
-                    if (!document.getElementById('def-wrapper').classList.contains('active')) {
-                        document.getElementById('title').click(); openDelay = 1300; 
-                    }
-
-                    if (triggerId === 'root') {
-                        updateTreeProgress();
-                        return; 
-                    }
-
-                    setTimeout(() => {
-                        if (triggerId.startsWith('s2')) {
-                            const targetBtn = document.querySelector(`.menu-row#menu-2 .menu-item[data-target="${triggerId}"]`);
-                            if (targetBtn && !targetBtn.classList.contains('active')) targetBtn.click();
-                        } else if (triggerId.startsWith('s3')) {
-                            const l2Id = 's2-' + triggerId.split('-')[1];
-                            const l2Btn = document.querySelector(`.menu-row#menu-2 .menu-item[data-target="${l2Id}"]`);
-                            
-                            let l3Delay = 0;
-                            if (l2Btn && !l2Btn.classList.contains('active')) {
-                                l2Btn.click(); l3Delay = 1300; 
-                            }
-
-                            setTimeout(() => {
-                                const l3Btn = document.querySelector(`#${l2Id} .l3-menu .menu-item[data-target="${triggerId}"]`);
-                                if (l3Btn && !l3Btn.classList.contains('active')) l3Btn.click();
-                            }, l3Delay);
+                    if (triggerId.startsWith('s2')) {
+                        const targetBtn = document.querySelector(`.menu-row#menu-2 .menu-item[data-target="${triggerId}"]`);
+                        if (targetBtn && !targetBtn.classList.contains('active')) targetBtn.click();
+                    } else if (triggerId.startsWith('s3')) {
+                        const l2Id = 's2-' + triggerId.split('-')[1];
+                        const l2Btn = document.querySelector(`.menu-row#menu-2 .menu-item[data-target="${l2Id}"]`);
+                        
+                        let l3Delay = 0;
+                        if (l2Btn && !l2Btn.classList.contains('active')) {
+                            l2Btn.click(); l3Delay = 1300; 
                         }
-                    }, openDelay);
-                }, 300); 
-            });
+
+                        setTimeout(() => {
+                            const l3Btn = document.querySelector(`#${l2Id} .l3-menu .menu-item[data-target="${triggerId}"]`);
+                            if (l3Btn && !l3Btn.classList.contains('active')) l3Btn.click();
+                        }, l3Delay);
+                    }
+                }, openDelay);
+            }, 300); 
         });
 
         // --- Toggles & Shortcuts (Theme & Multi-Accent Cycler) ---
@@ -1124,6 +1279,8 @@
             else if (e.key === '4') { root.setAttribute('data-accent', 'orange'); accentIndex = 2; changed = true; }
             else if (e.key === '5') { root.setAttribute('data-accent', 'blue'); accentIndex = 3; changed = true; }
             else if (e.key === '6') { root.setAttribute('data-accent', 'red'); accentIndex = 4; changed = true; }
+            else if (e.key === '7') { root.removeAttribute('data-accent'); accentIndex = 0; changed = true; }
+            
             if (changed) updateFavicon();
         });
 
@@ -1149,11 +1306,10 @@
             
             document.getElementById('collapse-tree-btn').classList.remove('visible');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            updateTreeProgress();
+            updateProgress();
 
             document.getElementById('title-corners').classList.remove('visible');
             
-            // Re-trigger the pulse/focus sequence just like initial load
             setTimeout(() => {
                 if (currentView === 'app') {
                     titleElement.classList.remove('auto-pulse');
@@ -1182,33 +1338,44 @@
         window.addEventListener('load', () => {
             updateFavicon();
             
-            const lvl1 = document.querySelectorAll('.lvl1 path');
-            const lvl2 = document.querySelectorAll('.lvl2 path');
-            const lvl3 = document.querySelectorAll('.lvl3 path');
+            const trunk1 = document.querySelectorAll('.draw-trunk1');
+            const arms1 = document.querySelectorAll('.draw-arms1');
+            const drops1 = document.querySelectorAll('.draw-drops1');
+            const trunk2 = document.querySelectorAll('.draw-trunk2');
+            const arms2 = document.querySelectorAll('.draw-arms2');
+            const drops2 = document.querySelectorAll('.draw-drops2');
+            const node0 = document.querySelectorAll('.node0');
             const node1 = document.querySelectorAll('.node1');
             const node2 = document.querySelectorAll('.node2');
-            const node3 = document.querySelectorAll('.node3');
 
             const setOffset = (els, val) => els.forEach(el => el.style.strokeDashoffset = val);
             const setOpacity = (els, val) => els.forEach(el => el.style.opacity = val);
-            const transitionLines = (els) => els.forEach(el => el.style.transition = 'stroke-dashoffset 0.4s ease-in-out');
+
+            // Expand Outward (Tree grows fixed from center without translation)
+            setTimeout(() => setOpacity(node0, 1), 100);
+
+            setTimeout(() => setOffset(trunk1, 0), 300);
+            setTimeout(() => setOffset(arms1, 0), 500);
+            setTimeout(() => setOffset(drops1, 0), 700);
+            setTimeout(() => setOpacity(node1, 1), 900);
             
-            transitionLines([...lvl1, ...lvl2, ...lvl3]);
+            setTimeout(() => setOffset(trunk2, 0), 1100);
+            setTimeout(() => setOffset(arms2, 0), 1300);
+            setTimeout(() => setOffset(drops2, 0), 1500);
+            setTimeout(() => setOpacity(node2, 1), 1700);
 
-            // Expand Outward
-            setTimeout(() => setOffset(lvl1, 0), 300);
-            setTimeout(() => setOpacity(node1, 1), 650);
-
-            setTimeout(() => setOffset(lvl2, 0), 700);
-            setTimeout(() => setOpacity(node2, 1), 1050);
-
-            setTimeout(() => setOffset(lvl3, 0), 1100);
-            setTimeout(() => setOpacity(node3, 1), 1450);
+            // Retract Inward (Stadial reversing)
+            setTimeout(() => setOpacity(node2, 0), 2200);
+            setTimeout(() => setOffset(drops2, 22), 2300);
+            setTimeout(() => setOffset(arms2, 22), 2500);
+            setTimeout(() => setOffset(trunk2, 22), 2700);
             
-            // Retract Inward
-            setTimeout(() => { setOffset(lvl3, 120); setOpacity(node3, 0); }, 1900);
-            setTimeout(() => { setOffset(lvl2, 120); setOpacity(node2, 0); }, 2300);
-            setTimeout(() => { setOffset(lvl1, 120); setOpacity(node1, 0); }, 2700);
+            setTimeout(() => setOpacity(node1, 0), 2900);
+            setTimeout(() => setOffset(drops1, 22), 3000);
+            setTimeout(() => setOffset(arms1, 62), 3200);
+            setTimeout(() => setOffset(trunk1, 22), 3400);
+            
+            setTimeout(() => setOpacity(node0, 0), 3600);
 
             // Hide Screen & Run Typewriter
             setTimeout(() => {
@@ -1226,17 +1393,18 @@
                             playSound('underline');
                             
                             setTimeout(() => {
+                                document.body.classList.add('cursor-ready');
                                 document.getElementById('title-corners').classList.add('visible');
                                 
                                 setTimeout(() => {
                                     document.body.classList.add('hud-ready');
-                                }, 2500); // Waits exactly 1 full camera breath to load HUD
-                            }, 1800);
+                                }, 2500); 
+                            }, 1200);
                         }
                     }
                     typeWriter();
                 }, 600); 
-            }, 3200); 
+            }, 3900); 
         });
 
         // --- Click Root Title (Main App) ---
@@ -1254,7 +1422,7 @@
             titleElement.classList.add('active');
             defWrapper.classList.add('active');
             document.getElementById('collapse-tree-btn').classList.add('visible');
-            updateTreeProgress();
+            updateProgress();
             
             setTimeout(() => {
                 const menu2 = document.getElementById('menu-2');
@@ -1310,7 +1478,7 @@
 
                 if (targetContent) {
                     targetContent.classList.add('active');
-                    updateTreeProgress();
+                    updateProgress();
                     const backBtn = targetContent.querySelector(':scope > .content-panel-inner > .selected-header > .local-back-btn');
                     
                     setTimeout(() => { if (backBtn) backBtn.classList.add('visible'); }, 400);
@@ -1358,7 +1526,7 @@
                 activeChildrenBtns.forEach(childBtn => childBtn.click());
 
                 menuItem.classList.remove('active');
-                updateTreeProgress();
+                updateProgress();
 
                 setTimeout(() => {
                     row.querySelectorAll('.menu-item').forEach(sibling => sibling.classList.remove('greyed-out'));
