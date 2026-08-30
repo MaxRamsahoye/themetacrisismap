@@ -27,7 +27,7 @@ body:not(.hud-ready) #bottom-left-controls,body:not(.hud-ready) #toggle-containe
 .css-tree.horizontal li:only-child{padding-left:0;}
 .css-tree.horizontal ul ul::before{border-left:none;border-top:2px solid var(--indicator-color);width:20px;height:0;top:50%;left:0;margin-top:-1px;}
 
-.node-box{border:2px solid var(--indicator-color);padding:12px 14px;color:var(--text-color);display:inline-flex;align-items:center;justify-content:center;border-radius:6px;transition:all .4s ease;background:var(--bg-color);position:relative;z-index:1;text-align:center;line-height:1.3;white-space:pre-wrap;word-wrap:break-word;max-width:180px;} .node-box.root{font-size:1.8rem;font-weight:600;border-color:var(--interactive-color);padding:16px 24px;max-width:none;white-space:nowrap;} .node-box.l2{font-size:1.25rem;font-weight:500;min-width:140px;max-width:220px;} .node-box.l3{font-size:.95rem;font-weight:400;padding:12px 16px;} .node-box.l4{font-size:.85rem;font-weight:400;opacity:.85;padding:10px 14px;} .node-box.l5{font-size:.75rem;font-weight:400;opacity:.75;padding:8px 12px;} .node-box:hover{border-color:var(--interactive-color);transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,0.08);color:var(--interactive-color);opacity:1;}
+.node-box{border:2px solid var(--indicator-color);padding:12px 14px;color:var(--text-color);display:inline-flex;align-items:center;justify-content:center;border-radius:6px;transition:all .4s ease;background:var(--bg-color);position:relative;z-index:1;text-align:center;line-height:1.3;} .node-box.root{font-size:1.8rem;font-weight:600;border-color:var(--interactive-color);padding:16px 24px;max-width:none;white-space:nowrap;} .node-box.l2{font-size:1.25rem;font-weight:500;min-width:140px;max-width:220px;} .node-box.l3{font-size:.95rem;font-weight:400;padding:12px 16px;} .node-box.l4{font-size:.85rem;font-weight:400;opacity:.85;padding:10px 14px;} .node-box.l5{font-size:.75rem;font-weight:400;opacity:.75;padding:8px 12px;} .node-box:hover{border-color:var(--interactive-color);transform:translateY(-3px);box-shadow:0 4px 12px rgba(0,0,0,0.08);color:var(--interactive-color);opacity:1;}
 .map-node-wrapper{display:inline-flex;flex-direction:column;align-items:center;position:relative;z-index:2;} .css-tree.horizontal .map-node-wrapper{flex-direction:row;} .map-arrows{display:flex;align-items:center;gap:.25rem;margin-top:6px;} .css-tree.horizontal .map-arrows{margin-top:0;margin-left:6px;flex-direction:column;} .map-arrow{display:flex;align-items:center;justify-content:center;cursor:none;color:var(--indicator-color);transition:all .3s ease;background:var(--bg-color);border-radius:50%;border:2px solid var(--indicator-color);width:20px;height:20px;transform:rotate(180deg);} .map-arrow:hover{color:var(--interactive-color);border-color:var(--interactive-color);transform:scale(1.1) rotate(180deg);} .map-arrow.collapsed{transform:rotate(0deg);} .map-arrow.collapsed:hover{transform:scale(1.1) rotate(0deg);} .css-tree.horizontal .map-arrow{transform:rotate(90deg);} .css-tree.horizontal .map-arrow:hover{transform:scale(1.1) rotate(90deg);} .css-tree.horizontal .map-arrow.collapsed{transform:rotate(-90deg);} .css-tree.horizontal .map-arrow.collapsed:hover{transform:scale(1.1) rotate(-90deg);} .map-arrow svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;} .css-tree li.collapsed>ul{display:none!important;}
 
 /* --- Module View Styles --- */
@@ -52,6 +52,50 @@ body:not(.hud-ready) #bottom-left-controls,body:not(.hud-ready) #toggle-containe
 .hex-int-divider { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5rem; }
 .hex-int-label { font-size: 1.25rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
 
+/* --- Generators View Styles --- */
+.gen-tabs { display: flex; gap: 1.5rem; margin-top: 5rem; margin-bottom: 4rem; justify-content: flex-start; width: 100%; flex-wrap: wrap; align-items: center; }
+.gen-tab { background: transparent; border: 2px solid var(--indicator-color); color: var(--text-color); padding: 0.75rem 1.75rem; border-radius: 30px; font-size: 1.1rem; font-family: inherit; font-weight: 500; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
+.gen-tab:hover, .gen-tab.active { border-color: var(--interactive-color); color: var(--interactive-color); }
+.gen-tab.active { background: rgba(18,18,18,0.05); }
+:root[data-theme="dark"] .gen-tab.active { background: rgba(255,255,255,0.1); }
+
+/* Global Toggle + Local Toggles + Slider Nav SVGs */
+#gen-global-toggle { width: 44px; height: 44px; padding: 0; border-radius: 50%; }
+.slider-nav-btn, .gen-local-toggle, #gen-global-toggle { cursor: none; }
+.slider-nav-btn, .gen-local-toggle { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--bg-color); border: 2px solid var(--indicator-color); color: var(--text-color); transition: all 0.3s ease; padding: 0; flex-shrink: 0; }
+.slider-nav-btn:hover, .gen-local-toggle:hover { border-color: var(--interactive-color); color: var(--interactive-color); }
+.gen-local-toggle:hover { transform: translateX(-50%) scale(1.15); }
+.slider-nav-btn:hover { transform: translateY(-50%) scale(1.15); }
+.slider-nav-btn svg, .gen-local-toggle svg, #gen-global-toggle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.gen-local-toggle { position: absolute; left: 50%; transform: translateX(-50%); z-index: 10; }
+.gen-local-toggle.top { top: -50px; transform: translate(-50%, -50%); }
+.gen-local-toggle.bottom { bottom: -50px; transform: translate(-50%, 50%); }
+.gen-local-toggle:hover.top { transform: translate(-50%, -50%) scale(1.15); }
+.gen-local-toggle:hover.bottom { transform: translate(-50%, 50%) scale(1.15); }
+
+.gen-grid { display: grid; grid-template-columns: 160px 1fr; gap: 0 6rem; width: 100%; max-width: 1400px; margin: 0 auto; align-items: stretch; padding: 40px 4rem 40px 0; box-sizing: border-box; }
+.gen-side-cell { display: flex; align-items: center; justify-content: flex-end; text-align: right; font-family: 'Courier New', Courier, monospace; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.1em; font-weight: 600; opacity: 0.7; border-right: 2px solid var(--indicator-color); padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem; line-height: 1.4; transition: opacity 0.4s ease; }
+.gen-row { display: flex; justify-content: center; gap: 1.5rem; width: 100%; position: relative; z-index: 2; transition: opacity 0.4s ease; }
+.gen-node-wrapper { flex: 1 1 0; display: flex; justify-content: center; align-items: stretch; min-width: 0; position: relative; height: 100%; }
+.gen-conn-0, .gen-conn-1, .gen-conn-2, .gen-conn-0b, .gen-conn-1b { width: 100%; height: 100px; position: relative; z-index: 1; margin: -2px 0; transition: opacity 0.4s ease; }
+.gen-node { display: flex; flex-direction: column; text-align: left; width: 100%; max-width: 460px; min-width: 280px; padding: 1.25rem 1.5rem; align-items: flex-start; cursor: default; background: var(--bg-color); box-sizing: border-box; }
+.gen-node-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.8rem; line-height: 1.3; white-space: nowrap; text-align: center; width: 100%; }
+.gen-node.center-node { border-color: var(--interactive-color); }
+.gen-node.center-node .gen-node-title { color: var(--interactive-color); font-size: 1.35rem; }
+.gen-list { list-style: none; padding: 0; margin: 0; font-size: 0.95rem; opacity: 0.9; display: flex; flex-direction: column; gap: 0.6rem; width: 100%; }
+.gen-list li { white-space: normal; }
+
+/* Expanded/Collapsed States */
+.collapsed { display: none !important; }
+
+/* Slider Controls */
+.gen-slider-viewport { display: flex; width: 100%; position: relative; overflow: hidden; }
+.gen-slide { display: none; width: 100%; justify-content: center; gap: 1.5rem; }
+.gen-slide.active { display: flex; }
+.slider-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); }
+.prev-slide { left: -4rem; }
+.next-slide { right: -4rem; }
+
 /* --- Footer & Fade-outs --- */
 #footer{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);font-family:'Courier New',Courier,monospace;text-transform:uppercase;font-size:.85rem;letter-spacing:.1em;pointer-events:none;white-space:nowrap;z-index:50;transition:opacity 1.2s ease;display:none;} #footer.header-mode{bottom:auto;top:2rem;left:2rem;transform:none;display:block;opacity:1;color:var(--text-color);} body.scrolled-down #main-breadcrumbs,body.scrolled-down #footer{opacity:0!important;pointer-events:none;transition:opacity .3s ease!important;} #footer span{color:var(--interactive-color);transition:color .4s ease;}
 
@@ -61,9 +105,10 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
 .local-back-btn{position:absolute;right:100%;margin-right:15px;width:30px;height:30px;border-radius:50%;background:none;border:2px solid var(--indicator-color);color:var(--interactive-color);opacity:0;pointer-events:none;transform:translateX(10px);transition:opacity .4s ease,transform .4s ease,border-color .3s ease,color .4s ease;display:flex;align-items:center;justify-content:center;z-index:100;} .local-back-btn.visible{opacity:1;pointer-events:auto;transform:translateX(0);} .local-back-btn:hover{border-color:var(--interactive-color);} .l3-header .local-back-btn{margin-right:12px;width:26px;height:26px;} .l4-header .local-back-btn{margin-right:10px;width:22px;height:22px;} .l5-header .local-back-btn{margin-right:8px;width:20px;height:20px;}
 .cursor-dot,.cursor-outline{position:fixed;top:0;left:0;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:9999;} .cursor-dot{width:8px;height:8px;background-color:var(--cursor-color);transition:transform .2s ease,opacity .2s ease;} .cursor-outline{width:40px;height:40px;border:1px solid var(--cursor-color);opacity:0;transition:opacity .3s ease,transform .2s ease,width .3s ease,height .3s ease,background-color .2s ease,border-color .3s ease;} .cursor-outline.hovered{opacity:.8;transform:translate(-50%,-50%) scale(1.5);border-color:var(--interactive-color);} body.is-panning .cursor-dot{transform:translate(-50%,-50%) scale(0.5);opacity:.5;} body.is-panning .cursor-outline{transform:translate(-50%,-50%) scale(0.8);background:var(--indicator-color);opacity:.4;} body.is-zooming-in .cursor-outline{transform:translate(-50%,-50%) scale(2);background-color:rgba(18,18,18,0.05);border-color:var(--interactive-color);opacity:.8;} body.is-zooming-out .cursor-outline{transform:translate(-50%,-50%) scale(0.6);background-color:rgba(18,18,18,0.05);border-color:var(--interactive-color);opacity:.8;} body[data-theme="dark"].is-zooming-in .cursor-outline,body[data-theme="dark"].is-zooming-out .cursor-outline{background-color:rgba(255,255,255,0.1);}
 @media (pointer:coarse){body,.hoverable,.clickable-indicator,.nav-item,button,.node-box,.glossary-item,.max-title,.single-arrow,.double-arrow,.triple-arrow,.map-arrow{cursor:auto!important;} .cursor-dot,.cursor-outline{display:none!important;}}
-@media (max-width:900px){.module-grid.three-col{grid-template-columns:1fr;max-width:800px;} .node-box.root{font-size:1.4rem;padding:12px 20px;} .node-box.l2{font-size:1rem;min-width:100px;} .node-box.l3{font-size:.8rem;padding:8px 10px;} .node-box.l4{font-size:.75rem;padding:6px 8px;} .node-box.l5{font-size:.65rem;padding:4px 6px;} .css-tree li{padding:15px 6px 0;} .css-tree ul{padding-top:15px;} .css-tree li::before,.css-tree li::after,.css-tree ul ul::before{height:15px;} .css-tree.horizontal ul{padding-top:0;padding-left:15px;} .css-tree.horizontal li{padding:5px 0 5px 15px;} .css-tree.horizontal li::before,.css-tree.horizontal li::after{width:15px;} .css-tree.horizontal ul ul::before{width:15px;} #glossary-detail-view{padding-left:0;} #glossary-back-btn{position:static;margin-right:15px;margin-bottom:1rem;}}
+@media (max-width:900px){.module-grid.three-col{grid-template-columns:1fr;max-width:800px;} .node-box.root{font-size:1.4rem;padding:12px 20px;} .node-box.l2{font-size:1rem;min-width:100px;} .node-box.l3{font-size:.8rem;padding:8px 10px;} .node-box.l4{font-size:.75rem;padding:6px 8px;} .node-box.l5{font-size:.65rem;padding:4px 6px;} .css-tree li{padding:15px 6px 0;} .css-tree ul{padding-top:15px;} .css-tree li::before,.css-tree li::after,.css-tree ul ul::before{height:15px;} .css-tree.horizontal ul{padding-top:0;padding-left:15px;} .css-tree.horizontal li{padding:5px 0 5px 15px;} .css-tree.horizontal li::before,.css-tree.horizontal li::after{width:15px;} .css-tree.horizontal ul ul::before{width:15px;} #glossary-detail-view{padding-left:0;} #glossary-back-btn{position:static;margin-right:15px;margin-bottom:1rem;} .gen-grid { grid-template-columns: 100px 1fr; gap: 0 2rem; padding-right: 0; } .gen-node-wrapper { flex: 1 1 100%; max-width: 100%; } .prev-slide { left: -1rem; z-index: 20; } .next-slide { right: -1rem; z-index: 20; } .gen-node { min-width: 0; max-width: none; }}
 @media (max-width:768px){#view-manager{padding:7rem 1.5rem 8rem;} h1{font-size:2.6rem;} .desc-text{font-size:1rem!important;} .focused-title{font-size:2.2rem;} #definition,#g-desc{font-size:1.1rem;} #bottom-left-controls{bottom:1.5rem;left:1.5rem;gap:1rem;} .nav-toggle-btn{width:24px;height:24px;} .nav-label{font-size:.65rem;} #toggle-container{top:1.5rem;right:1.5rem;width:32px;height:32px;} #accent-toggle{width:28px;height:28px;} #theme-toggle{width:14px;height:14px;} #main-breadcrumbs{top:1.5rem;left:1.5rem;max-width:65vw;font-size:.75rem;} #footer{bottom:1.5rem;font-size:.65rem;white-space:normal;text-align:center;max-width:50vw;} #footer.header-mode{top:1.5rem;left:1.5rem;max-width:70vw;text-align:left;} .br-action-btn{bottom:1.5rem;right:1.5rem;width:32px;height:32px;} #scroll-progress-container{width:8px;} .menu-row{flex-direction:column;gap:1.5rem;margin-top:2rem;} .l3-menu{gap:1.25rem;margin-top:1.5rem;} .l4-menu{gap:1rem;margin-top:1.25rem;} .l5-menu{gap:.8rem;margin-top:1rem;} .menu-item{font-size:1.3rem;white-space:normal;text-align:center;} .l3-menu .menu-item{font-size:1.2rem;} .l4-menu .menu-item{font-size:1.1rem;} .l5-menu .menu-item{font-size:1rem;} .selected-header h2{font-size:1.6rem;} .selected-header h3{font-size:1.3rem;} .selected-header h4{font-size:1.1rem;} .selected-header h5{font-size:1rem;} .selected-header{padding:0 40px;width:auto;max-width:100%;box-sizing:border-box;} .local-back-btn{right:auto;left:0;margin-right:0;transform:translateX(-10px);} .local-back-btn.visible{transform:translateX(0);} .css-tree{padding:2rem 1rem;} .css-tree ul{padding-top:15px;} .css-tree li{padding:15px 4px 0;} .css-tree li::before,.css-tree li::after,.css-tree ul ul::before{height:15px;} .node-box{padding:8px 10px;border-width:1.5px;} .node-box.root{font-size:1.2rem;padding:12px 16px;} .node-box.l2{font-size:.95rem;min-width:100px;} .node-box.l3{font-size:.75rem;padding:8px;} .archive-list>li>.glossary-item{font-size:1.6rem;} .archive-list>li>ul>li>.glossary-item{font-size:1.4rem;} .archive-list>li>ul>li>ul>li>.glossary-item{font-size:1.2rem;} .archive-list>li>ul>li>ul>li>ul>li>.glossary-item{font-size:1.1rem;} .archive-list>li>ul>li>ul>li>ul>li>ul>li>.glossary-item{font-size:1rem;} .archive-list ul{padding-left:1rem;margin-left:.5rem;} #maximal-list-view{padding-top:4rem;} .maximal-list .max-header .max-title{font-size:1.8rem;} .maximal-list ul .max-header .max-title{font-size:1.5rem;} .maximal-list ul ul .max-header .max-title{font-size:1.3rem;} .maximal-list ul ul ul .max-header .max-title{font-size:1.15rem;} .maximal-list ul ul ul ul .max-header .max-title{font-size:1.05rem;} .max-desc{font-size:1rem;} .maximal-list ul{padding-left:1rem;margin-left:.5rem;margin-top:.5rem;margin-bottom:1.5rem;} .maximal-list li{margin:1rem 0;} #loading-svg{width:280px;height:280px;} #toggle-map-layout-btn,#toggle-module-layout-btn{bottom:4rem;} .hex-node foreignObject span { font-size: 1.35rem; }
-.hex-int-grid { grid-template-columns: 1fr 50px 1fr; gap: 1.5rem 0.5rem; } .hex-main-title { font-size: 1.6rem; gap: 0.5rem; margin-bottom: 2rem; } .hex-main-title svg { width: 24px !important; height: 24px !important; } .hex-int-text { font-size: 1rem; } .hex-int-label { font-size: 1.1rem; } }
+.hex-int-grid { grid-template-columns: 1fr 50px 1fr; gap: 1.5rem 0.5rem; } .hex-main-title { font-size: 1.6rem; gap: 0.5rem; margin-bottom: 2rem; } .hex-main-title svg { width: 24px !important; height: 24px !important; } .hex-int-text { font-size: 1rem; } .hex-int-label { font-size: 1.1rem; } 
+.gen-grid { grid-template-columns: 1fr; gap: 0; padding: 40px 0; } .gen-side-cell { display: none; } .gen-row { flex-direction: column; align-items: center; gap: 1.5rem; } .gen-slide { flex-direction: column; } .gen-node-title { white-space: normal; text-align: center; } .gen-conn-0 svg, .gen-conn-1 svg, .gen-conn-2 svg, .gen-conn-0b svg, .gen-conn-1b svg { display: none; } .gen-conn-0, .gen-conn-1, .gen-conn-2, .gen-conn-0b, .gen-conn-1b { height: 30px; border-left: 2px solid var(--indicator-color); width: 2px; margin: 0 auto; } .gen-tabs { justify-content: center; }}
 @media (max-width:480px){h1{font-size:2.1rem;} .node-box.l3{font-size:.65rem;} .local-back-btn{width:28px;height:28px;} .l3-header .local-back-btn,.l4-header .local-back-btn,.l5-header .local-back-btn{width:24px;height:24px;} #bottom-left-controls{bottom:1.2rem;left:1.2rem;} .br-action-btn{bottom:1.2rem;right:1.2rem;} #footer{bottom:1.2rem;} .nav-label{display:none;} .nav-item{gap:0;} #toggle-map-layout-btn,#toggle-module-layout-btn{bottom:3.8rem;}}
 </style>
 </head>
@@ -114,7 +159,324 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
 <main id="generators-container" class="view-panel"><div style="text-align: left; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: flex-start; padding-top: 2rem; padding-bottom: 4rem;">
     <div style="width: 100%; margin-bottom: 0;">
         <div class="selected-header" style="margin-top: 0; justify-content: flex-start;"><h2 style="font-size: 2.8rem; letter-spacing: -0.02em;">Generative Dynamics</h2></div>
-        <div class="desc-text concept-desc" style="margin-top: 0.5rem; text-align: left; margin-left: 0; max-width: none; opacity: 0.8;">Construction in progress...</div>
+        <div class="desc-text concept-desc" style="margin-top: 0.5rem; text-align: left; margin-left: 0; max-width: none;">A hierarchical mapping of the structural traps driving civilisation towards catastrophe.</div>
+    </div>
+    
+    <div class="gen-tabs">
+        <button id="gen-global-toggle" class="gen-tab hoverable" aria-label="Toggle All" data-state="collapsed">
+            <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 21 6 15"></polyline>
+                <polyline points="6 9 12 3 18 9"></polyline>
+            </svg>
+            <svg class="icon-collapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                <polyline points="6 21 12 15 18 21"></polyline>
+                <polyline points="18 3 12 9 6 3"></polyline>
+            </svg>
+        </button>
+        <button class="gen-tab active hoverable" data-tab="gen-mpt">The Multi-Polar Trap</button>
+        <button class="gen-tab hoverable" data-tab="gen-nmo">Narrow Metric Optimisation</button>
+    </div>
+
+    <!-- Subtab 1: Multi-Polar Traps -->
+    <div id="gen-mpt" class="gen-tab-content active" style="width: 100%;">
+        <div class="gen-grid">
+            
+            <!-- Row 0: Fourth Order -->
+            <div class="gen-side-cell gen-tier-top-2 collapsed">Fourth-Order</div>
+            <div class="gen-row gen-tier-top-2 collapsed">
+                <div class="gen-node-wrapper">
+                    <div class="node-box hoverable gen-node">
+                        <div class="gen-node-title">Exponential Techno-Economic Development</div>
+                        <ul class="gen-list">
+                            <li>&bull; The continuous, compounding acceleration of global economic throughput and technological power amplification.</li>
+                            <li>&bull; This exponential curve acts as a planetary multiplier, drastically raising the stakes and speed of all underlying structural traps.</li>
+                            <li>&bull; It transforms historically localized failure modes into immediate, inescapable global catastrophic risks.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connector 0 -->
+            <div class="gen-side-cell gen-tier-top-2 collapsed" style="border-color: transparent;"></div>
+            <div class="gen-conn-0 gen-tier-top-2 collapsed">
+                 <svg width="100%" height="100%" style="overflow: visible;">
+                     <line x1="50%" y1="0" x2="50%" y2="80%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="25%" y1="80%" x2="75%" y2="80%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="25%" y1="80%" x2="25%" y2="100%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="75%" y1="80%" x2="75%" y2="100%" stroke="var(--indicator-color)" stroke-width="2" />
+                 </svg>
+            </div>
+
+            <!-- Row 1: Third Order -->
+            <div class="gen-side-cell gen-tier-top-1 collapsed">Third-Order</div>
+            <div class="gen-row gen-tier-top-1 collapsed">
+                <button class="gen-local-toggle top hoverable" data-target="top-2" aria-label="Toggle Above">
+                    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                </button>
+                <div class="gen-node-wrapper">
+                    <div class="node-box hoverable gen-node">
+                        <div class="gen-node-title">The AI Arms Race</div>
+                        <ul class="gen-list">
+                            <li>&bull; Competing actors race to develop AGI to avoid losing global strategic dominance.</li>
+                            <li>&bull; Safety protocols and ethical guardrails are structurally sidelined in favor of rapid deployment.</li>
+                            <li>&bull; This accelerates existential risk trajectories as unaligned models saturate critical infrastructure.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="gen-node-wrapper">
+                    <div class="node-box hoverable gen-node">
+                        <div class="gen-node-title">The Environmental Tragedy of the Commons</div>
+                        <ul class="gen-list">
+                            <li>&bull; Individual actors rationally maximize extraction and fossil-fuel combustion for short-term profit.</li>
+                            <li>&bull; The cumulative ecological externalities are distributed globally, destabilizing the Earth's biosphere.</li>
+                            <li>&bull; No single actor can unilaterally halt extraction without suffering immediate economic suicide.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connector 1 -->
+            <div class="gen-side-cell gen-tier-top-1 collapsed" style="border-color: transparent;"></div>
+            <div class="gen-conn-1 gen-tier-top-1 collapsed">
+                 <svg width="100%" height="100%" style="overflow: visible;">
+                     <line x1="25%" y1="0" x2="25%" y2="20%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="75%" y1="0" x2="75%" y2="20%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="25%" y1="20%" x2="75%" y2="20%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="50%" y1="20%" x2="50%" y2="100%" stroke="var(--indicator-color)" stroke-width="2" />
+                 </svg>
+            </div>
+
+            <!-- Row 2: Second Order (Visible by Default) -->
+            <div class="gen-side-cell">Second-Order</div>
+            <div class="gen-row">
+                <div class="gen-node-wrapper center-wrapper">
+                    <button class="gen-local-toggle top hoverable" data-target="top-1" aria-label="Toggle Above">
+                        <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    </button>
+                    <div class="node-box hoverable gen-node center-node">
+                        <div class="gen-node-title">The Multi-polar Trap</div>
+                        <ul class="gen-list">
+                            <li>&bull; A game-theoretic dynamic where individual rational incentives directly conflict with collective wellbeing.</li>
+                            <li>&bull; Actors are locked into a race to the bottom, compelled to defect even when cooperation is globally optimal.</li>
+                            <li>&bull; This structural inevitability makes solving global-scale coordination problems mathematically hostile.</li>
+                        </ul>
+                    </div>
+                    <button class="gen-local-toggle bottom hoverable" data-target="bottom-1" aria-label="Toggle Below">
+                        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Connector 2 -->
+            <div class="gen-side-cell gen-tier-bottom-1 collapsed" style="border-color: transparent;"></div>
+            <div class="gen-conn-2 gen-tier-bottom-1 collapsed">
+                <svg width="100%" height="100%" style="overflow: visible;">
+                     <line x1="50%" y1="0" x2="50%" y2="100%" stroke="var(--indicator-color)" stroke-width="2" />
+                 </svg>
+            </div>
+
+            <!-- Row 3: First Order -->
+            <div class="gen-side-cell gen-tier-bottom-1 collapsed">First-Order</div>
+            <div class="gen-row gen-tier-bottom-1 collapsed">
+                <div class="gen-node-wrapper">
+                    <div class="node-box hoverable gen-node">
+                        <div class="gen-node-title">Super-Structural Separation</div>
+                        <ul class="gen-list">
+                            <li>&bull; The global political economy organizes humanity into deeply separated collective agents—nation-states and corporations—as its fundamental structural units.</li>
+                            <li>&bull; This separation is legitimized by the cultural software of nationalism and tribalism, hijacking evolutionary dispositions like in/out-group bias.</li>
+                            <li>&bull; These impermeable self/other boundaries act as the structural and phenomenological "walls" that artificially divide agents, hard-coding the prisoner's dilemma into civilisation.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subtab 2: Narrow Metric Optimisation -->
+    <div id="gen-nmo" class="gen-tab-content" style="display: none; width: 100%;">
+        <div class="gen-grid">
+            
+            <!-- Row 0: Cross-Cutting -->
+            <div class="gen-side-cell gen-tier-top-2 collapsed">Cross-Cutting Dynamic<br>&amp; Effect</div>
+            <div class="gen-row gen-tier-top-2 collapsed">
+                <div class="gen-node-wrapper">
+                    <div class="node-box hoverable gen-node">
+                        <div class="gen-node-title">Perverse Incentive Structures</div>
+                        <ul class="gen-list">
+                            <li>&bull; Economic and structural frameworks systematically reward extractive and harmful behaviors over regenerative action.</li>
+                            <li>&bull; The costs of ecological and social degradation are entirely externalized, failing to impact the optimizing agent.</li>
+                            <li>&bull; Good actors are competitively disadvantaged and quickly driven out of the ecosystem by ruthless systemic forces.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="gen-node-wrapper">
+                    <div class="node-box hoverable gen-node">
+                        <div class="gen-node-title">Negative Externalities</div>
+                        <ul class="gen-list">
+                            <li>&bull; The inevitable result of maximizing a narrow proxy metric is the creation of unforeseen harm in the broader system.</li>
+                            <li>&bull; Because the proxy cannot capture the full complexity of reality, optimized systems systematically degrade unmeasured dimensions.</li>
+                            <li>&bull; These consequences accumulate silently outside the system's awareness until they trigger catastrophic, systemic failures.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connector 0 -->
+            <div class="gen-side-cell gen-tier-top-2 collapsed" style="border-color: transparent;"></div>
+            <div class="gen-conn-0b gen-tier-top-2 collapsed">
+                 <svg width="100%" height="100%" style="overflow: visible;">
+                     <line x1="25%" y1="0" x2="25%" y2="20%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="75%" y1="0" x2="75%" y2="20%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="25%" y1="20%" x2="75%" y2="20%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="50%" y1="20%" x2="50%" y2="80%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="25%" y1="80%" x2="75%" y2="80%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="25%" y1="80%" x2="25%" y2="100%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="75%" y1="80%" x2="75%" y2="100%" stroke="var(--indicator-color)" stroke-width="2" />
+                 </svg>
+            </div>
+
+            <!-- Row 1: Instantiations (Slider) -->
+            <div class="gen-side-cell gen-tier-top-1 collapsed">Instantiations</div>
+            <div class="gen-row gen-tier-top-1 collapsed">
+                <button class="gen-local-toggle top hoverable" data-target="top-2" aria-label="Toggle Above">
+                    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                </button>
+                <button class="slider-nav-btn prev-slide hoverable" aria-label="Previous">
+                    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                
+                <div class="gen-slider-viewport">
+                    <!-- Slide 1 -->
+                    <div class="gen-slide active" data-slide="0">
+                        <div class="gen-node-wrapper">
+                            <div class="node-box hoverable gen-node">
+                                <div class="gen-node-title">National Growth (GDP)</div>
+                                <ul class="gen-list">
+                                    <li>&bull; States ruthlessly optimize for Gross Domestic Product to maintain geopolitical power.</li>
+                                    <li>&bull; Environmental extraction and resource consumption are aggressively incentivized.</li>
+                                    <li>&bull; Steady-state or degrowth economics are rejected as total strategic suicide.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="gen-node-wrapper">
+                            <div class="node-box hoverable gen-node">
+                                <div class="gen-node-title">Corporate Profit (MCAP)</div>
+                                <ul class="gen-list">
+                                    <li>&bull; Fiduciary duty mandates the continuous maximization of shareholder value.</li>
+                                    <li>&bull; Monopolistic behavior and aggressive market capture become structurally necessary.</li>
+                                    <li>&bull; Complex social value is collapsed into single-dimensional financial returns.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="gen-slide" data-slide="1">
+                        <div class="gen-node-wrapper">
+                            <div class="node-box hoverable gen-node">
+                                <div class="gen-node-title">Algorithmic Attention (TOS)</div>
+                                <ul class="gen-list">
+                                    <li>&bull; Tech platforms optimize exclusively for Time-On-Site to maximize ad revenue.</li>
+                                    <li>&bull; Content algorithms hijack evolutionary psychology using outrage and tribalism.</li>
+                                    <li>&bull; This inevitably degrades public sensemaking and drastically polarizes populations.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="gen-node-wrapper">
+                            <div class="node-box hoverable gen-node">
+                                <div class="gen-node-title">Technological Efficiency</div>
+                                <ul class="gen-list">
+                                    <li>&bull; Tech platforms and engineering maximize for pure computational or energy efficiency.</li>
+                                    <li>&bull; Rebound effects (Jevons paradox) completely offset efficiency gains with proportionally higher consumption.</li>
+                                    <li>&bull; Broader systemic resilience and critical redundancy are sacrificed to maximize pure throughput.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="gen-slide" data-slide="2">
+                        <div class="gen-node-wrapper">
+                            <div class="node-box hoverable gen-node">
+                                <div class="gen-node-title">Non-profits &amp; Charity Initiatives</div>
+                                <ul class="gen-list">
+                                    <li>&bull; Organizations optimize for donor-pleasing KPIs like outcome achievement rates and raw beneficiary reach.</li>
+                                    <li>&bull; Focus inevitably narrows to measurable, short-term interventions over complex, systemic paradigm change.</li>
+                                    <li>&bull; Deep root causes of suffering are structurally ignored to maintain steady, attractive metric reporting.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="gen-node-wrapper">
+                            <div class="node-box hoverable gen-node">
+                                <div class="gen-node-title">Educational Results (GPA)</div>
+                                <ul class="gen-list">
+                                    <li>&bull; Educational systems optimize for standardized testing and measurable proxies.</li>
+                                    <li>&bull; Holistic human development, civic wisdom, and ethical reasoning are discarded.</li>
+                                    <li>&bull; Society produces highly competent technicians lacking broader systemic context.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="slider-nav-btn next-slide hoverable" aria-label="Next">
+                    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+
+            <!-- Connector 1 -->
+            <div class="gen-side-cell gen-tier-top-1 collapsed" style="border-color: transparent;"></div>
+            <div class="gen-conn-1b gen-tier-top-1 collapsed">
+                 <svg width="100%" height="100%" style="overflow: visible;">
+                     <line x1="25%" y1="0" x2="25%" y2="20%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="75%" y1="0" x2="75%" y2="20%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="25%" y1="20%" x2="75%" y2="20%" stroke="var(--indicator-color)" stroke-width="2" />
+                     <line x1="50%" y1="20%" x2="50%" y2="100%" stroke="var(--indicator-color)" stroke-width="2" />
+                 </svg>
+            </div>
+
+            <!-- Row 2: Second Order (Visible by Default) -->
+            <div class="gen-side-cell">Second-Order</div>
+            <div class="gen-row">
+                <div class="gen-node-wrapper center-wrapper">
+                    <button class="gen-local-toggle top hoverable" data-target="top-1" aria-label="Toggle Above">
+                        <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    </button>
+                    <div class="node-box hoverable gen-node center-node">
+                        <div class="gen-node-title">Narrow Metric Optimisation</div>
+                        <ul class="gen-list">
+                            <li>&bull; The systemic imperative to infinitely maximize singular proxies over holistic reality.</li>
+                            <li>&bull; Unmeasured parameters—often essential for systemic health—are blindly sacrificed.</li>
+                            <li>&bull; Creates "Goodhart's Law" scenarios where the proxy completely destroys the original goal.</li>
+                        </ul>
+                    </div>
+                    <button class="gen-local-toggle bottom hoverable" data-target="bottom-1" aria-label="Toggle Below">
+                        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Connector 2 -->
+            <div class="gen-side-cell gen-tier-bottom-1 collapsed" style="border-color: transparent;"></div>
+            <div class="gen-conn-2 gen-tier-bottom-1 collapsed">
+                <svg width="100%" height="100%" style="overflow: visible;">
+                     <line x1="50%" y1="0" x2="50%" y2="100%" stroke="var(--indicator-color)" stroke-width="2" />
+                 </svg>
+            </div>
+
+            <!-- Row 3: First Order -->
+            <div class="gen-side-cell gen-tier-bottom-1 collapsed">First-Order</div>
+            <div class="gen-row gen-tier-bottom-1 collapsed">
+                <div class="gen-node-wrapper">
+                    <div class="node-box hoverable gen-node">
+                        <div class="gen-node-title">Isolated Problem-Solving</div>
+                        <ul class="gen-list">
+                            <li>&bull; Institutions attack singular problems without grasping the deeply interconnected whole.</li>
+                            <li>&bull; Specialized "solutions" routinely become the generative source of new, worse meta-crises.</li>
+                            <li>&bull; Ontological separation fully prevents the coordination required for systemic paradigm shifts.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div></main>
 
@@ -418,7 +780,99 @@ document.querySelectorAll(".nav-item").forEach(e=>{e.addEventListener("click",()
 const root=document.documentElement,accents=[null,"green","orange","blue","red"];let accentIndex=0;document.getElementById("theme-toggle").addEventListener("click",()=>{root.getAttribute("data-theme")==="dark"?root.removeAttribute("data-theme"):root.setAttribute("data-theme","dark"),updateFavicon()}),document.getElementById("accent-toggle").addEventListener("click",()=>{accentIndex=(accentIndex+1)%accents.length;const e=accents[accentIndex];e?root.setAttribute("data-accent",e):root.removeAttribute("data-accent"),updateFavicon()}),document.getElementById("toggle-map-layout-btn").addEventListener("click",()=>{playSound("click");const e=document.querySelector(".css-tree");isHorizontalMap=!isHorizontalMap,isHorizontalMap?e.classList.add("horizontal"):e.classList.remove("horizontal"),setTimeout(resetMapView,50)}),document.getElementById("toggle-module-layout-btn").addEventListener("click",()=>{playSound("click");const e=document.querySelector(".module-grid");isThreeCol=!isThreeCol,isThreeCol?(e.classList.add("three-col"),e.classList.remove("single-col")):(e.classList.remove("three-col"),e.classList.add("single-col")),setTimeout(updateProgress,50)}),document.addEventListener("keydown",e=>{let t=!1;"1"===e.key?(root.removeAttribute("data-theme"),t=!0):"2"===e.key?(root.setAttribute("data-theme","dark"),t=!0):"3"===e.key?(root.setAttribute("data-accent","green"),accentIndex=1,t=!0):"4"===e.key?(root.setAttribute("data-accent","orange"),accentIndex=2,t=!0):"5"===e.key?(root.setAttribute("data-accent","blue"),accentIndex=3,t=!0):"6"===e.key?(root.setAttribute("data-accent","red"),accentIndex=4,t=!0):"7"===e.key&&(root.removeAttribute("data-accent"),accentIndex=0,t=!0),t&&updateFavicon()});
 function collapseMainTree(){if(!document.getElementById("def-wrapper").classList.contains("active"))return;document.querySelectorAll("#stage-2-contents > .content-panel.active").forEach(e=>{const t=e.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");t&&t.click()});const e=document.getElementById("title"),t=document.getElementById("def-wrapper");e.classList.remove("active"),t.classList.remove("active");const o=document.getElementById("menu-2");o.classList.remove("visible"),o.querySelectorAll(".clickable-indicator").forEach(e=>e.classList.remove("auto-pulse")),document.getElementById("collapse-tree-btn").classList.remove("visible"),window.scrollTo({top:0,behavior:"smooth"}),updateProgress(),document.getElementById("title-corners").classList.remove("visible"),setTimeout(()=>{if("app"===currentView){e.classList.remove("auto-pulse");void e.offsetWidth;e.classList.add("auto-pulse");playSound("underline");}},800)}
 document.getElementById("collapse-tree-btn").addEventListener("click",collapseMainTree);const titleElement=document.getElementById("title"),defWrapper=document.getElementById("def-wrapper"),textToType="The Metacrisis";let charIndex=0,isTyping=!0;window.addEventListener("load",()=>{updateFavicon();const e=document.querySelectorAll(".draw-trunk1"),t=document.querySelectorAll(".draw-arms1"),o=document.querySelectorAll(".draw-drops1"),n=document.querySelectorAll(".draw-trunk2"),c=document.querySelectorAll(".draw-arms2"),l=document.querySelectorAll(".draw-drops2"),r=document.querySelectorAll(".node0"),a=document.querySelectorAll(".node1"),i=document.querySelectorAll(".node2"),s=(e,t)=>e.forEach(e=>e.style.strokeDashoffset=t),d=(e,t)=>e.forEach(e=>e.style.opacity=t);setTimeout(()=>d(r,1),100),setTimeout(()=>s(e,0),300),setTimeout(()=>s(t,0),500),setTimeout(()=>s(o,0),700),setTimeout(()=>d(a,1),900),setTimeout(()=>s(n,0),1100),setTimeout(()=>s(c,0),1300),setTimeout(()=>s(l,0),1500),setTimeout(()=>d(i,1),1700),setTimeout(()=>d(i,0),2200),setTimeout(()=>s(l,22),2300),setTimeout(()=>s(c,22),2500),setTimeout(()=>s(n,22),2700),setTimeout(()=>d(a,0),2900),setTimeout(()=>s(o,22),3000),setTimeout(()=>s(t,62),3200),setTimeout(()=>s(e,22),3400),setTimeout(()=>d(r,0),3600),setTimeout(()=>{document.getElementById("loading-screen").style.opacity="0",setTimeout(()=>{document.getElementById("loading-screen").style.display="none",function e(){charIndex<textToType.length?(titleElement.textContent+=textToType.charAt(charIndex),playSound("type"),charIndex++,setTimeout(e,100)):(isTyping=!1,titleElement.classList.add("clickable-indicator","auto-pulse"),playSound("underline"),setTimeout(()=>{document.body.classList.add("cursor-ready"),document.getElementById("title-corners").classList.add("visible"),setTimeout(()=>{document.body.classList.add("hud-ready")},2500)},1200))}()},600)},3900)});
-document.addEventListener("click",e=>{getAudioContext();if(e.target.closest(".menu-item")||e.target.closest(".local-back-btn")||e.target.closest("#theme-toggle")||e.target.closest("#accent-toggle")||e.target.closest(".nav-item")||e.target.closest("#title")||e.target.closest(".selected-header h2")||e.target.closest(".selected-header h3")||e.target.closest(".selected-header h4")||e.target.closest(".selected-header h5")||e.target.closest(".node-box")||e.target.closest(".glossary-item")||e.target.closest(".br-action-btn")||e.target.closest(".single-arrow")||e.target.closest(".double-arrow")||e.target.closest(".triple-arrow")||e.target.closest(".max-title")||e.target.closest(".map-arrow")||e.target.closest(".hex-edge-group")||e.target.closest(".attr-edge-group")||e.target.closest(".attr-node"))e.target.closest(".local-back-btn")||playSound("click");if(e.target.closest("#title")){if(isTyping)return;if(titleElement.classList.contains("active"))return void collapseMainTree();document.getElementById("title-corners").classList.remove("visible"),titleElement.classList.remove("auto-pulse"),titleElement.classList.add("active"),defWrapper.classList.add("active"),document.getElementById("collapse-tree-btn").classList.add("visible"),updateProgress(),setTimeout(()=>{const e=document.getElementById("menu-2");e.classList.add("visible"),setTimeout(()=>{e.querySelectorAll(".clickable-indicator").forEach(e=>{e.classList.remove("auto-pulse"),void e.offsetWidth,e.classList.add("auto-pulse")})},400)},1200)}
+document.addEventListener("click",e=>{getAudioContext();
+let isGenExpanded = false;
+function updateGlobalToggleIcon() { 
+    const btn = document.getElementById('gen-global-toggle'); 
+    const activeTab = document.querySelector('.gen-tab-content.active'); 
+    if (!activeTab) return; 
+    const anyCollapsed = activeTab.querySelectorAll('.gen-tier-top-1.collapsed, .gen-tier-top-2.collapsed, .gen-tier-bottom-1.collapsed').length > 0; 
+    const iconExpand = btn.querySelector('.icon-expand'); 
+    const iconCollapse = btn.querySelector('.icon-collapse'); 
+    if (!anyCollapsed) { 
+        iconExpand.style.display = 'none'; 
+        iconCollapse.style.display = 'block'; 
+        btn.dataset.state = 'expanded';
+        isGenExpanded = true; 
+    } else { 
+        iconExpand.style.display = 'block'; 
+        iconCollapse.style.display = 'none'; 
+        btn.dataset.state = 'collapsed';
+        isGenExpanded = false; 
+    } 
+}
+function toggleGenTier(tabId, tier, btnElement, forceState) { 
+    const tab = document.getElementById(tabId); 
+    const elements = tab.querySelectorAll('.gen-tier-' + tier); 
+    if (elements.length === 0) return; 
+    let isCollapsed = elements[0].classList.contains('collapsed'); 
+    if (forceState !== undefined) { isCollapsed = forceState === 'expand'; } 
+    if (isCollapsed) { 
+        elements.forEach(el => el.classList.remove('collapsed')); 
+        if(btnElement) { 
+            btnElement.classList.add('expanded'); 
+            if(btnElement.classList.contains('top')) { 
+                btnElement.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="6 15 12 9 18 15"></polyline></svg>'; 
+            } else { 
+                btnElement.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>'; 
+            } 
+        } 
+    } else { 
+        elements.forEach(el => el.classList.add('collapsed')); 
+        if (tier === 'top-1') { 
+            const parentBtn = tab.querySelector('.gen-local-toggle[data-target="top-2"]'); 
+            if(parentBtn) toggleGenTier(tabId, 'top-2', parentBtn, 'collapse'); 
+        } 
+        if(btnElement) { 
+            btnElement.classList.remove('expanded'); 
+            if(btnElement.classList.contains('top')) { 
+                btnElement.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>'; 
+            } else { 
+                btnElement.innerHTML = '<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>'; 
+            } 
+        } 
+    } 
+}
+if(e.target.closest('.gen-local-toggle')){
+    playSound("click");
+    const btn=e.target.closest('.gen-local-toggle');
+    const tabId=btn.closest('.gen-tab-content').id;
+    const targetTier=btn.getAttribute('data-target');
+    toggleGenTier(tabId, targetTier, btn);
+    updateGlobalToggleIcon();
+}
+if(e.target.closest('#gen-global-toggle')){
+    playSound("click");
+    const btn = e.target.closest('#gen-global-toggle');
+    const activeTabId = document.querySelector('.gen-tab-content.active').id;
+    const tab = document.getElementById(activeTabId);
+    const isExpanded = btn.dataset.state === 'expanded';
+    const action = isExpanded ? 'collapse' : 'expand';
+    ['top-1', 'top-2', 'bottom-1'].forEach(tier => {
+        const localBtn = tab.querySelector(`.gen-local-toggle[data-target="${tier}"]`);
+        if (localBtn) toggleGenTier(activeTabId, tier, localBtn, action);
+    });
+    updateGlobalToggleIcon();
+}
+if(e.target.closest('.gen-tab') && !e.target.closest('#gen-global-toggle')){
+    playSound("click");
+    const t=e.target.closest('.gen-tab').getAttribute('data-tab');
+    document.querySelectorAll('.gen-tab[data-tab]').forEach(el=>el.classList.remove('active'));
+    e.target.closest('.gen-tab').classList.add('active');
+    document.querySelectorAll('.gen-tab-content').forEach(c=>{
+        if(c.id===t){
+            c.style.display='block';
+            c.classList.add('active');
+        }else{
+            c.style.display='none';
+            c.classList.remove('active');
+        }
+    });
+    setTimeout(updateGlobalToggleIcon, 50);
+}
+if(e.target.closest('.prev-slide')){playSound("click");const row=e.target.closest('.gen-row');const viewport=row.querySelector('.gen-slider-viewport');const slides=viewport.querySelectorAll('.gen-slide');let activeIdx=Array.from(slides).findIndex(s=>s.classList.contains('active'));slides[activeIdx].classList.remove('active');activeIdx=(activeIdx-1+slides.length)%slides.length;slides[activeIdx].classList.add('active');}
+if(e.target.closest('.next-slide')){playSound("click");const row=e.target.closest('.gen-row');const viewport=row.querySelector('.gen-slider-viewport');const slides=viewport.querySelectorAll('.gen-slide');let activeIdx=Array.from(slides).findIndex(s=>s.classList.contains('active'));slides[activeIdx].classList.remove('active');activeIdx=(activeIdx+1)%slides.length;slides[activeIdx].classList.add('active');}
+if(e.target.closest(".menu-item")||e.target.closest(".local-back-btn")||e.target.closest("#theme-toggle")||e.target.closest("#accent-toggle")||e.target.closest(".nav-item")||e.target.closest("#title")||e.target.closest(".selected-header h2")||e.target.closest(".selected-header h3")||e.target.closest(".selected-header h4")||e.target.closest(".selected-header h5")||e.target.closest(".node-box")||e.target.closest(".glossary-item")||e.target.closest(".br-action-btn")||e.target.closest(".single-arrow")||e.target.closest(".double-arrow")||e.target.closest(".triple-arrow")||e.target.closest(".max-title")||e.target.closest(".map-arrow")||e.target.closest(".hex-edge-group")||e.target.closest(".attr-edge-group")||e.target.closest(".attr-node"))e.target.closest(".local-back-btn")||playSound("click");if(e.target.closest("#title")){if(isTyping)return;if(titleElement.classList.contains("active"))return void collapseMainTree();document.getElementById("title-corners").classList.remove("visible"),titleElement.classList.remove("auto-pulse"),titleElement.classList.add("active"),defWrapper.classList.add("active"),document.getElementById("collapse-tree-btn").classList.add("visible"),updateProgress(),setTimeout(()=>{const e=document.getElementById("menu-2");e.classList.add("visible"),setTimeout(()=>{e.querySelectorAll(".clickable-indicator").forEach(e=>{e.classList.remove("auto-pulse"),void e.offsetWidth,e.classList.add("auto-pulse")})},400)},1200)}
 if(e.target.closest(".hex-edge-group")){const eg=e.target.closest(".hex-edge-group");document.querySelectorAll(".hex-edge-group").forEach(el=>el.classList.remove("active"));eg.classList.add("active");const eid=eg.getAttribute("data-edge"),n1=eg.getAttribute("data-n1"),n2=eg.getAttribute("data-n2");const data=hexInteractions[eid]||hexInteractions[eid.split("-").reverse().join("-")];const p=document.getElementById("hex-interaction-panel");if(data){document.getElementById("hex-int-content").innerHTML=`<div style="width:100%; display:flex; flex-direction:column; align-items:center;"><h2 class="focused-title hex-main-title"><span style="text-align: right; flex: 1;">${n1}</span><svg style="width: 40px; height: 40px; flex-shrink: 0; opacity: 0.4;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline><polyline points="10 6 4 12 10 18"></polyline></svg><span style="text-align: left; flex: 1;">${n2}</span></h2><div class="hex-int-grid"><div style="grid-column: 1 / -1; text-align: center; margin-bottom: -0.5rem;"><span class="hex-int-label" style="color: var(--text-color);">Crisis</span></div><div style="text-align: right;"><ul style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: 1.2rem;"><li class="hex-int-text">${data.c1[0]}</li><li class="hex-int-text">${data.c1[1]}</li><li class="hex-int-text">${data.c1[2]}</li></ul></div><div class="hex-int-divider" style="color: var(--text-color);"><svg style="width: 28px; height: 28px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><svg style="width: 28px; height: 28px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></div><div style="text-align: left;"><ul style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: 1.2rem;"><li class="hex-int-text">${data.c2[0]}</li><li class="hex-int-text">${data.c2[1]}</li><li class="hex-int-text">${data.c2[2]}</li></ul></div><div style="grid-column: 1 / -1; text-align: center; margin-top: 1.5rem; margin-bottom: -0.5rem;"><span class="hex-int-label" style="color: var(--interactive-color);">Chrysalis</span></div><div style="text-align: right;"><ul style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: 1.2rem;"><li class="hex-int-text">${data.ch1[0]}</li><li class="hex-int-text">${data.ch1[1]}</li><li class="hex-int-text">${data.ch1[2]}</li></ul></div><div class="hex-int-divider" style="color: var(--interactive-color);"><svg style="width: 28px; height: 28px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg><svg style="width: 28px; height: 28px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></div><div style="text-align: left;"><ul style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: 1.2rem;"><li class="hex-int-text">${data.ch2[0]}</li><li class="hex-int-text">${data.ch2[1]}</li><li class="hex-int-text">${data.ch2[2]}</li></ul></div></div></div>`;}else{document.getElementById("hex-int-content").innerHTML="<div style='font-size: 1.25rem; font-style: italic; opacity: 0.8;'>Interaction dynamics currently being mapped...</div>";}p.style.opacity="1";setTimeout(()=>{p.scrollIntoView({behavior:'smooth',block:'start'});},150);}
 if(e.target.closest(".attr-edge-group")||e.target.closest(".attr-node")){const ag=e.target.closest(".attr-edge-group")||e.target.closest(".attr-node");document.querySelectorAll(".attr-edge-group, .attr-node").forEach(el=>el.classList.remove("active"));ag.classList.add("active");const aid=ag.getAttribute("data-attr");const data=attractorData[aid];const p=document.getElementById("attractors-info-panel");if(data){let pts=data.points.map(pt=>`<li style="font-size: 1.2rem; margin: 0.8rem 0; opacity: 0.9;">&bull; ${pt}</li>`).join("");document.getElementById("attr-int-content").innerHTML=`<div style="width:100%;"><ul style="list-style: none; padding-left: 0; margin: 0;"><li style="margin-bottom: 2.5rem;"><span style="font-size: 1.8rem; font-weight: 500;">${data.title}</span><div style="font-size: 1.15rem; margin-top: 0.5rem; line-height: 1.6; opacity: 0.9;">${data.desc}</div><ul style="padding-left: 0; margin-left: 0; border-left: none; margin-top: 1rem; list-style: none;">${pts}</ul></li></ul></div>`;}else{document.getElementById("attr-int-content").innerHTML="<div style='font-size: 1.25rem; font-style: italic; opacity: 0.8;'>Interaction dynamics currently being mapped...</div>";}p.style.opacity="1";setTimeout(()=>{p.scrollIntoView({behavior:'smooth',block:'start'});},150);}
 const t=e.target.closest(".menu-item");if(t&&!t.classList.contains("nav-item")){const e=t.closest(".menu-row"),o=document.getElementById(t.getAttribute("data-target"));if(t.classList.contains("active")){if(o){const e=o.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");e&&e.click()}return}const n=e.querySelector(".menu-item.active");if(n){const e=document.getElementById(n.getAttribute("data-target"));if(e){e.classList.remove("active");const t=e.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");t&&t.classList.remove("visible"),e.querySelectorAll(".l3-menu, .l4-menu, .l5-menu").forEach(e=>e.classList.remove("visible")),e.querySelectorAll(".content-panel.active > .content-panel-inner > .selected-header > .local-back-btn").forEach(e=>e.click())}n.classList.remove("active")}e.querySelectorAll(".menu-item").forEach(e=>{e!==t&&(e.classList.add("greyed-out"),e.classList.remove("active","auto-pulse"))}),t.classList.remove("greyed-out","auto-pulse"),t.classList.add("active"),cursorOutline.classList.remove("hovered"),o&&(o.classList.add("active"),updateProgress(),setTimeout(()=>{const e=o.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");e&&e.classList.add("visible")},400),setTimeout(()=>{const e=o.querySelector(".l3-menu, .l4-menu, .l5-menu");e&&(e.classList.add("visible"),setTimeout(()=>{e.querySelectorAll(".menu-item").forEach(e=>{e.classList.remove("auto-pulse"),void e.offsetWidth,e.classList.add("auto-pulse")})},400))},1200),setTimeout(()=>{if("app"===currentView){const e=o.querySelector(".selected-header");e&&window.scrollTo({top:Math.max(0,e.getBoundingClientRect().top+window.scrollY-60),behavior:"smooth"})}},400))}if(e.target.closest(".selected-header h2, .selected-header h3, .selected-header h4, .selected-header h5")){const t=e.target.closest(".selected-header").querySelector(".local-back-btn");t&&t.click()}const o=e.target.closest(".local-back-btn:not(#glossary-back-btn)");if(o){e.stopPropagation(),e.isTrusted&&playSound("click");const t=o.closest(".content-panel"),n=document.querySelector(`.menu-item[data-target="${t.id}"]`);o.classList.remove("visible"),cursorOutline.classList.remove("hovered"),t.classList.remove("active"),t.querySelectorAll(".l3-menu, .l4-menu, .l5-menu").forEach(e=>e.classList.remove("visible")),t.querySelectorAll(".content-panel.active > .content-panel-inner > .selected-header > .local-back-btn").forEach(e=>e.click()),n.classList.remove("active"),updateProgress(),setTimeout(()=>{n.closest(".menu-row").querySelectorAll(".menu-item").forEach(e=>e.classList.remove("greyed-out"))},600),setTimeout(()=>{if("app"===currentView){const e=t.parentElement.closest(".content-panel");if(e){const t=e.querySelector(".selected-header");t?window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+window.scrollY-60),behavior:"smooth"}):window.scrollTo({top:0,behavior:"smooth"})}}},400)}const n=e.target.closest(".glossary-item");if(n){const t=flatGlossary[n.getAttribute("data-gid")];if(t){"glossary"===currentView?(glossaryListScroll=window.scrollY,glossarySourceView="glossary",window.scrollTo({top:0,behavior:"instant"})):(glossarySourceView=currentView,switchView("glossary"));const e=document.getElementById("main-breadcrumbs");e.innerHTML="",t.breadcrumbs.forEach((o,n)=>{const c=t.breadcrumbs.length-n,l=document.createElement("span");l.className="breadcrumb-layer",c>=3?(l.style.fontSize="0.85rem",l.style.opacity="0.6"):2===c?(l.style.fontSize="0.95rem",l.style.opacity="0.8"):1===c&&(l.style.fontSize="1.05rem",l.style.opacity="1"),l.textContent=o.split(":")[0].trim(),e.appendChild(l);if(n<t.breadcrumbs.length-1){const t=document.createElement("span");t.innerHTML="&nbsp;&gt;&nbsp;",t.style.opacity="0.4",e.appendChild(t)}}),e.classList.add("visible"),document.getElementById("toggle-module-layout-btn").classList.remove("visible"),document.getElementById("footer").classList.remove("header-mode"),document.getElementById("footer").style.display="none",document.getElementById("g-title").textContent=t.title,document.getElementById("g-desc").innerHTML=t.desc,document.getElementById("glossary-list-view").style.display="none",document.getElementById("glossary-detail-view").style.display="flex",document.getElementById("glossary-detail-view").animate([{opacity:0,transform:"translateY(10px)"},{opacity:1,transform:"translateY(0)"}],{duration:600,easing:"ease",fill:"forwards"})}}if(e.target.closest("#glossary-back-btn"))e.stopPropagation(),e.isTrusted&&playSound("click"),document.getElementById("main-breadcrumbs").classList.remove("visible"),"glossary"!==glossarySourceView?(switchView(glossarySourceView),setTimeout(()=>{document.getElementById("glossary-list-view").style.display="block",document.getElementById("glossary-detail-view").style.display="none"},600)):(document.getElementById("glossary-list-view").style.display="block",document.getElementById("glossary-detail-view").style.display="none",document.getElementById("toggle-module-layout-btn").classList.add("visible"),document.getElementById("footer").classList.add("header-mode"),document.getElementById("footer").style.display="block",requestAnimationFrame(()=>window.scrollTo({top:glossaryListScroll,behavior:"instant"})),document.getElementById("glossary-list-view").animate([{opacity:0},{opacity:1}],{duration:600,easing:"ease",fill:"forwards"}));if(e.target.closest("#maximal-list-view .single-arrow")){e.stopPropagation(),e.isTrusted&&playSound("click");const t=e.target.closest("li"),o=!t.querySelector(":scope > .max-header .max-arrows .single-arrow").classList.contains("collapsed");setMaxState(t,o?0:1),setTimeout(updateProgress,400)}if(e.target.closest("#maximal-list-view .double-arrow")){e.stopPropagation(),e.isTrusted&&playSound("click");const t=e.target.closest("li"),o=!t.querySelector(":scope > .max-header .max-arrows .double-arrow").classList.contains("collapsed");setMaxState(t,o?0:2),setTimeout(updateProgress,400)}if(e.target.closest("#maximal-list-view .triple-arrow")){e.stopPropagation(),e.isTrusted&&playSound("click");const t=e.target.closest("li"),o=!t.querySelector(":scope > .max-header .max-arrows .triple-arrow").classList.contains("collapsed");setMaxState(t,o?0:3),setTimeout(updateProgress,400)}const l=e.target.closest(".map-arrow");if(l){e.stopPropagation(),e.isTrusted&&playSound("click");const t=l.closest("li"),o=l.classList.contains("collapsed");l.classList.contains("map-single-arrow")?setMapState(t,o?1:0):l.classList.contains("map-double-arrow")?setMapState(t,o?2:0):l.classList.contains("map-triple-arrow")&&setMapState(t,o?3:0),setTimeout(resetMapView,50),setTimeout(updateProgress,400)}const c=e.target.closest("[data-trigger]:not(.nav-item)");if(c){e.stopPropagation();const t=c.getAttribute("data-trigger");instantResetAppView(),switchView("app"),setTimeout(()=>{if(document.getElementById("title").click(),"root"===t)return void updateProgress();setTimeout(()=>{const o=t.split("-"),n=[];o.length>=2&&n.push(`s2-${o[1]}`),o.length>=3&&n.push(`s3-${o[1]}-${o[2]}`),o.length>=4&&n.push(`s4-${o[1]}-${o[2]}-${o[3]}`),o.length>=5&&n.push(`s5-${o[1]}-${o[2]}-${o[3]}-${o[4]}`);!function e(t){if(t>=n.length)return;const o=document.querySelector(`.menu-row .menu-item[data-target="${n[t]}"]`);o&&!o.classList.contains("active")?(o.click(),setTimeout(()=>e(t+1),1300)):e(t+1)}(0)},1300)},100)}});
