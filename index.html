@@ -566,7 +566,7 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
 
     <div id="gen-tab-chain" class="gen-tab-content" style="display: none; width: 100%;">
         <div style="width: 100%; max-width: 1200px; margin-top: 0; position: relative; display: flex; justify-content: center; align-self: center;">
-            <svg id="gen-chain-svg" viewBox="-320 57 1808 987" style="width: 100%; height: auto; max-height: 77vh; overflow: visible;">
+            <svg id="gen-chain-svg" viewBox="-400 71.25 2260 1233.75" style="width: 100%; height: auto; max-height: 77vh; overflow: visible;">
                 <defs>
                     <marker id="gen-arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto-start-reverse" markerUnits="strokeWidth">
                         <path d="M0,0 L0,6 L9,3 z" fill="var(--indicator-color-solid)" />
@@ -583,7 +583,7 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
 
     <div id="gen-tab-categories" class="gen-tab-content" style="display: none; width: 100%;">
         <div style="width: 100vw; max-width: 100vw; margin-top: 0; margin-left: calc(50% - 50vw); position: relative; display: flex; justify-content: center; align-self: center; box-sizing: border-box; padding: 0 2rem;">
-            <svg id="gen-categories-svg" viewBox="-15 57 2280 1360" style="width: 100%; max-width: 1460px; height: auto; max-height: 78vh; overflow: visible;">
+            <svg id="gen-categories-svg" viewBox="-18.75 71.25 2460 1220" style="width: 100%; max-width: 1460px; height: auto; max-height: 78vh; overflow: visible;">
                 <g id="gen-categories-nodes"></g>
             </svg>
         </div>
@@ -937,6 +937,7 @@ hexNodesData.forEach(n => {
     </g>`;
 });
 document.getElementById('hex-nodes-layer').innerHTML = hexNodesHtml;
+setTimeout(()=>{const d=document.querySelector('.hex-edge-group[data-edge="ai-geo"], .hex-edge-group[data-edge="geo-ai"]');d&&d.dispatchEvent(new MouseEvent("click",{bubbles:!0}));},50);
 
 // Setup Attractors Map
 const attrStartX = 500, attrStartY = 750;
@@ -1120,10 +1121,10 @@ const genConceptById = {};
 genConcepts.forEach(c => genConceptById[c.id] = c);
 
 const genFlowPos = {
-    'exp-tech-accel': {x:250, y:125}, 'abstraction-cycle': {x:750, y:125}, 'collective-alienation': {x:1250, y:125},
-    'arms-races': {x:250, y:400}, 'embedded-growth': {x:750, y:400}, 'left-hemispheric': {x:1250, y:400},
-    'multipolar-traps': {x:250, y:675}, 'narrow-metric-chain': {x:750, y:675}, 'life-blind-search': {x:1250, y:675},
-    'structural-separation': {x:250, y:950}, 'isolated-problem-solving': {x:750, y:950}, 'reductionist-modelling': {x:1250, y:950}
+    'exp-tech-accel': {x:312.5, y:156.25}, 'abstraction-cycle': {x:937.5, y:156.25}, 'collective-alienation': {x:1562.5, y:156.25},
+    'arms-races': {x:312.5, y:500}, 'embedded-growth': {x:937.5, y:500}, 'left-hemispheric': {x:1562.5, y:500},
+    'multipolar-traps': {x:312.5, y:843.75}, 'narrow-metric-chain': {x:937.5, y:843.75}, 'life-blind-search': {x:1562.5, y:843.75},
+    'structural-separation': {x:312.5, y:1187.5}, 'isolated-problem-solving': {x:937.5, y:1187.5}, 'reductionist-modelling': {x:1562.5, y:1187.5}
 };
 
 const genChainLanes = [
@@ -1140,6 +1141,12 @@ const genCategoryGroups = [
     {label: 'Cultural-Psychological', ids: ['left-hemispheric', 'modernist-paradigm', 'scarcity-rivalry', 'psychopathic-selection', 'collective-alienation']},
     {label: 'Ontological-Phenomenological', ids: ['structural-separation', 'isolated-problem-solving', 'reductionist-modelling']},
     {label: 'Mytho-Poetic', ids: ['wisdom-gaps', 'moloch']}
+];
+const genCategoryRowLayout = [
+    ['Cultural-Psychological'],
+    ['Systems-Theoretic', 'Techno-Economic'],
+    ['Ontological-Phenomenological', 'Game-Theoretic'],
+    ['Behavioural-Economic', 'Mytho-Poetic']
 ];
 
 const genChainEdges = [
@@ -1270,22 +1277,26 @@ function renderGenRadial() {
 }
 
 function drawGenEdgeLine(x1, y1, x2, y2, extra) {
-    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--indicator-color-solid)" stroke-width="2" marker-start="url(#gen-arrowhead)" marker-end="url(#gen-arrowhead)" ${extra||''} />`;
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--indicator-color-solid)" stroke-width="2.5" marker-start="url(#gen-arrowhead)" marker-end="url(#gen-arrowhead)" ${extra||''} />`;
 }
 
-function genCatRowLabelHtml(y, h, label) {
-    return `<foreignObject x="0" y="${y - h/2}" width="330" height="${h}">
-        <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; box-sizing:border-box; display:flex; align-items:center; justify-content:flex-end; text-align:right; text-transform:uppercase; font-size:1.275rem; letter-spacing:0.06em; font-weight:600; opacity:0.7; border-right:4px solid var(--interactive-color); padding-right:1.8rem; line-height:1.3; color:var(--text-color); font-family:var(--font-primary);">${label}</div>
+function genCatBracketLabelHtml(x1, x2, lineY, tick, label) {
+    return `<line x1="${x1}" y1="${lineY - tick}" x2="${x1}" y2="${lineY}" stroke="var(--interactive-color)" stroke-width="5" stroke-linecap="round" />
+    <line x1="${x2}" y1="${lineY - tick}" x2="${x2}" y2="${lineY}" stroke="var(--interactive-color)" stroke-width="5" stroke-linecap="round" />
+    <line x1="${x1}" y1="${lineY}" x2="${x2}" y2="${lineY}" stroke="var(--interactive-color)" stroke-width="5" stroke-linecap="round" />
+    <foreignObject x="${x1}" y="${lineY + 12}" width="${x2 - x1}" height="70">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; box-sizing:border-box; display:flex; align-items:flex-start; justify-content:center; text-align:center; text-transform:uppercase; font-size:1.4rem; letter-spacing:0.05em; font-weight:600; opacity:0.7; color:var(--text-color); font-family:var(--font-primary); line-height:1.25;">${label}</div>
     </foreignObject>`;
 }
 
-const genCatRowBoxW = 345, genCatRowBoxH = 120, genCatRowGap = 30, genCatRowPitch = genCatRowBoxW + genCatRowGap, genCatRowContentX = 375;
+const genCatRowBoxW = 431.25, genCatRowBoxH = 150, genCatRowGap = 37.5, genCatRowPitch = genCatRowBoxW + genCatRowGap;
+const genCatBracketGap = 20, genCatBracketTick = 20, genCatRowStartY = 168.75, genCatRowPitchY = 300;
 
-const genChainBoxW = 400, genChainBoxH = 112, genChainLanePad = 26;
+const genChainBoxW = 500, genChainBoxH = 140, genChainLanePad = 32.5;
 const genChainLevelLabels = ['Geopolitical / Macroeconomic / Mass-Psychological', 'Game / Systems / Evolutionary Theory', 'Ontological / Phenomenological'];
 function genChainRowLabelHtml(y, h, label) {
-    return `<foreignObject x="-320" y="${y - h/2}" width="300" height="${h}">
-        <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; box-sizing:border-box; display:flex; align-items:center; justify-content:flex-end; text-align:right; text-transform:uppercase; font-size:1rem; letter-spacing:0.05em; font-weight:600; opacity:0.7; border-right:4px solid var(--interactive-color); padding-right:1.8rem; line-height:1.35; color:var(--text-color); font-family:var(--font-primary);">${label}</div>
+    return `<foreignObject x="-400" y="${y - h/2}" width="375" height="${h}">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; box-sizing:border-box; display:flex; align-items:center; justify-content:flex-end; text-align:right; text-transform:uppercase; font-size:1.25rem; letter-spacing:0.05em; font-weight:600; opacity:0.7; border-right:5px solid var(--interactive-color); padding-right:2.25rem; line-height:1.35; color:var(--text-color); font-family:var(--font-primary);">${label}</div>
     </foreignObject>`;
 }
 
@@ -1308,9 +1319,10 @@ function renderGenChain() {
     let originHtml = `<rect class="gen-chain-lane-bg" x="${originLeft}" y="${originTop}" width="${originRight - originLeft}" height="${originBottom - originTop}" rx="18" />`;
     originIds.forEach(id => {
         const p = genFlowPos[id];
-        originHtml += genNodeBoxHtml(id, p.x, p.y, genChainBoxW, genChainBoxH, {fontSize: '1.1rem', interactive: false});
+        originHtml += genNodeBoxHtml(id, p.x, p.y, genChainBoxW, genChainBoxH, {fontSize: '1.375rem', interactive: false});
     });
     let nodesHtml = `<g class="gen-chain-lane hoverable" data-lane="origin" style="cursor:pointer;">${originHtml}</g>`;
+    nodesHtml += genChainRowLabelHtml(originY, genChainBoxH, 'Emergent Civilisational Patterns');
 
     genChainLevelLabels.forEach((label, i) => {
         const y = genFlowPos[genChainLanes[0].ids[i]].y;
@@ -1328,7 +1340,7 @@ function renderGenChain() {
         let laneHtml = `<rect class="gen-chain-lane-bg" x="${bgX}" y="${topY}" width="${bgW}" height="${bottomY - topY}" rx="18" />`;
         lane.ids.forEach(id => {
             const p = genFlowPos[id];
-            laneHtml += genNodeBoxHtml(id, p.x, p.y, genChainBoxW, genChainBoxH, {fontSize: '1.1rem', interactive: false});
+            laneHtml += genNodeBoxHtml(id, p.x, p.y, genChainBoxW, genChainBoxH, {fontSize: '1.375rem', interactive: false});
         });
         nodesHtml += `<g class="gen-chain-lane hoverable" data-lane="${i}" style="cursor:pointer;">${laneHtml}</g>`;
     });
@@ -1337,12 +1349,22 @@ function renderGenChain() {
 
 function renderGenCategories() {
     let nodesHtml = '';
-    genCategoryGroups.forEach((grp, i) => {
-        const y = 135 + i * 195;
-        nodesHtml += genCatRowLabelHtml(y, genCatRowBoxH, grp.label);
-        grp.ids.forEach((id, j) => {
-            const x = genCatRowContentX + j * genCatRowPitch + genCatRowBoxW / 2;
-            nodesHtml += genNodeBoxHtml(id, x, y, genCatRowBoxW, genCatRowBoxH, {fontSize: '1.275rem'});
+    const groupsByLabel = {};
+    genCategoryGroups.forEach(g => groupsByLabel[g.label] = g);
+    const genCatBlockGap = 150;
+    genCategoryRowLayout.forEach((rowLabels, i) => {
+        const y = genCatRowStartY + i * genCatRowPitchY;
+        let xOffset = 0;
+        rowLabels.forEach(label => {
+            const grp = groupsByLabel[label];
+            const blockWidth = grp.ids.length * genCatRowPitch - genCatRowGap;
+            grp.ids.forEach((id, j) => {
+                const x = xOffset + j * genCatRowPitch + genCatRowBoxW / 2;
+                nodesHtml += genNodeBoxHtml(id, x, y, genCatRowBoxW, genCatRowBoxH, {fontSize: '1.6rem'});
+            });
+            const lineY = y + genCatRowBoxH / 2 + genCatBracketGap + genCatBracketTick;
+            nodesHtml += genCatBracketLabelHtml(xOffset, xOffset + blockWidth, lineY, genCatBracketTick, grp.label);
+            xOffset += blockWidth + genCatBlockGap;
         });
     });
     document.getElementById('gen-categories-nodes').innerHTML = nodesHtml;
@@ -1550,6 +1572,9 @@ if("attr-tab-interconnections"===t&&!document.querySelector(".attr-tri-edge.acti
 }
 if("attr-tab-matrix"===t&&!document.querySelector(".attr-matrix-cell.active")){
     setTimeout(()=>{const d=document.querySelector('.attr-matrix-cell[data-quadrant="mutual-reinforcement"]');d&&d.dispatchEvent(new MouseEvent("click",{bubbles:!0}));},350);
+}
+if("gen-tab-chain"===t&&!document.querySelector(".gen-chain-lane.active")){
+    setTimeout(()=>{const d=document.querySelector('.gen-chain-lane[data-lane="origin"]');d&&d.dispatchEvent(new MouseEvent("click",{bubbles:!0}));},350);
 }
 const genTabCopy={
     "gen-tab-verticals":{title:"Generative Dynamics: Verticals",subtitle:"A hierarchical mapping of the structural traps driving civilisation towards catastrophe."},
