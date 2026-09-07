@@ -19,7 +19,7 @@ body.left-menu-open #hamburger-btn { opacity: 0; pointer-events: none; transform
 #bottom-left-controls{position:fixed;bottom:2rem;left:2rem;z-index:100;display:flex;flex-direction:column;gap:1.25rem;align-items:flex-start; transform: translateX(-20px); opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);}
 body.left-menu-open.hud-ready #bottom-left-controls { transform: translateX(0); opacity: 1; pointer-events: auto; }
 
-.nav-item{display:flex;align-items:center;gap:.8rem;} .nav-toggle-btn{width:28px;height:28px;color:var(--text-color);transition:color .4s ease,transform .2s ease;display:flex;align-items:center;justify-content:center;} .nav-item:hover .nav-toggle-btn{transform:scale(1.1);} .nav-label{font-family:var(--font-primary);font-size:.7rem;letter-spacing:.1em;color:var(--text-color);transition:color .4s ease;padding-bottom:2px;} .nav-item.active .nav-toggle-btn,.nav-item.active .nav-label{color:var(--interactive-color);} .nav-item.active .clickable-indicator::after{transform:scaleX(1);transform-origin:left;} .nav-divider{width:100%;height:2px;background-color:var(--indicator-color-solid);margin:0.25rem 0;transition:background-color .4s ease;border-radius:2px;}
+.nav-item{display:flex;align-items:center;gap:.8rem;} .nav-toggle-btn{width:28px;height:28px;color:var(--text-color);transition:color .4s ease,transform .2s ease;display:flex;align-items:center;justify-content:center;} .nav-item:hover .nav-toggle-btn{transform:scale(1.1);} .nav-label{font-family:var(--font-primary);font-size:.82rem;letter-spacing:.1em;color:var(--text-color);transition:color .4s ease;padding-bottom:2px;} .nav-item.active .nav-toggle-btn,.nav-item.active .nav-label{color:var(--interactive-color);} .nav-item.active .clickable-indicator::after{transform:scaleX(1);transform-origin:left;} .nav-divider{width:100%;height:2px;background-color:var(--indicator-color-solid);margin:0.25rem 0;transition:background-color .4s ease;border-radius:2px;}
 #site-title{position:fixed;top:2rem;right:calc(2rem + 36px + .85rem);height:36px;display:flex;align-items:center;font-family:var(--font-primary);font-weight:700;font-size:1.15rem;letter-spacing:-.01em;color:var(--text-color);white-space:nowrap;z-index:100;transition:opacity 1.2s ease,color .4s ease;}
 #toggle-container{position:fixed;top:2rem;right:2rem;width:36px;height:36px;display:flex;justify-content:center;align-items:center;z-index:100;} #theme-toggle{position:absolute;width:12px;height:12px;border-radius:2px;background-color:var(--toggle-color);border:none;transition:transform .2s ease,background-color .4s ease;z-index:2;transform:rotate(45deg);} #theme-toggle:hover{transform:rotate(45deg) scale(1.15);} #accent-toggle{position:absolute;width:32px;height:32px;border-radius:50%;background:transparent;border:3px solid var(--ring-color);transition:border-color .4s ease;z-index:1;}
 #scroll-progress-container{position:fixed;top:0;right:0;width:12px;height:100vh;background-color:var(--indicator-color);z-index:1000;opacity:0;pointer-events:none;} #scroll-progress-container.active{opacity:1;} #scroll-progress-fill{width:100%;height:0%;background-color:var(--interactive-color);transition:background-color .4s ease;} body[data-view="app"] #scroll-progress-fill{transition:height .6s cubic-bezier(0.4,0,0.2,1),background-color .4s ease;}
@@ -43,9 +43,9 @@ body.left-menu-open.hud-ready #bottom-left-controls { transform: translateX(0); 
 .map-node-wrapper{display:inline-flex;flex-direction:column;align-items:center;position:relative;z-index:2;} .css-tree.horizontal .map-node-wrapper{flex-direction:row;} .map-arrows{display:flex;align-items:center;gap:.25rem;margin-top:6px;} .css-tree.horizontal .map-arrows{margin-top:0;margin-left:6px;flex-direction:column;} .map-arrow{display:flex;align-items:center;justify-content:center;cursor:none;color:var(--indicator-color-solid);transition:all .3s ease;background:var(--bg-color);border-radius:50%;border:2px solid var(--indicator-color-solid);width:20px;height:20px;transform:rotate(180deg); flex-shrink: 0;} .map-arrow:hover{color:var(--interactive-color);border-color:var(--interactive-color);transform:scale(1.1) rotate(180deg);} .map-arrow.collapsed{transform:rotate(0deg);} .map-arrow.collapsed:hover{transform:scale(1.1) rotate(0deg);} .css-tree.horizontal .map-arrow{transform:rotate(90deg);} .css-tree.horizontal .map-arrow:hover{transform:scale(1.1) rotate(90deg);} .css-tree.horizontal .map-arrow.collapsed{transform:rotate(-90deg);} .css-tree.horizontal .map-arrow.collapsed:hover{transform:scale(1.1) rotate(-90deg);} .map-arrow svg{width:12px;height:12px;min-width:12px;min-height:12px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;} .css-tree li.collapsed>ul{display:none!important;}
 /* --- Module View Styles --- */
 #glossary-list-view{width:100%;max-width:1200px;display:flex;flex-direction:column;padding-bottom:4rem;} .module-grid{display:grid;gap:2rem;width:100%;margin:0 auto;align-items:start;} .module-main-title{font-size:2.5rem;font-weight:600;} .module-entry-count{font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;opacity:0.6;margin-top:1.5rem;margin-bottom:3rem;}
-.module-grid.three-col{grid-template-columns:repeat(3,1fr);} .module-grid.two-col{grid-template-columns:repeat(2,1fr);} .module-grid.single-col{grid-template-columns:1fr;max-width:800px;} .module-heading{display:block;margin-bottom:1.5rem;font-size:1.3rem;font-weight:600;} .module-section-divider{width:100%;border-top:1px solid var(--indicator-color);margin:3rem 0;opacity:0.5;} .module-nav{display:flex;flex-wrap:wrap;column-gap:2rem;row-gap:0.75rem;width:100%;margin:2rem 0 3rem 0;} .module-nav-item{font-size:0.95rem;font-weight:500;} .module-col{display:flex;flex-direction:column;width:100%;} .module-grid .archive-list{margin-top:0;} .archive-list{list-style:none;padding-left:0;margin:0;width:100%;} .archive-list li{padding-left:1.2rem;margin:0.55rem 0;} .archive-list li>.glossary-item{position:relative;}
-.archive-list li>.glossary-item::before{content:"●";position:absolute;left:-1.2rem;top:50%;transform:translateY(-50%);font-size:0.8em;line-height:1;color:var(--text-color);opacity:1;} .archive-list ul{list-style:none;padding-left:1.2rem;margin:0.4rem 0;} .archive-list ul li>.glossary-item::before{content:"○";font-size:0.8em;} .archive-list ul ul li>.glossary-item::before{content:"□";font-size:0.7em;} .archive-list ul ul ul li>.glossary-item::before,.archive-list ul ul ul ul li>.glossary-item::before,.archive-list ul ul ul ul ul li>.glossary-item::before{content:"▷";font-size:0.75em;} .archive-divider{list-style:none;height:0;border:none;margin:0.9rem 0;} .glossary-item{transition:color .3s ease;display:inline-block;} .glossary-item:hover{color:var(--interactive-color);} .archive-list>li>.glossary-item{font-size:1.15rem;font-weight:500;} .archive-list>li>ul>li>.glossary-item{font-size:1.05rem;font-weight:500;} .archive-list>li>ul>li>ul>li>.glossary-item{font-size:0.95rem;} .archive-list>li>ul>li>ul>li>ul>li>.glossary-item{font-size:0.9rem;} .archive-list>li>ul>li>ul>li>ul>li>ul>li>.glossary-item{font-size:0.85rem;} .archive-list>li>ul>li>ul>li>ul>li>ul>li>ul>li>.glossary-item{font-size:0.8rem;}
-#glossary-detail-view{display:none;flex-direction:column;align-items:flex-start;width:100%;max-width:800px;margin:0 auto;padding-bottom:4rem;position:relative;padding-left:60px;box-sizing:border-box;} #g-breadcrumbs{font-family:var(--font-primary);text-transform:uppercase;font-size:.85rem;letter-spacing:.1em;color:var(--interactive-color);display:flex;flex-wrap:wrap;align-items:center;margin-bottom:.5rem;} .g-header-row{position:relative;display:flex;align-items:center;margin-bottom:1rem;width:100%;} .focused-title{font-size:3.5rem;font-weight:500;margin:0;text-align:left;letter-spacing:-.02em;line-height:1.1;} #glossary-back-btn{position:absolute;left:-60px;border-radius:50%;background:transparent;border:2px solid var(--indicator-color-solid);color:var(--interactive-color);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .3s ease;flex-shrink:0;} #glossary-back-btn:hover{border-color:var(--interactive-color);transform:scale(1.15);} #g-desc{font-size:1.4rem;text-align:left;line-height:1.6;width:100%;margin-top:0;} .g-source{font-size:0.9rem;font-style:italic;opacity:0.65;margin-top:1.5rem;line-height:1.5;} .g-references{margin-top:2rem;} .g-references-heading{font-family:var(--font-primary);font-size:1.1rem;font-weight:600;margin:0 0 0.75rem 0;} .g-references-list{list-style:none;padding-left:0;margin:0;} .g-references-list li{font-size:0.95rem;line-height:1.6;margin:0.4rem 0;opacity:0.85;}
+.module-grid.three-col{grid-template-columns:repeat(3,1fr);} .module-grid.two-col{grid-template-columns:repeat(2,1fr);} .module-grid.single-col{grid-template-columns:1fr;max-width:800px;} .module-heading{display:block;margin-bottom:1.5rem;font-size:1.3rem;font-weight:600;} .module-section-divider{width:100%;border-top:1px solid var(--indicator-color);margin:3rem 0;opacity:0.5;} .module-nav{display:flex;flex-wrap:wrap;column-gap:2rem;row-gap:0.75rem;width:100%;margin:2rem 0 3rem 0;} .module-nav-item{font-size:0.95rem;font-weight:500;opacity:0.55;transition:opacity 0.3s ease,color 0.3s ease;} .module-nav-item:hover{opacity:0.85;} .module-col{display:flex;flex-direction:column;width:100%;} .module-grid .archive-list{margin-top:0;} .archive-list{list-style:none;padding-left:0;margin:0;width:100%;} .archive-list li{padding-left:1.2rem;margin:0.55rem 0;} .archive-list li>.glossary-item{position:relative;}
+.archive-list li>.glossary-item::before{content:"●";position:absolute;left:-1.2rem;top:50%;transform:translateY(-50%);font-size:0.8em;line-height:1;color:var(--interactive-color);opacity:1;} .archive-list ul{list-style:none;padding-left:1.2rem;margin:0.4rem 0;} .archive-list ul li>.glossary-item::before{content:"○";font-size:0.8em;} .archive-list ul ul li>.glossary-item::before{content:"□";font-size:0.7em;} .archive-list ul ul ul li>.glossary-item::before,.archive-list ul ul ul ul li>.glossary-item::before,.archive-list ul ul ul ul ul li>.glossary-item::before{content:"▷";font-size:0.75em;} .archive-divider{list-style:none;height:0;border:none;margin:0.9rem 0;} .glossary-item{transition:color .3s ease;display:inline-block;} .glossary-item:hover{color:var(--interactive-color);} .archive-list>li>.glossary-item{font-size:1.15rem;font-weight:500;} .archive-list>li>ul>li>.glossary-item{font-size:1.05rem;font-weight:500;} .archive-list>li>ul>li>ul>li>.glossary-item{font-size:0.95rem;} .archive-list>li>ul>li>ul>li>ul>li>.glossary-item{font-size:0.9rem;} .archive-list>li>ul>li>ul>li>ul>li>ul>li>.glossary-item{font-size:0.85rem;} .archive-list>li>ul>li>ul>li>ul>li>ul>li>ul>li>.glossary-item{font-size:0.8rem;}
+#glossary-detail-view{display:none;flex-direction:column;align-items:flex-start;width:100%;max-width:800px;margin:0 auto;padding-bottom:4rem;position:relative;padding-left:60px;box-sizing:border-box;} #g-breadcrumbs{font-family:var(--font-primary);text-transform:uppercase;font-size:.85rem;letter-spacing:.1em;color:var(--text-color);display:flex;flex-wrap:wrap;align-items:center;margin-bottom:.5rem;} .g-header-row{position:relative;display:flex;align-items:center;margin-bottom:1rem;width:100%;} .focused-title{font-size:3.5rem;font-weight:500;margin:0;text-align:left;letter-spacing:-.02em;line-height:1.1;} #glossary-back-btn{position:absolute;left:-60px;border-radius:50%;background:transparent;border:2px solid var(--indicator-color-solid);color:var(--interactive-color);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .3s ease;flex-shrink:0;} #glossary-back-btn:hover{border-color:var(--interactive-color);transform:scale(1.15);} #g-desc{font-size:1.4rem;text-align:left;line-height:1.6;width:100%;margin-top:0;} .g-source{font-size:0.9rem;font-style:italic;opacity:0.65;margin-top:1.5rem;line-height:1.5;} .g-source-link{color:var(--text-color);transition:color .3s ease;} .g-source-link:hover{color:var(--interactive-color);} .g-references{margin-top:2rem;} .g-references-heading{font-family:var(--font-primary);font-size:1.1rem;font-weight:600;margin:0 0 0.75rem 0;} .g-references-list{list-style:none;padding-left:0;margin:0;} .g-references-list li{font-size:0.95rem;line-height:1.6;margin:0.4rem 0;opacity:0.85;}
 
 /* --- Maximal View Styles --- */
 #maximal-list-view{width:100%;max-width:900px;display:flex;flex-direction:column;text-align:left;padding-top:2rem;padding-bottom:4rem;} .maximal-list{list-style:none;padding-left:0;margin:0;width:100%;} .maximal-list ul{list-style:none;padding-left:2rem;margin-left:1rem;border-left:2px solid var(--interactive-color);margin-top:.5rem;margin-bottom:1.5rem;} .maximal-list li{margin:1rem 0;} .max-title{color:var(--text-color);font-weight:500;transition:color .4s ease;display:inline-block;margin-bottom:0;} .max-title:hover{color:var(--interactive-color);} .max-desc{font-weight:400;line-height:1.6;color:var(--text-color);opacity:.95;margin:0;font-size:1.15rem;} .max-desc ul{border-left:none;margin-left:0;padding-left:1.5rem;margin-top:.5rem;} .max-desc li{margin:.5rem 0;} .maximal-list .max-header .max-title{font-size:2.2rem;} .maximal-list ul .max-header .max-title{font-size:1.8rem;} .maximal-list ul ul .max-header .max-title{font-size:1.5rem;} .maximal-list ul ul ul .max-header .max-title{font-size:1.3rem;} .maximal-list ul ul ul ul .max-header .max-title{font-size:1.15rem;} .maximal-list ul ul ul .max-desc{font-size:1.1rem;opacity:.95;} .maximal-list ul ul ul ul .max-desc{font-size:1.05rem;opacity:.9;}
@@ -58,43 +58,51 @@ body.left-menu-open.hud-ready #bottom-left-controls { transform: translateX(0); 
 .hex-edge-group:hover .hex-arrow-vis, .hex-edge-group.active .hex-arrow-vis, .attr-edge-group:hover .attr-arrow-vis, .attr-edge-group.active .attr-arrow-vis, .attr-tri-edge:hover .attr-tri-arrow, .attr-tri-edge.active .attr-tri-arrow { stroke: var(--interactive-color) !important; stroke-width: 5.5px !important; }
 .attr-node circle { transition: all 0.3s ease; }
 .attr-node:hover circle, .attr-node.active circle { stroke: var(--interactive-color) !important; stroke-width: 6px !important; }
+.gen-concept-node rect { transition: all 0.3s ease; }
+.gen-concept-node:hover rect, .gen-concept-node.active rect { stroke: var(--interactive-color) !important; stroke-width: 3px !important; }
+.gen-edge-group .gen-edge-line-vis { transition: all 0.3s ease; }
+.gen-edge-group:hover .gen-edge-line-vis, .gen-edge-group.active .gen-edge-line-vis { stroke: var(--interactive-color) !important; stroke-width: 3.5px !important; opacity: 1 !important; }
+#gen-ic-radial-svg .gen-edge-line-vis { opacity: 0.15; }
+.gen-chain-box rect { transition: all 0.3s ease; }
+.gen-chain-lane-bg { fill: var(--text-color); opacity: 0.04; stroke: transparent; stroke-width: 2px; transition: all 0.3s ease; }
+.gen-chain-lane:hover .gen-chain-box rect, .gen-chain-lane.active .gen-chain-box rect { stroke: var(--interactive-color) !important; stroke-width: 3px !important; }
+.gen-chain-lane:hover .gen-chain-lane-bg, .gen-chain-lane.active .gen-chain-lane-bg { opacity: 0.08; stroke: var(--interactive-color); }
 .attr-precursors-box { width: 100%; max-width: 1200px; margin-top: 0; align-self: center; box-sizing: border-box; }
 .attr-precursors-heading { font-family: var(--font-primary); font-size: 1.3rem; font-weight: 600; margin-bottom: 1.5rem; }
 .attr-precursors-grid { display: flex; flex-direction: column; gap: 4rem; }
 .attr-precursor-row { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; align-items: stretch; }
-.attr-precursor-label { text-align: right; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.08em; font-weight: 600; opacity: 0.6; border-right: 2px solid var(--indicator-color-solid); padding-right: 1.5rem; line-height: 1.4; }
+.attr-precursor-label { text-align: right; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.08em; font-weight: 600; opacity: 0.6; border-right: 2px solid var(--interactive-color); padding-right: 1.5rem; line-height: 1.4; }
 .attr-precursor-content { max-width: 760px; box-sizing: border-box; }
 .attr-precursor-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.6rem; }
 .attr-precursor-desc { font-size: 1.1rem; line-height: 1.65; opacity: 0.85; }
 .attr-precursor-terms { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; }
 .attr-precursor-term { font-size: 1.1rem; line-height: 1.65; opacity: 0.85; }
 .attr-precursor-term-name { font-weight: 600; opacity: 1; }
+.attr-precursor-works { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
 .attr-matrix-wrap { width: 100%; max-width: 1200px; align-self: center; margin: 2rem auto 0 auto; box-sizing: border-box; }
-.attr-matrix-grid { display: grid; grid-template-columns: 240px 1fr 1fr; grid-template-rows: auto 1fr 1fr; }
-.attr-matrix-colhead { font-style: italic; font-size: 1.1rem; opacity: 0.75; padding-bottom: 1.5rem; padding-left: 2rem; box-sizing: border-box; display: flex; align-items: flex-end; }
+.attr-matrix-table { border-collapse: collapse; width: auto; table-layout: fixed; }
+.attr-matrix-corner { border: none; }
+.attr-matrix-colhead { font-style: italic; font-size: 1.1rem; opacity: 0.75; padding: 0 0 1.5rem 2rem; box-sizing: border-box; text-align: left; vertical-align: bottom; border: none; }
 .attr-matrix-colhead.tick { border-left: 3px solid var(--indicator-color-solid); }
-.attr-matrix-rowhead { display: flex; align-items: flex-start; justify-content: flex-end; text-align: right; font-style: italic; font-size: 1.1rem; opacity: 0.75; padding-right: 2rem; padding-top: 0.35rem; box-sizing: border-box; }
+.attr-matrix-rowhead { text-align: right; font-style: italic; font-size: 1.1rem; opacity: 0.75; padding: 0.35rem 2rem 0 0; box-sizing: border-box; vertical-align: top; border: none; }
 .attr-matrix-rowhead.tick { border-top: 3px solid var(--indicator-color-solid); }
-.attr-matrix-cell { min-height: 190px; padding: 2.25rem 2.5rem; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; cursor: pointer; transition: background-color 0.25s ease; }
+.attr-matrix-cell { min-height: 190px; padding: 2.25rem 1.75rem; box-sizing: border-box; cursor: pointer; transition: background-color 0.25s ease; border: 3px solid var(--indicator-color-solid); vertical-align: middle; text-align: left; }
 .attr-matrix-cell:hover { background: rgba(18,18,18,0.04); }
 :root[data-theme="dark"] .attr-matrix-cell:hover { background: rgba(255,255,255,0.06); }
 .attr-matrix-cell.active { background: rgba(18,18,18,0.06); }
 :root[data-theme="dark"] .attr-matrix-cell.active { background: rgba(255,255,255,0.1); }
-.attr-matrix-cell.tl { border-top: 3px solid var(--indicator-color-solid); border-left: 3px solid var(--indicator-color-solid); border-right: 3px solid var(--indicator-color-solid); border-bottom: 3px solid var(--indicator-color-solid); }
-.attr-matrix-cell.tr { border-top: 3px solid var(--indicator-color-solid); border-right: 3px solid var(--indicator-color-solid); border-bottom: 3px solid var(--indicator-color-solid); }
-.attr-matrix-cell.bl { border-left: 3px solid var(--indicator-color-solid); border-right: 3px solid var(--indicator-color-solid); border-bottom: 3px solid var(--indicator-color-solid); }
-.attr-matrix-cell.br { border-right: 3px solid var(--indicator-color-solid); border-bottom: 3px solid var(--indicator-color-solid); }
 .attr-matrix-cell-label { font-style: italic; font-size: 1.05rem; opacity: 0.75; margin-bottom: 0.5rem; }
 .attr-matrix-cell-title { font-size: 1.4rem; font-weight: 500; }
-.attr-matrix-x { color: #d97757; font-weight: 700; margin: 0 0.35rem; font-style: normal; }
+.attr-matrix-x { color: var(--interactive-color); font-weight: 700; margin: 0 0.35rem; font-style: normal; }
 
 /* --- Interaction Panel --- */
 .hex-main-title { font-size: 2.8rem; margin-bottom: 3rem; display: flex; align-items: center; justify-content: flex-start; gap: 1rem; width: 100%; }
 .hex-int-flow { display: grid; grid-template-columns: 160px 1fr; gap: 5rem 3rem; width: 100%; margin-top: 1rem; align-items: stretch; }
-.hex-int-side-label { display: flex; align-items: center; justify-content: flex-end; text-align: right; font-family: var(--font-primary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.1em; font-weight: 600; opacity: 0.7; border-right: 2px solid var(--indicator-color-solid); padding-right: 1.5rem; line-height: 1.4; color: var(--text-color); }
+.hex-int-side-label { display: flex; align-items: center; justify-content: flex-end; text-align: right; font-family: var(--font-primary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.1em; font-weight: 600; opacity: 0.7; border-right: 2px solid var(--interactive-color); padding-right: 1.5rem; line-height: 1.4; color: var(--text-color); }
 .hex-int-flow-content { display: flex; flex-direction: column; gap: 1.75rem; }
 .hex-int-block { max-width: 78%; box-sizing: border-box; }
 .hex-int-block.align-left, .hex-int-block.align-right { align-self: flex-start; text-align: left; }
+#attr-interconnect-content .hex-int-block.align-left, #attr-interconnect-content .hex-int-block.align-right { align-self: center; max-width: 700px; }
 .hex-int-flow-label { display: flex; align-items: center; font-size: 0.85rem; font-weight: 600; opacity: 1; margin-bottom: 0.6rem; letter-spacing: 0.02em; color: var(--text-color); }
 .hex-int-flow-label svg { width: 14px; height: 14px; flex-shrink: 0; margin: 0 5px; stroke: currentColor; }
 
@@ -108,9 +116,17 @@ body.app-left-align #app-container .desc-text { text-align: left !important; mar
 body.app-left-align #app-container .menu-row { justify-content: flex-start !important; }
 .hex-int-para { font-size: 1.05rem; line-height: 1.6; margin: 0; }
 
+/* --- Generators Interconnections Pair Panel --- */
+.gen-pair-title { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; width: 100%; margin-bottom: 2.5rem; text-align: center; }
+.gen-pair-title-item { font-size: 1.7rem; font-weight: 600; line-height: 1.3; max-width: 620px; font-family: var(--font-primary); color: var(--text-color); }
+.gen-pair-title svg { width: 20px; height: 20px; flex-shrink: 0; color: var(--text-color); opacity: 0.55; }
+.gen-pair-flow { display: flex; flex-direction: column; gap: 1.75rem; width: 100%; max-width: 720px; margin: 0 auto; }
+.gen-pair-flow-label { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--text-color); line-height: 1.4; }
+.gen-pair-arrow { opacity: 0.55; font-weight: 400; }
+.gen-pair-para { font-size: 1.05rem; line-height: 1.6; margin: 0; }
+
 /* --- Generators View Styles --- */
-.gen-tabs { display: flex; gap: 1.5rem; margin-top: 5rem; margin-bottom: 4rem; justify-content: flex-start; width: 100%; flex-wrap: wrap; align-items: center; }
-.gen-tab-content { transition: opacity 0.3s ease; }
+.gen-tab-content, .gen-subtab-content { transition: opacity 0.3s ease; }
 .gen-tab { background: transparent; border: 2px solid var(--indicator-color-solid); color: var(--text-color); padding: 0.75rem 1.75rem; border-radius: 30px; font-size: 1.1rem; font-family: inherit; font-weight: 500; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; }
 .gen-tab:hover, .gen-tab.active { border-color: var(--interactive-color); color: var(--interactive-color); } .gen-tab:hover { transform: translateY(-2px); }
 .gen-tab.active { background: rgba(18,18,18,0.05); }
@@ -121,6 +137,11 @@ body.app-left-align #app-container .menu-row { justify-content: flex-start !impo
 .attr-tabs .gen-tab:hover { opacity: 0.85; transform: none; }
 .attr-tabs .gen-tab.active { opacity: 1; color: var(--interactive-color); background: transparent; }
 :root[data-theme="dark"] .attr-tabs .gen-tab.active { background: transparent; }
+.gen-tab-dropdown-wrap { position: relative; }
+.gen-tab-dropdown { position: absolute; top: 100%; left: 0; margin-top: 0.4rem; padding-top: 0.4rem; display: flex; flex-direction: column; gap: 0.6rem; opacity: 0; pointer-events: none; transform: translateY(-6px); transition: opacity 0.25s ease, transform 0.25s ease; white-space: nowrap; }
+.gen-tab-dropdown-wrap:hover .gen-tab-dropdown, .gen-tab-dropdown-wrap:focus-within .gen-tab-dropdown { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.gen-subtab { background: transparent; border: none; color: var(--text-color); padding: 0; font-size: 0.82rem; font-family: inherit; font-weight: 500; opacity: 0.5; text-align: left; transition: opacity 0.3s ease, color 0.3s ease; }
+.gen-subtab:hover, .gen-subtab.active { opacity: 1; color: var(--interactive-color); }
 .corner-nav-fixed { position: fixed; top: 2rem; left: 2rem; z-index: 100; max-width: calc(100vw - 4rem); opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
 .corner-nav-fixed.visible { opacity: 1; pointer-events: auto; }
 .module-nav.corner-nav-fixed { width: auto; margin: 0; }
@@ -140,14 +161,14 @@ body.app-left-align #app-container .menu-row { justify-content: flex-start !impo
 .gen-local-toggle:hover.bottom { transform: translate(-50%, 50%) scale(1.15); }
 
 .gen-grid { display: grid; grid-template-columns: 160px 1fr; gap: 0 6rem; width: 100%; max-width: 1400px; margin: 0 auto; align-items: stretch; padding: 40px 2rem 40px 0; box-sizing: border-box; }
-.gen-side-cell { display: flex; align-items: center; justify-content: flex-end; text-align: right; font-family:var(--font-primary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.1em; font-weight: 600; opacity: 0.7; border-right: 2px solid var(--indicator-color-solid); padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem; line-height: 1.4; transition: opacity 0.4s ease; }
+.gen-side-cell { display: flex; align-items: center; justify-content: flex-end; text-align: right; font-family:var(--font-primary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.1em; font-weight: 600; opacity: 0.7; border-right: 2px solid var(--interactive-color); padding-right: 1.5rem; padding-top: 1rem; padding-bottom: 1rem; line-height: 1.4; transition: opacity 0.4s ease; }
 .gen-row { display: flex; justify-content: center; gap: 0; width: 100%; position: relative; z-index: 2; transition: opacity 0.4s ease; }
 .gen-node-wrapper { flex: 1 1 0; display: flex; justify-content: center; align-items: stretch; min-width: 0; position: relative; height: 100%; padding: 0 0.75rem; box-sizing: border-box; }
 .gen-conn-0, .gen-conn-1, .gen-conn-2, .gen-conn-0b, .gen-conn-1b { width: 100%; height: 100px; position: relative; z-index: 1; margin: -2px 0; transition: opacity 0.4s ease; }
 .gen-node { display: flex; flex-direction: column; text-align: left; width: 100%; max-width: 460px; min-width: 280px; padding: 1.25rem 1.5rem; align-items: flex-start; cursor: default; background: var(--bg-color); box-sizing: border-box; }
 .gen-node-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.8rem; line-height: 1.3; white-space: nowrap; text-align: center; width: 100%; }
 .gen-node.center-node { border-color: var(--interactive-color); }
-.gen-node.center-node .gen-node-title { color: var(--interactive-color); font-size: 1.35rem; }
+.gen-node.center-node .gen-node-title { font-size: 1.35rem; }
 .gen-desc { font-size: 0.95rem; line-height: 1.55; margin: 0; width: 100%; white-space: normal; }
 
 /* Expanded/Collapsed States */
@@ -162,7 +183,7 @@ body.app-left-align #app-container .menu-row { justify-content: flex-start !impo
 .next-slide { right: -4rem; }
 
 /* --- Footer & Fade-outs --- */
-#footer{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);font-family:var(--font-primary);text-transform:uppercase;font-size:.85rem;letter-spacing:.1em;pointer-events:none;white-space:nowrap;z-index:50;transition:opacity 1.2s ease;display:none;} #footer.header-mode{bottom:auto;top:2rem;left:2rem;transform:none;display:block;opacity:1;color:var(--text-color);} body.scrolled-down #main-breadcrumbs,body.scrolled-down #footer,body.scrolled-down #attractors-tabs,body.scrolled-down #module-nav-fixed{opacity:0!important;pointer-events:none;transition:opacity .3s ease!important;} #footer span{color:var(--interactive-color);transition:color .4s ease;}
+#footer{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);font-family:var(--font-primary);text-transform:uppercase;font-size:.85rem;letter-spacing:.1em;pointer-events:none;white-space:nowrap;z-index:50;transition:opacity 1.2s ease;display:none;} #footer.header-mode{bottom:auto;top:2rem;left:2rem;transform:none;display:block;opacity:1;color:var(--text-color);} body.scrolled-down #main-breadcrumbs,body.scrolled-down #footer,body.scrolled-down #attractors-tabs,body.scrolled-down #generators-tabs,body.scrolled-down #landscape-tabs,body.scrolled-down #module-nav-fixed{opacity:0!important;pointer-events:none;transition:opacity .3s ease!important;} #footer span{color:var(--interactive-color);transition:color .4s ease;}
 
 .content-panel{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .8s cubic-bezier(0.4,0,0.2,1),opacity .6s ease;width:100%;pointer-events:none;} .content-panel.active{grid-template-rows:1fr;opacity:1;pointer-events:auto;} .content-panel-inner{overflow:hidden;display:flex;flex-direction:column;align-items:center;width:100%;} .menu-row{display:flex;flex-direction:row;justify-content:center;align-items:center;column-gap:4rem;row-gap:1.5rem;width:100%;margin-top:2.5rem;opacity:0;transform:translateY(15px);transition:opacity .8s ease,transform .8s ease;pointer-events:none;flex-wrap:wrap;} .menu-row.visible{opacity:1;transform:translateY(0);pointer-events:auto;} .l3-menu{column-gap:3rem;row-gap:1.25rem;margin-top:2rem;} .l4-menu{column-gap:2rem;row-gap:1rem;margin-top:1.5rem;} .l5-menu{column-gap:1.5rem;row-gap:.85rem;margin-top:1.25rem;} .l6-menu{column-gap:1.25rem;row-gap:.75rem;margin-top:1rem;} .menu-item{font-weight:500;font-size:1.6rem;transition:opacity .5s ease,transform .5s ease;white-space:nowrap;} #menu-2{column-gap:1.5rem;row-gap:1rem;} #menu-2 .menu-item{font-size:1.3rem;} .l3-menu .menu-item{font-size:1.35rem;} .l4-menu .menu-item{font-size:1.2rem;opacity:.95;} .l5-menu .menu-item{font-size:1.1rem;opacity:.9;} .l6-menu .menu-item{font-size:1.02rem;opacity:.85;} .menu-item.greyed-out{opacity:.25;} .menu-item.greyed-out:hover{opacity:.6;}
 .selected-header{position:relative;display:inline-flex;align-items:center;justify-content:center;margin-top:3rem;text-align:center;} .selected-header h2{font-weight:500;font-size:2rem;margin:0;} .selected-header h3{font-weight:500;font-size:1.5rem;margin:0;} .selected-header h4{font-weight:500;font-size:1.25rem;margin:0;} .selected-header h5{font-weight:500;font-size:1.1rem;margin:0;} .selected-header h6{font-weight:500;font-size:1rem;margin:0;} .clickable-indicator{position:relative;display:inline-block;padding-bottom:2px;} .clickable-indicator::after{content:'';position:absolute;width:100%;height:2px;bottom:0;left:0;background-color:var(--interactive-color);transform:scaleX(0);transform-origin:right;transition:transform .3s ease,background-color .4s ease;} .clickable-indicator:hover::after,.clickable-indicator.active::after{transform:scaleX(1);transform-origin:left;} @keyframes autoUnderline{0%{transform:scaleX(0);transform-origin:left;}50%{transform:scaleX(1);transform-origin:left;}51%{transform:scaleX(1);transform-origin:right;}100%{transform:scaleX(0);transform-origin:right;}} .auto-pulse::after{animation:autoUnderline 1.2s ease-in-out 1;}
@@ -170,14 +191,17 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
 .local-back-btn{position:absolute;right:100%;margin-right:15px;width:30px;height:30px;border-radius:50%;background:none;border:2px solid var(--indicator-color-solid);color:var(--interactive-color);opacity:0;pointer-events:none;transform:translateX(10px);transition:opacity .4s ease,transform .4s ease,border-color .3s ease,color .4s ease;display:flex;align-items:center;justify-content:center;z-index:100;flex-shrink:0;} .local-back-btn svg{width:14px;height:14px;min-width:14px;min-height:14px;flex-shrink:0;} .local-back-btn.visible{opacity:1;pointer-events:auto;transform:translateX(0);} .local-back-btn.visible:hover{border-color:var(--interactive-color);transform:translateX(0) scale(1.15);} .l3-header .local-back-btn{margin-right:12px;width:26px;height:26px;} .l4-header .local-back-btn{margin-right:10px;width:22px;height:22px;} .l5-header .local-back-btn{margin-right:8px;width:20px;height:20px;} .l6-header .local-back-btn{margin-right:7px;width:18px;height:18px;}
 .cursor-dot,.cursor-outline{position:fixed;top:0;left:0;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:9999;} .cursor-dot{width:8px;height:8px;background-color:var(--cursor-color);transition:transform .2s ease,opacity .2s ease;} .cursor-outline{width:40px;height:40px;border:1px solid var(--cursor-color);opacity:0;transition:opacity .3s ease,transform .2s ease,width .3s ease,height .3s ease,background-color .2s ease,border-color .3s ease;} .cursor-outline.hovered{opacity:.8;transform:translate(-50%,-50%) scale(1.5);border-color:var(--interactive-color);} body.is-panning .cursor-dot{transform:translate(-50%,-50%) scale(0.5);opacity:.5;} body.is-panning .cursor-outline{transform:translate(-50%,-50%) scale(0.8);background:var(--indicator-color-solid);opacity:.4;} body.is-zooming-in .cursor-outline{transform:translate(-50%,-50%) scale(2);background-color:rgba(18,18,18,0.05);border-color:var(--interactive-color);opacity:.8;} body.is-zooming-out .cursor-outline{transform:translate(-50%,-50%) scale(0.6);background-color:rgba(18,18,18,0.05);border-color:var(--interactive-color);opacity:.8;} body[data-theme="dark"].is-zooming-in .cursor-outline,body[data-theme="dark"].is-zooming-out .cursor-outline{background-color:rgba(255,255,255,0.1);}
 @media (pointer:coarse){body,.hoverable,.clickable-indicator,.nav-item,button,.node-box,.glossary-item,.max-title,.single-arrow,.double-arrow,.triple-arrow,.map-arrow{cursor:auto!important;} .cursor-dot,.cursor-outline{display:none!important;}}
-@media (max-width:900px){.hex-int-flow{grid-template-columns:100px 1fr;gap:2.5rem 1.5rem;} .module-grid.three-col{grid-template-columns:1fr;max-width:800px;} .module-grid.two-col{grid-template-columns:1fr;max-width:800px;} .node-box.root{font-size:1.4rem;padding:12px 20px;} .node-box.l2{font-size:1rem;min-width:100px;} .node-box.l3{font-size:.8rem;padding:8px 10px;} .node-box.l4{font-size:.75rem;padding:6px 8px;} .node-box.l5{font-size:.65rem;padding:4px 6px;} .css-tree li{padding:15px 6px 0;} .css-tree ul{padding-top:15px;} .css-tree li::before,.css-tree li::after,.css-tree ul ul::before{height:15px;} .css-tree.horizontal ul{padding-top:0;padding-left:15px;} .css-tree.horizontal li{padding:5px 0 5px 15px;} .css-tree.horizontal li::before,.css-tree.horizontal li::after{width:15px;} .css-tree.horizontal ul ul::before{width:15px;} #glossary-detail-view{padding-left:0;} #glossary-back-btn{position:static;margin-right:15px;margin-bottom:1rem;} .gen-grid { grid-template-columns: 100px 1fr; gap: 0 2rem; padding: 40px 0; } .gen-node-wrapper { flex: 1 1 100%; max-width: 100%; } .prev-slide { left: -1rem; z-index: 20; } .next-slide { right: -1rem; z-index: 20; } .gen-node { min-width: 0; max-width: none; } .attr-precursor-row { grid-template-columns: 1fr; gap: 0.5rem 0; } .attr-precursor-label { border-right: none; text-align: left; padding-right: 0; padding-bottom: 0.5rem; } .attr-precursor-content { max-width: 100%; } .attr-matrix-corner { display: none; } .attr-matrix-grid { grid-template-columns: 1fr; grid-template-rows: none; } .attr-matrix-colhead, .attr-matrix-rowhead { justify-content: flex-start; text-align: left; padding: 0.5rem 0 !important; border: none !important; font-size: 0.9rem; } .attr-matrix-cell { padding: 1.25rem 1.25rem; } .attr-matrix-cell.tl, .attr-matrix-cell.tr, .attr-matrix-cell.bl, .attr-matrix-cell.br { border: 2px solid var(--indicator-color-solid) !important; margin-bottom: 1rem; }}
+@media (max-width:900px){.hex-int-flow{grid-template-columns:100px 1fr;gap:2.5rem 1.5rem;} .module-grid.three-col{grid-template-columns:1fr;max-width:800px;} .module-grid.two-col{grid-template-columns:1fr;max-width:800px;} .node-box.root{font-size:1.4rem;padding:12px 20px;} .node-box.l2{font-size:1rem;min-width:100px;} .node-box.l3{font-size:.8rem;padding:8px 10px;} .node-box.l4{font-size:.75rem;padding:6px 8px;} .node-box.l5{font-size:.65rem;padding:4px 6px;} .css-tree li{padding:15px 6px 0;} .css-tree ul{padding-top:15px;} .css-tree li::before,.css-tree li::after,.css-tree ul ul::before{height:15px;} .css-tree.horizontal ul{padding-top:0;padding-left:15px;} .css-tree.horizontal li{padding:5px 0 5px 15px;} .css-tree.horizontal li::before,.css-tree.horizontal li::after{width:15px;} .css-tree.horizontal ul ul::before{width:15px;} #glossary-detail-view{padding-left:0;} #glossary-back-btn{position:static;margin-right:15px;margin-bottom:1rem;} .gen-grid { grid-template-columns: 100px 1fr; gap: 0 2rem; padding: 40px 0; } .gen-node-wrapper { flex: 1 1 100%; max-width: 100%; } .prev-slide { left: -1rem; z-index: 20; } .next-slide { right: -1rem; z-index: 20; } .gen-node { min-width: 0; max-width: none; } .attr-precursor-row { grid-template-columns: 1fr; gap: 0.5rem 0; } .attr-precursor-label { border-right: none; text-align: left; padding-right: 0; padding-bottom: 0.5rem; } .attr-precursor-content { max-width: 100%; } .attr-matrix-table, .attr-matrix-table tbody, .attr-matrix-table tr, .attr-matrix-table td { display: block; width: auto !important; } .attr-matrix-corner { display: none; } .attr-matrix-colhead, .attr-matrix-rowhead { text-align: left; padding: 0.5rem 0 !important; border: none !important; font-size: 0.9rem; } .attr-matrix-cell { padding: 1.25rem 1.25rem; border: 2px solid var(--indicator-color-solid) !important; margin-bottom: 1rem; }}
 @media (max-width:768px){#view-manager{padding:7rem 1.5rem 8rem;} h1{font-size:2.6rem;} .desc-text{font-size:1rem!important;} .focused-title{font-size:2.2rem;} #definition,#g-desc{font-size:1.1rem;} #bottom-left-controls{bottom:1.5rem;left:1.5rem;gap:1rem; transform: translateX(0); opacity: 1; pointer-events: auto;} #hamburger-btn{display: none;} .nav-toggle-btn{width:24px;height:24px;} .nav-label{font-size:.65rem;} #toggle-container{top:1.5rem;right:1.5rem;width:32px;height:32px;} #site-title{top:1.5rem;right:calc(1.5rem + 32px + .7rem);height:32px;font-size:1rem;} #accent-toggle{width:28px;height:28px;} #theme-toggle{width:12px;height:12px;} #main-breadcrumbs{top:1.5rem;left:1.5rem;max-width:65vw;font-size:.75rem;} #footer{bottom:1.5rem;font-size:.65rem;white-space:normal;text-align:center;max-width:50vw;} #footer.header-mode{top:1.5rem;left:1.5rem;max-width:70vw;text-align:left;} .br-action-btn{bottom:1.5rem;right:1.5rem;width:32px;height:32px;} #scroll-progress-container{width:8px;} .menu-row{flex-direction:column;gap:1.5rem;margin-top:2rem;} .l3-menu{gap:1.25rem;margin-top:1.5rem;} .l4-menu{gap:1rem;margin-top:1.25rem;} .l5-menu{gap:.8rem;margin-top:1rem;} .menu-item{font-size:1.3rem;white-space:normal;text-align:center;} .l3-menu .menu-item{font-size:1.2rem;} .l4-menu .menu-item{font-size:1.1rem;} .l5-menu .menu-item{font-size:1rem;} .selected-header h2{font-size:1.6rem;} .selected-header h3{font-size:1.3rem;} .selected-header h4{font-size:1.1rem;} .selected-header h5{font-size:1rem;} .selected-header{padding:0 40px;width:auto;max-width:100%;box-sizing:border-box;} .local-back-btn{right:auto;left:0;margin-right:0;transform:translateX(-10px);} .local-back-btn.visible{transform:translateX(0);} .css-tree{padding:2rem 1rem;} .css-tree ul{padding-top:15px;} .css-tree li{padding:15px 4px 0;} .css-tree li::before,.css-tree li::after,.css-tree ul ul::before{height:15px;} .node-box{padding:8px 10px;border-width:1.5px;} .node-box.root{font-size:1.2rem;padding:12px 16px;} .node-box.l2{font-size:.95rem;min-width:100px;} .node-box.l3{font-size:.75rem;padding:8px;} .archive-list>li>.glossary-item{font-size:1.1rem;} .archive-list>li>ul>li>.glossary-item{font-size:1rem;} .archive-list>li>ul>li>ul>li>.glossary-item{font-size:0.92rem;} .archive-list>li>ul>li>ul>li>ul>li>.glossary-item{font-size:0.88rem;} .archive-list>li>ul>li>ul>li>ul>li>ul>li>.glossary-item{font-size:0.85rem;} .archive-list ul{padding-left:1rem;} #maximal-list-view{padding-top:4rem;} .maximal-list .max-header .max-title{font-size:1.8rem;} .maximal-list ul .max-header .max-title{font-size:1.5rem;} .maximal-list ul ul .max-header .max-title{font-size:1.3rem;} .maximal-list ul ul ul .max-header .max-title{font-size:1.15rem;} .maximal-list ul ul ul ul .max-header .max-title{font-size:1.05rem;} .max-desc{font-size:1rem;} .maximal-list ul{padding-left:1rem;margin-left:.5rem;margin-top:.5rem;margin-bottom:1.5rem;} .maximal-list li{margin:1rem 0;} #loading-svg{width:280px;height:280px;} #toggle-map-layout-btn,#collapse-tree-btn{bottom:4rem;} #toggle-expand-all-btn{bottom:7.5rem;} body[data-view="app"] #scroll-top-btn{bottom:4rem;} .hex-node foreignObject span { font-size: 1.35rem; }
 .hex-int-block { max-width: 88%; } .hex-int-flow { grid-template-columns: 1fr; gap: 1rem 0; } .hex-int-side-label { border-right: none; justify-content: flex-start; text-align: left; padding-right: 0; padding-bottom: 0.5rem; } .hex-main-title { font-size: 1.6rem; gap: 0.5rem; margin-bottom: 2rem; } .hex-main-title svg { width: 24px !important; height: 24px !important; } .hex-int-para { font-size: 1rem; } .hex-int-side-label { font-size: 0.8rem; } 
 .gen-grid { grid-template-columns: 1fr; gap: 0; padding: 40px 0; } .gen-side-cell { display: none; } .gen-row { flex-direction: column; align-items: center; gap: 1.5rem; } .gen-slide { flex-direction: column; } .gen-node-title { white-space: normal; text-align: center; } .gen-conn-0 svg, .gen-conn-1 svg, .gen-conn-2 svg, .gen-conn-0b svg, .gen-conn-1b svg { display: none; } .gen-conn-0, .gen-conn-1, .gen-conn-2, .gen-conn-0b, .gen-conn-1b { height: 30px; border-left: 2px solid var(--indicator-color-solid); width: 2px; margin: 0 auto; } .gen-tabs { justify-content: center; }}
 @media (max-width:480px){#site-title{display:none;} h1{font-size:2.1rem;} .node-box.l3{font-size:.65rem;} .local-back-btn{width:28px;height:28px;} .l3-header .local-back-btn,.l4-header .local-back-btn,.l5-header .local-back-btn{width:24px;height:24px;} #bottom-left-controls{bottom:1.2rem;left:1.2rem;} .br-action-btn{bottom:1.2rem;right:1.2rem;} #footer{bottom:1.2rem;} .nav-label{display:none;} .nav-item{gap:0;} #toggle-map-layout-btn,#collapse-tree-btn{bottom:3.8rem;} #toggle-expand-all-btn{bottom:7.3rem;} body[data-view="app"] #scroll-top-btn{bottom:3.8rem;}}
+#mobile-block-screen{display:none;}
+@media (max-width:768px){#mobile-block-screen{display:flex;position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;background:var(--bg-color);color:var(--text-color);align-items:center;justify-content:center;text-align:center;padding:2.5rem;box-sizing:border-box;} .mobile-block-message{font-family:var(--font-primary);font-size:1.2rem;line-height:1.7;max-width:26rem;} body{overflow:hidden!important;}}
 </style>
 </head>
 <body data-view="app">
+<div id="mobile-block-screen"><div class="mobile-block-message">The Metacrisis Map is not designed for mobile.<br>View on a laptop/desktop for optimal results.</div></div>
 
 <div class="cursor-dot" id="cursor-dot"></div><div class="cursor-outline" id="cursor-outline"></div>
 <div id="loading-screen"><svg id="loading-svg" viewBox="0 0 200 200" stroke="var(--interactive-color)" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" fill="none"><g id="tree-group"><circle class="loading-node node0" cx="100" cy="100" r="4" /><g class="lvl1"><path class="draw-trunk1" d="M 100 104 L 100 124" /><path class="draw-arms1" d="M 100 124 L 40 124" /><path class="draw-arms1" d="M 100 124 L 160 124" /><path class="draw-drops1" d="M 40 124 L 40 144" /><path class="draw-drops1" d="M 100 124 L 100 144" /><path class="draw-drops1" d="M 160 124 L 160 144" /><circle class="loading-node node1" cx="40" cy="148" r="3.5" /><circle class="loading-node node1" cx="100" cy="148" r="3.5" /><circle class="loading-node node1" cx="160" cy="148" r="3.5" /></g><g class="lvl2"><path class="draw-trunk2" d="M 40 152 L 40 172" /><path class="draw-trunk2" d="M 100 152 L 100 172" /><path class="draw-trunk2" d="M 160 152 L 160 172" /><path class="draw-arms2" d="M 40 172 L 20 172" /><path class="draw-arms2" d="M 40 172 L 60 172" /><path class="draw-arms2" d="M 100 172 L 80 172" /><path class="draw-arms2" d="M 100 172 L 120 172" /><path class="draw-arms2" d="M 160 172 L 140 172" /><path class="draw-arms2" d="M 160 172 L 180 172" /><path class="draw-drops2" d="M 20 172 L 20 192" /><path class="draw-drops2" d="M 40 172 L 40 192" /><path class="draw-drops2" d="M 60 172 L 60 192" /><path class="draw-drops2" d="M 80 172 L 80 192" /><path class="draw-drops2" d="M 100 172 L 100 192" /><path class="draw-drops2" d="M 120 172 L 120 192" /><path class="draw-drops2" d="M 140 172 L 140 192" /><path class="draw-drops2" d="M 160 172 L 160 192" /><path class="draw-drops2" d="M 180 172 L 180 192" /><circle class="loading-node node2" cx="20" cy="195" r="3" /><circle class="loading-node node2" cx="40" cy="195" r="3" /><circle class="loading-node node2" cx="60" cy="195" r="3" /><circle class="loading-node node2" cx="80" cy="195" r="3" /><circle class="loading-node node2" cx="100" cy="195" r="3" /><circle class="loading-node node2" cx="120" cy="195" r="3" /><circle class="loading-node node2" cx="140" cy="195" r="3" /><circle class="loading-node node2" cx="160" cy="195" r="3" /><circle class="loading-node node2" cx="180" cy="195" r="3" /></g></g></svg></div>
@@ -187,6 +211,32 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
     <button class="gen-tab hoverable" data-tab="attr-tab-matrix">Matrix</button>
     <button class="gen-tab hoverable" data-tab="attr-tab-interconnections">Interconnections</button>
     <button class="gen-tab hoverable" data-tab="attr-tab-precursors">Precursors</button>
+</div>
+<div id="generators-tabs" class="attr-tabs">
+    <div class="gen-tab-dropdown-wrap" data-content-target="gen-tab-verticals">
+        <button class="gen-tab active hoverable" data-tab="gen-tab-verticals">Verticals</button>
+        <div class="gen-tab-dropdown">
+            <button class="gen-subtab active hoverable" data-subtab="gen-mpt">The Multi-Polar Trap</button>
+            <button class="gen-subtab hoverable" data-subtab="gen-nmo">Narrow Metric Optimisation</button>
+        </div>
+    </div>
+    <button class="gen-tab hoverable" data-tab="gen-tab-chain">Chains</button>
+    <button class="gen-tab hoverable" data-tab="gen-tab-categories">Categories</button>
+    <button class="gen-tab hoverable" data-tab="gen-tab-interconnections">Interconnections<span style="color: var(--interactive-color); font-weight: 700; margin-left: 0.4em;">(WIP)</span></button>
+    <button id="gen-global-toggle" class="gen-tab hoverable" aria-label="Toggle All" data-state="expanded">
+        <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <polyline points="18 15 12 21 6 15"></polyline>
+            <polyline points="6 9 12 3 18 9"></polyline>
+        </svg>
+        <svg class="icon-collapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 21 12 15 18 21"></polyline>
+            <polyline points="18 3 12 9 6 3"></polyline>
+        </svg>
+    </button>
+</div>
+<div id="landscape-tabs" class="attr-tabs">
+    <button class="gen-tab active hoverable" data-tab="landscape-tab-organisations">Organisations</button>
+    <button class="gen-tab hoverable" data-tab="landscape-tab-individuals">Individuals</button>
 </div>
 <div id="module-nav-fixed" class="module-nav corner-nav-fixed"></div>
 
@@ -207,6 +257,7 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
     <div class="nav-item hoverable" data-target="problem"><div class="nav-toggle-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 8 22 16 12 22 2 16 2 8 12 2"></polygon></svg></div><span class="nav-label clickable-indicator">Problems View</span></div>
     <div class="nav-item hoverable" data-target="generators"><div class="nav-toggle-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 20 12 15 17 20"></polyline><polyline points="7 13 12 8 17 13"></polyline><polyline points="7 6 12 1 17 6"></polyline></svg></div><span class="nav-label clickable-indicator">Generators View</span></div>
     <div class="nav-item hoverable" data-target="attractors"><div class="nav-toggle-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="5.5"></circle><circle cx="7.5" cy="14.5" r="5.5"></circle><circle cx="16.5" cy="14.5" r="5.5"></circle></svg></div><span class="nav-label clickable-indicator">Attractors View</span></div>
+    <div class="nav-item hoverable" data-target="landscape"><div class="nav-toggle-btn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 3 21 10 3 10"></polygon><rect x="4" y="10" width="16" height="10" rx="1"></rect><line x1="9" y1="14" x2="9" y2="20"></line><line x1="15" y1="14" x2="15" y2="20"></line></svg></div><span class="nav-label clickable-indicator">Landscape View</span></div>
 </div>
 
 <div id="site-title" class="hoverable clickable-indicator" role="button" aria-label="The Metacrisis Map — go to Main View">The Metacrisis Map</div>
@@ -239,32 +290,17 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
 
 <main id="generators-container" class="view-panel"><div style="text-align: left; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: flex-start; padding-top: 2rem; padding-bottom: 4rem;">
     <div style="width: 100%; margin-bottom: 0;">
-        <div class="selected-header" style="margin-top: 0; justify-content: flex-start;"><h2 style="font-size: 2.8rem; letter-spacing: -0.02em;">Generative Dynamics</h2></div>
-        <div class="desc-text concept-desc" style="margin-top: 0.5rem; text-align: left; margin-left: 0; max-width: none;">A hierarchical mapping of the structural traps driving civilisation towards catastrophe.</div>
+        <div class="selected-header" style="margin-top: 0; justify-content: flex-start;"><h2 id="gen-view-title" style="font-size: 2.8rem; letter-spacing: -0.02em;">Generative Dynamics: Verticals</h2></div>
+        <div id="gen-view-subtitle" class="desc-text concept-desc" style="margin-top: 0.5rem; margin-bottom: 3rem; text-align: left; margin-left: 0; max-width: none;">A hierarchical mapping of the structural traps driving civilisation towards catastrophe.</div>
     </div>
-    
-    <div class="gen-tabs">
-        <button id="gen-global-toggle" class="gen-tab hoverable" aria-label="Toggle All" data-state="collapsed">
-            <svg class="icon-expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="18 15 12 21 6 15"></polyline>
-                <polyline points="6 9 12 3 18 9"></polyline>
-            </svg>
-            <svg class="icon-collapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
-                <polyline points="6 21 12 15 18 21"></polyline>
-                <polyline points="18 3 12 9 6 3"></polyline>
-            </svg>
-        </button>
-        <button class="gen-tab active hoverable" data-tab="gen-mpt">The Multi-Polar Trap</button>
-        <button class="gen-tab hoverable" data-tab="gen-nmo">Narrow Metric Optimisation</button>
-    </div>
-
+    <div id="gen-tab-verticals" class="gen-tab-content active" style="width: 100%;">
     <!-- Subtab 1: Multi-Polar Traps -->
-    <div id="gen-mpt" class="gen-tab-content active" style="width: 100%;">
+    <div id="gen-mpt" class="gen-subtab-content active" style="width: 100%;">
         <div class="gen-grid">
             
             <!-- Row 0: Fourth Order -->
-            <div class="gen-side-cell gen-tier-top-2 gen-collapsed">Fourth-Order</div>
-            <div class="gen-row gen-tier-top-2 gen-collapsed">
+            <div class="gen-side-cell gen-tier-top-2">Fourth-Order</div>
+            <div class="gen-row gen-tier-top-2">
                 <div class="gen-node-wrapper">
                     <div class="node-box hoverable gen-node">
                         <div class="gen-node-title">Exponential Techno-Economic Development</div>
@@ -274,8 +310,8 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
             </div>
 
             <!-- Connector 0 -->
-            <div class="gen-side-cell gen-tier-top-2 gen-collapsed" style="border-color: transparent;"></div>
-            <div class="gen-conn-0 gen-tier-top-2 gen-collapsed">
+            <div class="gen-side-cell gen-tier-top-2" style="border-color: transparent;"></div>
+            <div class="gen-conn-0 gen-tier-top-2">
                  <svg width="100%" height="100%" style="overflow: visible;">
                      <line x1="50%" y1="0" x2="50%" y2="20%" stroke="var(--indicator-color-solid)" stroke-width="2" />
                      <line x1="25%" y1="20%" x2="75%" y2="20%" stroke="var(--indicator-color-solid)" stroke-width="2" />
@@ -285,8 +321,8 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
             </div>
 
             <!-- Row 1: Third Order -->
-            <div class="gen-side-cell gen-tier-top-1 gen-collapsed">Third-Order</div>
-            <div class="gen-row gen-tier-top-1 gen-collapsed">
+            <div class="gen-side-cell gen-tier-top-1">Third-Order</div>
+            <div class="gen-row gen-tier-top-1">
                 <button class="gen-local-toggle top hoverable" data-target="top-2" aria-label="Toggle Above">
                     <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
                 </button>
@@ -305,8 +341,8 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
             </div>
 
             <!-- Connector 1 -->
-            <div class="gen-side-cell gen-tier-top-1 gen-collapsed" style="border-color: transparent;"></div>
-            <div class="gen-conn-1 gen-tier-top-1 gen-collapsed">
+            <div class="gen-side-cell gen-tier-top-1" style="border-color: transparent;"></div>
+            <div class="gen-conn-1 gen-tier-top-1">
                  <svg width="100%" height="100%" style="overflow: visible;">
                      <line x1="25%" y1="0" x2="25%" y2="80%" stroke="var(--indicator-color-solid)" stroke-width="2" />
                      <line x1="75%" y1="0" x2="75%" y2="80%" stroke="var(--indicator-color-solid)" stroke-width="2" />
@@ -333,16 +369,16 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
             </div>
 
             <!-- Connector 2 -->
-            <div class="gen-side-cell gen-tier-bottom-1 gen-collapsed" style="border-color: transparent;"></div>
-            <div class="gen-conn-2 gen-tier-bottom-1 gen-collapsed">
+            <div class="gen-side-cell gen-tier-bottom-1" style="border-color: transparent;"></div>
+            <div class="gen-conn-2 gen-tier-bottom-1">
                 <svg width="100%" height="100%" style="overflow: visible;">
                      <line x1="50%" y1="0" x2="50%" y2="100%" stroke="var(--indicator-color-solid)" stroke-width="2" />
                  </svg>
             </div>
 
             <!-- Row 3: First Order -->
-            <div class="gen-side-cell gen-tier-bottom-1 gen-collapsed">First-Order</div>
-            <div class="gen-row gen-tier-bottom-1 gen-collapsed">
+            <div class="gen-side-cell gen-tier-bottom-1">First-Order</div>
+            <div class="gen-row gen-tier-bottom-1">
                 <div class="gen-node-wrapper">
                     <div class="node-box hoverable gen-node">
                         <div class="gen-node-title">Super-Structural Separation</div>
@@ -354,12 +390,12 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
     </div>
 
     <!-- Subtab 2: Narrow Metric Optimisation -->
-    <div id="gen-nmo" class="gen-tab-content" style="display: none; width: 100%;">
+    <div id="gen-nmo" class="gen-subtab-content" style="display: none; width: 100%;">
         <div class="gen-grid">
             
             <!-- Row 0: Cross-Cutting -->
-            <div class="gen-side-cell gen-tier-top-2 gen-collapsed">Cross-Cutting Dynamic<br>&amp; Effect</div>
-            <div class="gen-row gen-tier-top-2 gen-collapsed">
+            <div class="gen-side-cell gen-tier-top-2">Cross-Cutting Dynamic<br>&amp; Effect</div>
+            <div class="gen-row gen-tier-top-2">
                 <div class="gen-node-wrapper">
                     <div class="node-box hoverable gen-node">
                         <div class="gen-node-title">Perverse Incentive Structures</div>
@@ -375,8 +411,8 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
             </div>
 
             <!-- Connector 0 -->
-            <div class="gen-side-cell gen-tier-top-2 gen-collapsed" style="border-color: transparent;"></div>
-            <div class="gen-conn-0b gen-tier-top-2 gen-collapsed">
+            <div class="gen-side-cell gen-tier-top-2" style="border-color: transparent;"></div>
+            <div class="gen-conn-0b gen-tier-top-2">
                  <svg width="100%" height="100%" style="overflow: visible;">
                      <line x1="25%" y1="0" x2="25%" y2="20%" stroke="var(--indicator-color-solid)" stroke-width="2" />
                      <line x1="75%" y1="0" x2="75%" y2="20%" stroke="var(--indicator-color-solid)" stroke-width="2" />
@@ -389,8 +425,8 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
             </div>
 
             <!-- Row 1: Instantiations (Slider) -->
-            <div class="gen-side-cell gen-tier-top-1 gen-collapsed">Instantiations</div>
-            <div class="gen-row gen-tier-top-1 gen-collapsed">
+            <div class="gen-side-cell gen-tier-top-1">Instantiations</div>
+            <div class="gen-row gen-tier-top-1">
                 <button class="gen-local-toggle top hoverable" data-target="top-2" aria-label="Toggle Above">
                     <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
                 </button>
@@ -452,8 +488,8 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
             </div>
 
             <!-- Connector 1 -->
-            <div class="gen-side-cell gen-tier-top-1 gen-collapsed" style="border-color: transparent;"></div>
-            <div class="gen-conn-1b gen-tier-top-1 gen-collapsed">
+            <div class="gen-side-cell gen-tier-top-1" style="border-color: transparent;"></div>
+            <div class="gen-conn-1b gen-tier-top-1">
                  <svg width="100%" height="100%" style="overflow: visible;">
                      <line x1="25%" y1="0" x2="25%" y2="80%" stroke="var(--indicator-color-solid)" stroke-width="2" />
                      <line x1="75%" y1="0" x2="75%" y2="80%" stroke="var(--indicator-color-solid)" stroke-width="2" />
@@ -480,16 +516,16 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
             </div>
 
             <!-- Connector 2 -->
-            <div class="gen-side-cell gen-tier-bottom-1 gen-collapsed" style="border-color: transparent;"></div>
-            <div class="gen-conn-2 gen-tier-bottom-1 gen-collapsed">
+            <div class="gen-side-cell gen-tier-bottom-1" style="border-color: transparent;"></div>
+            <div class="gen-conn-2 gen-tier-bottom-1">
                 <svg width="100%" height="100%" style="overflow: visible;">
                      <line x1="50%" y1="0" x2="50%" y2="100%" stroke="var(--indicator-color-solid)" stroke-width="2" />
                  </svg>
             </div>
 
             <!-- Row 3: First Order -->
-            <div class="gen-side-cell gen-tier-bottom-1 gen-collapsed">First-Order</div>
-            <div class="gen-row gen-tier-bottom-1 gen-collapsed">
+            <div class="gen-side-cell gen-tier-bottom-1">First-Order</div>
+            <div class="gen-row gen-tier-bottom-1">
                 <div class="gen-node-wrapper">
                     <div class="node-box hoverable gen-node">
                         <div class="gen-node-title">Isolated Problem-Solving</div>
@@ -497,6 +533,46 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    </div>
+    <div id="gen-tab-interconnections" class="gen-tab-content" style="display: none; width: 100%;">
+        <div style="width: 100vw; max-width: 100vw; margin-top: 0; margin-left: calc(50% - 50vw); position: relative; display: flex; justify-content: center; align-self: center; box-sizing: border-box; padding: 0 2rem;">
+            <svg id="gen-ic-radial-svg" viewBox="-113 197 1393 844" style="width: 100%; max-width: 1240px; height: auto; max-height: 75vh; overflow: visible;">
+                <g id="gen-ic-radial-edges"></g>
+                <g id="gen-ic-radial-nodes"></g>
+            </svg>
+        </div>
+        <div class="gen-concept-panel" style="width: 100%; max-width: 1000px; padding: 2.5rem 3rem; margin-top: 1rem; opacity: 0; transition: opacity 0.4s ease; text-align: left; box-sizing: border-box; margin-left: auto; margin-right: auto;">
+            <div class="gen-concept-content"><div style="font-size: 1.25rem; font-style: italic; opacity: 0.8;">Select a concept to view its description.</div></div>
+        </div>
+    </div>
+
+    <div id="gen-tab-chain" class="gen-tab-content" style="display: none; width: 100%;">
+        <div style="width: 100%; max-width: 1200px; margin-top: 0; position: relative; display: flex; justify-content: center; align-self: center;">
+            <svg id="gen-chain-svg" viewBox="12 57 1476 987" style="width: 100%; height: auto; max-height: 77vh; overflow: visible;">
+                <defs>
+                    <marker id="gen-arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="var(--indicator-color-solid)" />
+                    </marker>
+                </defs>
+                <g id="gen-chain-edges"></g>
+                <g id="gen-chain-nodes"></g>
+            </svg>
+        </div>
+        <div class="gen-concept-panel" style="width: 100%; max-width: 1000px; padding: 2.5rem 3rem; margin-top: 1rem; opacity: 0; transition: opacity 0.4s ease; text-align: left; box-sizing: border-box; margin-left: auto; margin-right: auto;">
+            <div class="gen-concept-content"><div style="font-size: 1.25rem; font-style: italic; opacity: 0.8;">Select a concept to view its description.</div></div>
+        </div>
+    </div>
+
+    <div id="gen-tab-categories" class="gen-tab-content" style="display: none; width: 100%;">
+        <div style="width: 100vw; max-width: 100vw; margin-top: 0; margin-left: calc(50% - 50vw); position: relative; display: flex; justify-content: center; align-self: center; box-sizing: border-box; padding: 0 2rem;">
+            <svg id="gen-categories-svg" viewBox="-15 57 1875 930" style="width: 100%; max-width: 1460px; height: auto; max-height: 78vh; overflow: visible;">
+                <g id="gen-categories-nodes"></g>
+            </svg>
+        </div>
+        <div class="gen-concept-panel" style="width: 100%; max-width: 1000px; padding: 2.5rem 3rem; margin-top: 1rem; opacity: 0; transition: opacity 0.4s ease; text-align: left; box-sizing: border-box; margin-left: auto; margin-right: auto;">
+            <div class="gen-concept-content"><div style="font-size: 1.25rem; font-style: italic; opacity: 0.8;">Select a concept to view its description.</div></div>
         </div>
     </div>
 </div></main>
@@ -518,29 +594,42 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
     </div>
     <div id="attr-tab-matrix" class="gen-tab-content" style="display: none; width: 100%;">
         <div class="attr-matrix-wrap">
-            <div class="attr-matrix-grid">
-                <div class="attr-matrix-corner"></div>
-                <div class="attr-matrix-colhead">Unstable Uni-polar Control</div>
-                <div class="attr-matrix-colhead tick">Solves Coordination Failure</div>
-                <div class="attr-matrix-rowhead">Unstable Multi-Polar Competition</div>
-                <div class="attr-matrix-cell tl hoverable" data-quadrant="mutual-reinforcement">
-                    <div class="attr-matrix-cell-label">1.5. Mutual Reinforcement</div>
-                    <div class="attr-matrix-cell-title">Catastrophes<span class="attr-matrix-x">&gt;&lt;</span>Dystopias</div>
-                </div>
-                <div class="attr-matrix-cell tr hoverable" data-quadrant="dystopias">
-                    <div class="attr-matrix-cell-label">2. The Second Attractor</div>
-                    <div class="attr-matrix-cell-title">Dystopias</div>
-                </div>
-                <div class="attr-matrix-rowhead tick">Solves Power Concentration</div>
-                <div class="attr-matrix-cell bl hoverable" data-quadrant="catastrophes">
-                    <div class="attr-matrix-cell-label">1. The First Attractor</div>
-                    <div class="attr-matrix-cell-title">Catastrophes</div>
-                </div>
-                <div class="attr-matrix-cell br hoverable" data-quadrant="alignment">
-                    <div class="attr-matrix-cell-label">3. The Third Attractor</div>
-                    <div class="attr-matrix-cell-title">Civilisation Alignment</div>
-                </div>
-            </div>
+            <table class="attr-matrix-table">
+                <colgroup>
+                    <col style="width: 230px;">
+                    <col style="width: 340px;">
+                    <col style="width: 340px;">
+                </colgroup>
+                <tbody>
+                <tr>
+                    <td class="attr-matrix-corner"></td>
+                    <td class="attr-matrix-colhead">Unstable Uni-polar Control</td>
+                    <td class="attr-matrix-colhead tick">Solves Coordination Failure</td>
+                </tr>
+                <tr>
+                    <td class="attr-matrix-rowhead">Unstable Multi-Polar Competition</td>
+                    <td class="attr-matrix-cell hoverable" data-quadrant="mutual-reinforcement">
+                        <div class="attr-matrix-cell-label">1.5. Mutual Reinforcement</div>
+                        <div class="attr-matrix-cell-title">Catastrophes<span class="attr-matrix-x">&gt;&lt;</span>Dystopias</div>
+                    </td>
+                    <td class="attr-matrix-cell hoverable" data-quadrant="dystopias">
+                        <div class="attr-matrix-cell-label">2. The Second Attractor</div>
+                        <div class="attr-matrix-cell-title">Dystopias</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="attr-matrix-rowhead tick">Solves Power Concentration</td>
+                    <td class="attr-matrix-cell hoverable" data-quadrant="catastrophes">
+                        <div class="attr-matrix-cell-label">1. The First Attractor</div>
+                        <div class="attr-matrix-cell-title">Catastrophes</div>
+                    </td>
+                    <td class="attr-matrix-cell hoverable" data-quadrant="alignment">
+                        <div class="attr-matrix-cell-label">3. The Third Attractor</div>
+                        <div class="attr-matrix-cell-title">Civilisation Alignment</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div id="attr-matrix-panel" style="width: 100%; max-width: 1000px; padding: 2.5rem 3rem; margin-top: 2rem; opacity: 0; transition: opacity 0.4s ease; text-align: left; box-sizing: border-box; margin-left: auto; margin-right: auto;">
             <div id="attr-matrix-content"></div>
@@ -607,6 +696,23 @@ h1{font-weight:600;font-size:4.2rem;margin:0;letter-spacing:-.02em;text-align:ce
     </div>
 </div></main>
 
+<main id="landscape-container" class="view-panel"><div style="text-align: left; width: 100%; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; align-items: flex-start; padding-top: 2rem; padding-bottom: 4rem;">
+    <div style="width: 100%; margin-bottom: 0;">
+        <div class="selected-header" style="margin-top: 0; justify-content: flex-start;"><h2 id="landscape-view-title" style="font-size: 2.8rem; letter-spacing: -0.02em;">Research Landscape: Organisations</h2></div>
+        <div id="landscape-view-subtitle" class="desc-text concept-desc" style="margin-top: 0.5rem; margin-bottom: 3rem; text-align: left; margin-left: 0; max-width: none;">Institutes and initiatives producing dedicated research on the metacrisis and civilisational transition.</div>
+    </div>
+    <div id="landscape-tab-organisations" class="gen-tab-content active" style="width: 100%;">
+      <div class="attr-precursors-box">
+        <div id="landscape-organisations-grid" class="attr-precursors-grid"></div>
+      </div>
+    </div>
+    <div id="landscape-tab-individuals" class="gen-tab-content" style="display: none; width: 100%;">
+      <div class="attr-precursors-box">
+        <div id="landscape-individuals-grid" class="attr-precursors-grid"></div>
+      </div>
+    </div>
+</div></main>
+
 <main id="map-container" class="view-panel"><div id="tree-zoom-wrapper"><div class="css-tree horizontal"></div></div></main>
 <main id="glossary-container" class="view-panel"><div id="glossary-list-view"><ul class="archive-list"></ul></div><div id="glossary-detail-view"><div class="g-header-row"><button id="glossary-back-btn" class="hoverable"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button><h2 id="g-title" class="focused-title"></h2></div><div id="g-desc" class="desc-text"></div></div></main>
 <main id="maximal-container" class="view-panel"><div id="maximal-list-view"><ul class="maximal-list"></ul></div></main>
@@ -634,10 +740,13 @@ function generateMapTree(e,t){let o=getMaxDepth(e);e.id===genDynMergeParentId&&(
 function generateGlossaryList(e){let t=`<li><span class="glossary-item hoverable clickable-indicator" data-gid="${e.id}">${getShort(e)}</span>`;return e.children&&(t+=`<ul>${e.children.map((c,i)=>(e.id===genDynMergeParentId&&i===e.children.length-genDynMergeIds.length&&i>0?'<li class="archive-divider" aria-hidden="true"></li>':"")+generateGlossaryList(c)).join("")}</ul>`),t+"</li>"}
 const problemComplexOverviewOrder=["s3-1-2","s3-1-4","s3-1-5","s3-1-3","s3-1-1","s3-1-6"];
 function countEntries(e){let n=1;return e.children&&e.children.forEach(c=>n+=countEntries(c)),n}
-function generateModuleNav(e){return e.children.map(c=>`<span class="module-nav-item hoverable clickable-indicator" data-section-target="${c.id}">${c.title}</span>`).join("")}
-function generateGlossaryModule(e){const entryCount=e.children.reduce((n,c)=>n+countEntries(c),0);let o=`<div style="width:100%;text-align:left;margin-bottom:1rem;"><span class="glossary-item hoverable clickable-indicator module-main-title" data-gid="${e.id}">${e.title} Map</span></div><div style="width:100%;text-align:left;margin-bottom:1rem;color:var(--text-color);font-size:1.05rem;line-height:1.5;white-space:nowrap;overflow-x:auto;">A conceptual adaptive system for a complex adaptive world-system. Navigate the wiki tree and select concept entries to open.</div><div class="module-entry-count">${entryCount} Concept Entries</div>`;const t=e.children.find(e=>"s2-1"===e.id),n=e.children.filter(e=>"s2-1"!==e.id),c=problemComplexOverviewOrder.map(e=>t.children.find(o=>o.id===e)).filter(Boolean);return o+=`<span class="glossary-item hoverable clickable-indicator module-heading" data-gid="${t.id}">${t.title}</span><div class="module-grid three-col">`,c.forEach(e=>{o+=`<div class="module-col"><ul class="archive-list">${generateGlossaryList(e)}</ul></div>`}),o+="</div>",n.forEach(e=>{const colClass=3===e.children.length?"three-col":"two-col";o+=`<div class="module-section-divider"></div><span class="glossary-item hoverable clickable-indicator module-heading" data-gid="${e.id}">${e.title}</span><div class="module-grid ${colClass}">`,e.children.forEach(c=>{o+=`<div class="module-col"><ul class="archive-list">${generateGlossaryList(c)}</ul></div>`}),o+="</div>"}),o}
+function generateModuleNav(e){return e.children.filter(c=>"s2-7"!==c.id).map(c=>`<span class="module-nav-item hoverable" data-section-target="${c.id}">${c.title}</span>`).join("")}
+function generateGlossaryModule(e){const entryCount=e.children.reduce((n,c)=>n+countEntries(c),0);let o=`<div style="width:100%;text-align:left;margin-bottom:1rem;"><span class="glossary-item hoverable clickable-indicator module-main-title" data-gid="${e.id}">${e.title} Map</span></div><div style="width:100%;text-align:left;margin-bottom:1rem;color:var(--text-color);font-size:1.05rem;line-height:1.5;white-space:nowrap;overflow-x:auto;">A conceptual adaptive system for a complex adaptive world-system. Navigate the wiki tree and select concept entries to open.</div><div class="module-entry-count">${entryCount} Concept Entries</div>`;const t=e.children.find(e=>"s2-1"===e.id),n=e.children.filter(e=>"s2-1"!==e.id&&"s2-7"!==e.id),c=problemComplexOverviewOrder.map(e=>t.children.find(o=>o.id===e)).filter(Boolean);return o+=`<span class="glossary-item hoverable clickable-indicator module-heading" data-gid="${t.id}">${t.title}</span><div class="module-grid three-col">`,c.forEach(e=>{o+=`<div class="module-col"><ul class="archive-list">${generateGlossaryList(e)}</ul></div>`}),o+="</div>",n.forEach(e=>{const colClass=3===e.children.length?"three-col":"two-col";o+=`<div class="module-section-divider"></div><span class="glossary-item hoverable clickable-indicator module-heading" data-gid="${e.id}">${e.title}</span><div class="module-grid ${colClass}">`,e.children.forEach(c=>{o+=`<div class="module-col"><ul class="archive-list">${generateGlossaryList(c)}</ul></div>`}),o+="</div>"}),o}
+function generateLandscapeRows(sectionNode){return sectionNode.children.map(entity=>{const works=(entity.children||[]).map(w=>`<div class="attr-precursor-work"><div class="attr-precursor-title">${w.title}</div><div class="attr-precursor-desc">${w.desc}</div></div>`).join("");return `<div class="attr-precursor-row"><div class="attr-precursor-label">${entity.title}</div><div class="attr-precursor-content"><div class="attr-precursor-desc">${entity.desc}</div><div class="attr-precursor-works">${works}</div></div></div>`}).join("")}
 function generateMaximalList(e,t=0){let o=getMaxDepth(e),n=o>1,c=`<li><div class="max-header"><div class="max-title hoverable clickable-indicator">${e.title}</div>`;if(n||e.desc){c+=`<div class="max-arrows"><span class="single-arrow hoverable collapsed"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg></span>`,o>2&&(c+=`<span class="double-arrow hoverable collapsed"><svg viewBox="0 0 24 24"><polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg></span>`),o>3&&(c+=`<span class="triple-arrow hoverable collapsed"><svg viewBox="0 0 24 24"><polyline points="7 18 12 23 17 18"></polyline><polyline points="7 11 12 16 17 11"></polyline><polyline points="7 4 12 9 17 4"></polyline></svg></span>`),c+="</div>"}return c+=`</div><div class="max-desc-collapsible collapsed"><div class="max-collapsible-inner"><div class="max-desc">${e.desc||""}</div></div></div>`,n&&(c+=`<div class="max-children-collapsible collapsed"><div class="max-collapsible-inner"><ul>${e.children.map(e=>generateMaximalList(e,t+1)).join("")}</ul></div></div>`),c+"</li>"}
 document.getElementById("definition").innerHTML=treeData.desc,document.getElementById("menu-2").innerHTML=treeData.children.map(e=>`<div class="menu-item hoverable clickable-indicator" data-target="${e.id}">${getShort(e)}</div>`).join(""),document.getElementById("stage-2-contents").innerHTML=generateAppPanels(treeData.children,2),document.querySelector(".css-tree").innerHTML=`<ul>${generateMapTree(viewTreeData,1)}</ul>`,document.getElementById("glossary-list-view").innerHTML=generateGlossaryModule(viewTreeData),document.getElementById("module-nav-fixed").innerHTML=generateModuleNav(viewTreeData),document.querySelector(".maximal-list").innerHTML=generateMaximalList(viewTreeData,0),setMapState(document.querySelector(".css-tree > ul > li"),1),setMaxState(document.querySelector(".maximal-list > li"),2),balanceMenuRows();
+const landscapeRoot=viewTreeData.children.find(c=>"s2-7"===c.id);
+if(landscapeRoot){document.getElementById("landscape-organisations-grid").innerHTML=generateLandscapeRows(landscapeRoot.children.find(c=>"s3-7-1"===c.id));document.getElementById("landscape-individuals-grid").innerHTML=generateLandscapeRows(landscapeRoot.children.find(c=>"s3-7-2"===c.id));}
 
 // Setup Hexagon Map
 const hx_cx = 500, hx_cy = 500, hx_r = 425, hx_lr = 515;
@@ -860,36 +969,36 @@ const attractorData = {
         title: 'The World-System',
         desc: 'The current dominant paradigm of human civilisation is not a neutral starting point equidistant from three future destinies, but a transitional condition already leaning into each attractor to varying extents. All three are present, in embryo or in earnest, within the world-system as it stands today.',
         points: [
-            '<strong style="color: var(--interactive-color);">Decentralised Destruction, already underway:</strong> Escalating geopolitical competition, accelerating arms races and the growing reach of malevolent rogue actors are already visible symptoms of this attractor, not merely a hypothetical future risk.',
-            '<strong style="color: var(--interactive-color);">Centralised Control, already underway:</strong> Pervasive surveillance capitalism, algorithmic governance and the steady concentration of corporate-state power already trace the contours of this attractor within existing institutions.',
-            '<strong style="color: var(--interactive-color);">Autopoetic Alignment, already underway:</strong> Nascent regenerative economics, collective sense-making movements and early civilisation-design experiments already show this attractor taking root, however unevenly, alongside the other two.'
+            '<strong>Decentralised Destruction, already underway:</strong> Escalating geopolitical competition, accelerating arms races and the growing reach of malevolent rogue actors are already visible symptoms of this attractor, not merely a hypothetical future risk.',
+            '<strong>Centralised Control, already underway:</strong> Pervasive surveillance capitalism, algorithmic governance and the steady concentration of corporate-state power already trace the contours of this attractor within existing institutions.',
+            '<strong>Autopoetic Alignment, already underway:</strong> Nascent regenerative economics, collective sense-making movements and early civilisation-design experiments already show this attractor taking root, however unevenly, alongside the other two.'
         ]
     },
     'attr-1': {
         title: 'The First Attractor: Decentralised Destruction',
         desc: 'Global catastrophe and civilisational collapse, arrived at not by design but by default: escalating system-dynamics, state-actor conflict and empowered rogue actors compound unchecked. Decentralised destruction is what results when no one is steering.',
         points: [
-            '<strong style="color: var(--interactive-color);">Escalating System-Dynamics:</strong> Compounding externalities accumulate as civilisation pushes against the limits of growth on every front. Sociological pressures build alongside ecological strain, each amplifying the other in a self-reinforcing spiral. Left unaddressed, these escalating system-dynamics erode the stability any course-correction would need to take hold.',
-            '<strong style="color: var(--interactive-color);">Escalating Competition & Conflict between State Actors:</strong> Brinkmanship between rival powers escalates as zero-sum competition intensifies across every domain. Arms races accelerate in tandem, each side’s build-up justified by the other’s. Left unchecked, this trajectory of intensifying conflict culminates in wars that no single actor can unilaterally prevent.',
-            '<strong style="color: var(--interactive-color);">Escalating Power of Malevolent Rogue Actors:</strong> The democratization of exponential technologies steadily lowers the barrier between destructive intent and destructive capability. Non-state actors, once constrained by resource and expertise, are increasingly empowered to act on a civilisational scale. What results is the growing capacity to inflict catastrophic, asymmetric damage from a single point of malicious will.'
+            '<strong>Escalating System-Dynamics:</strong> Compounding externalities accumulate as civilisation pushes against the limits of growth on every front. Sociological pressures build alongside ecological strain, each amplifying the other in a self-reinforcing spiral. Left unaddressed, these escalating system-dynamics erode the stability any course-correction would need to take hold.',
+            '<strong>Escalating Competition & Conflict between State Actors:</strong> Brinkmanship between rival powers escalates as zero-sum competition intensifies across every domain. Arms races accelerate in tandem, each side’s build-up justified by the other’s. Left unchecked, this trajectory of intensifying conflict culminates in wars that no single actor can unilaterally prevent.',
+            '<strong>Escalating Power of Malevolent Rogue Actors:</strong> The democratization of exponential technologies steadily lowers the barrier between destructive intent and destructive capability. Non-state actors, once constrained by resource and expertise, are increasingly empowered to act on a civilisational scale. What results is the growing capacity to inflict catastrophic, asymmetric damage from a single point of malicious will.'
         ]
     },
     'attr-2': {
         title: 'The Second Attractor: Centralised Control',
         desc: 'Dystopian lock-in, arriving as a counter-reaction to the first attractor’s chaos: centralised control imposes global stable totalitarianism and hyper-surveillance capitalism to arrest the descent, extinguishing human agency and diversity in the process.',
         points: [
-            '<strong style="color: var(--interactive-color);">Global Stable Totalitarianism:</strong> A permanent, inescapable planetary regime consolidates control over every dimension of human life. Advanced surveillance renders dissent visible before it can organise, while coercion enforces compliance where persuasion fails. The result is a strict order stabilised not by consent but by the impossibility of exit.',
-            '<strong style="color: var(--interactive-color);">Hyper-Surveillance Capitalism:</strong> A pervasive corporate-state architecture fuses commercial and governmental power into a single apparatus of observation. It continuously extracts behavioural data, predicts human behavior before it fully forms, and manipulates it back toward profitable and compliant ends. The result is absolute control exercised so seamlessly it is barely felt as coercion at all.',
-            '<strong style="color: var(--interactive-color);">Despotic Drift & Closed Society:</strong> Centralised control does not arrive only through cold technocratic optimisation; it also crystallises through despotic drift, as crisis-management institutions harden into rule by a narrowing elite. Societies close in on themselves, treating openness and dissent as existential threats to be contained. What began as an emergency reactionary lock-down becomes the permanent order, its exceptional powers never relinquished.'
+            '<strong>Global Stable Totalitarianism:</strong> A permanent, inescapable planetary regime consolidates control over every dimension of human life. Advanced surveillance renders dissent visible before it can organise, while coercion enforces compliance where persuasion fails. The result is a strict order stabilised not by consent but by the impossibility of exit.',
+            '<strong>Hyper-Surveillance Capitalism:</strong> A pervasive corporate-state architecture fuses commercial and governmental power into a single apparatus of observation. It continuously extracts behavioural data, predicts human behavior before it fully forms, and manipulates it back toward profitable and compliant ends. The result is absolute control exercised so seamlessly it is barely felt as coercion at all.',
+            '<strong>Despotic Drift & Closed Society:</strong> Centralised control does not arrive only through cold technocratic optimisation; it also crystallises through despotic drift, as crisis-management institutions harden into rule by a narrowing elite. Societies close in on themselves, treating openness and dissent as existential threats to be contained. What began as an emergency reactionary lock-down becomes the permanent order, its exceptional powers never relinquished.'
         ]
     },
     'attr-3': {
         title: 'The Third Attractor: Autopoetic Alignment',
         desc: 'Autopoetic alignment: a self-organising re-orientation achieved through agency, not collapse or control. Cultural enlightenment shifts collective values, while civilisation design re-architects institutions – stewarding exponential power wisely rather than being steered by it.',
         points: [
-            '<strong style="color: var(--interactive-color);">Civilisation Design:</strong> The conscious, intentional architecting of socio-economic systems replaces inherited structures with deliberately designed ones. Institutions are re-optimized around long-term outcomes rather than short-term extraction, treating the whole civilisational system as something to be designed rather than merely inherited. The aim throughout is planetary thriving, sustained across generations rather than borrowed against them.',
-            '<strong style="color: var(--interactive-color);">Cultural Enlightenment:</strong> A fundamental shift in collective consciousness reorients the values a civilisation organises itself around. Sense-making capacities mature enough to hold complexity and uncertainty without collapsing into denial or despair. This shift is necessary to steward exponential power wisely, rather than being outpaced and overwhelmed by it.',
-            '<strong style="color: var(--interactive-color);">Decentralised Coordination:</strong> Autopoetic alignment need not depend on a central authority; it can also emerge through decentralised coordination, as distributed networks of agents align around shared goals while retaining autonomy. Careful mechanism design – incentives and protocols engineered so individually rational action aggregates into collectively beneficial outcomes – makes this coordination robust rather than merely hopeful. The result is a resilient, polycentric order that can adapt and self-correct without centralisation\'s single points of failure.'
+            '<strong>Civilisation Design:</strong> The conscious, intentional architecting of socio-economic systems replaces inherited structures with deliberately designed ones. Institutions are re-optimized around long-term outcomes rather than short-term extraction, treating the whole civilisational system as something to be designed rather than merely inherited. The aim throughout is planetary thriving, sustained across generations rather than borrowed against them.',
+            '<strong>Cultural Enlightenment:</strong> A fundamental shift in collective consciousness reorients the values a civilisation organises itself around. Sense-making capacities mature enough to hold complexity and uncertainty without collapsing into denial or despair. This shift is necessary to steward exponential power wisely, rather than being outpaced and overwhelmed by it.',
+            '<strong>Decentralised Coordination:</strong> Autopoetic alignment need not depend on a central authority; it can also emerge through decentralised coordination, as distributed networks of agents align around shared goals while retaining autonomy. Careful mechanism design – incentives and protocols engineered so individually rational action aggregates into collectively beneficial outcomes – makes this coordination robust rather than merely hopeful. The result is a resilient, polycentric order that can adapt and self-correct without centralisation\'s single points of failure.'
         ]
     }
 };
@@ -927,35 +1036,270 @@ const attrMatrixData = {
         title: 'Mutual Reinforcement: Catastrophes ↔ Dystopias',
         desc: 'The unstable zone between the first two attractors, where neither power concentration nor coordination failure has been resolved. Catastrophic multipolar breakdown and centralised control feed one another in an oscillating trap rather than settling into either as a stable resting state.',
         points: [
-            '<strong style="color: var(--interactive-color);">Catastrophes &rarr; Dystopias:</strong> Escalating multipolar catastrophes create overwhelming public demand for decisive, centralised security responses.',
-            '<strong style="color: var(--interactive-color);">Dystopias &rarr; Catastrophes:</strong> Authoritarian overreach provokes resistance and clandestine parallel power structures, fragmenting back into disorder.'
+            '<strong>Catastrophes &rarr; Dystopias:</strong> Escalating multipolar catastrophes create overwhelming public demand for decisive, centralised security responses.',
+            '<strong>Dystopias &rarr; Catastrophes:</strong> Authoritarian overreach provokes resistance and clandestine parallel power structures, fragmenting back into disorder.'
         ]
     },
     'catastrophes': {
         title: 'Catastrophes',
         desc: 'The quadrant where concentrated power is avoided, yet uni-polar control is never achieved: authority stays genuinely distributed, but no actor or mechanism succeeds in coordinating it. Left unresolved, this distributed disorder decays into the catastrophic breakdown of decentralised destruction.',
         points: [
-            '<strong style="color: var(--interactive-color);">Distributed but Uncoordinated:</strong> No actor holds enough power to unilaterally impose order, but none can compel the cooperation needed to avoid mutual harm either.',
-            '<strong style="color: var(--interactive-color);">Escalating Competitive Pressure:</strong> Arms races, resource competition and empowered rogue actors compound without a coordinating mechanism to contain them.'
+            '<strong>Distributed but Uncoordinated:</strong> No actor holds enough power to unilaterally impose order, but none can compel the cooperation needed to avoid mutual harm either.',
+            '<strong>Escalating Competitive Pressure:</strong> Arms races, resource competition and empowered rogue actors compound without a coordinating mechanism to contain them.'
         ]
     },
     'dystopias': {
         title: 'Dystopias',
         desc: 'The quadrant where coordination failure is resolved, but only by allowing power to concentrate: multi-polar competition never stabilises on its own, so a single centre of authority imposes the order the system could not otherwise reach – coordination purchased at the cost of centralised, totalitarian control.',
         points: [
-            '<strong style="color: var(--interactive-color);">Coordination Without Consent:</strong> A single centre of power succeeds in coordinating the system, but only by suppressing the autonomy a genuinely distributed alternative would require.',
-            '<strong style="color: var(--interactive-color);">Stability Through Control:</strong> Order is achieved and maintained through surveillance and enforcement rather than negotiated cooperation between distributed actors.'
+            '<strong>Coordination Without Consent:</strong> A single centre of power succeeds in coordinating the system, but only by suppressing the autonomy a genuinely distributed alternative would require.',
+            '<strong>Stability Through Control:</strong> Order is achieved and maintained through surveillance and enforcement rather than negotiated cooperation between distributed actors.'
         ]
     },
     'alignment': {
         title: 'Civilisation Alignment',
         desc: 'The quadrant where both failure modes are resolved at once: power stays meaningfully distributed and yet the system still coordinates effectively, without concentrating authority in any single actor. This synergistic order is genuinely stable, rather than a trade-off between the other two attractors.',
         points: [
-            '<strong style="color: var(--interactive-color);">Distributed Yet Coordinated:</strong> Power remains meaningfully decentralised, while shared sense-making and trusted institutions still allow the system to act coherently.',
-            '<strong style="color: var(--interactive-color);">A Genuine Third Way:</strong> Neither a trade-off nor a temporary truce between the other two attractors, but a qualitatively different, self-reinforcing equilibrium.'
+            '<strong>Distributed Yet Coordinated:</strong> Power remains meaningfully decentralised, while shared sense-making and trusted institutions still allow the system to act coherently.',
+            '<strong>A Genuine Third Way:</strong> Neither a trade-off nor a temporary truce between the other two attractors, but a qualitatively different, self-reinforcing equilibrium.'
         ]
     }
 };
+const genConcepts = [
+    {id:'exp-tech-accel', title:'Exponential Technological Acceleration', group:'origin', desc:'The compounding acceleration of technological capabilities and economic throughput that acts as a planetary multiplier. It raises the stakes and speed of underlying structural traps, continuously introducing novel, high-impact failure modes.'},
+    {id:'abstraction-cycle', title:'Abstraction-Extraction-Accumulation Cycle', group:'origin', desc:'A systemic loop where complex realities are reduced to narrow metrics (abstraction), natural and social resources are rapidly harvested without accounting for externalities (extraction), and power is hyper-concentrated (accumulation).'},
+    {id:'collective-alienation', title:'Collective Psychological Alienation', group:'origin', desc:"A profound, systemic disconnection from the Self, the Other, and the World (including society, the environment, and the future). Termed by Zak Stein as a 'global intimacy disorder', this dynamic fragments our shared sensemaking and relational capacities, leaving individuals isolated and societies unable to coordinate."},
+    {id:'arms-races', title:'Arms Races &amp; Tragedies of the Commons', group:'chain', desc:'A game-theoretic dynamic where competing actors escalate investment in extractive or destructive capacity, since unilateral restraint only cedes advantage to rivals. With no binding coordination mechanism, individually rational choices aggregate into collective ruin.'},
+    {id:'embedded-growth', title:'Embedded Growth Obligations', group:'chain', catType:'behavioural-economic', desc:'The structural requirement, hard-coded into compound interest, shareholder returns and GDP targets, for perpetual quantitative expansion. It persists regardless of ecological limits or diminishing returns to genuine wellbeing.'},
+    {id:'left-hemispheric', title:'Left-Hemispheric Conditioning', group:'chain', catType:'cultural-psychological', desc:"A civilisation-wide bias toward the brain's left-hemispheric mode of attention – narrow, decontextualised, control-seeking – at the expense of the right hemisphere's holistic grasp of a living world. (After Iain McGilchrist.)"},
+    {id:'multipolar-traps', title:'Multi-Polar Traps &amp; Zero-Sum Games', group:'chain', catType:'game-theoretic', desc:'Many independent actors face zero-sum payoffs with no binding mechanism to coordinate between them, so each is structurally compelled to defect even when mutual restraint would serve everyone better. Individually rational choices aggregate into an outcome no single actor can unilaterally escape.'},
+    {id:'narrow-metric-chain', title:'Narrow Metric Optimisation', group:'chain', desc:"A small set of legible proxy metrics – GDP, quarterly profit, engagement – is relentlessly maximised as a stand-in for genuine wellbeing, while everything the proxy fails to capture is blindly sacrificed. As Goodhart's Law predicts, once a measure becomes the target, it ceases to be a good measure."},
+    {id:'life-blind-search', title:'Life-Blind Search Processes', group:'chain', desc:'Market competition, algorithmic training and selection under artificial pressure are search processes indifferent to life itself, optimising only for whatever narrow proxy they happen to be pointed at. Whatever the proxy does not reward is treated as though it does not exist.'},
+    {id:'structural-separation', title:'Structural &amp; Superstructural Separation', group:'chain', desc:"The global political economy organises humanity into separated collective agents – nation-states and corporations – as its basic structural units, legitimised by the cultural 'superstructure' of nationalism and tribalism. These impermeable self/other boundaries hard-code the prisoner's dilemma into civilisation, so no moral appeal can reach across them."},
+    {id:'isolated-problem-solving', title:'Isolated Problem-Solving', group:'chain', desc:"Each institution attacks its own local problem in a silo, with no shared model of the interconnected whole it is embedded in. Specialised 'solutions' routinely externalise costs into every other domain, becoming the generative source of new, worse crises elsewhere."},
+    {id:'reductionist-modelling', title:'Reductionist World-Modelling', group:'chain', desc:'Reality is modelled as a set of separable, context-free components to be individually optimised, rather than as an irreducibly interconnected living system. Whatever this model omits becomes structurally invisible, so its costs go unaccounted for until they cascade into crisis.'},
+    {id:'instrumental-convergence', title:'Instrumental Convergence &amp; Strategy Stealing', group:'category', catType:'game-theoretic', desc:"Sufficiently capable optimising agents converge on the same instrumental subgoals – self-preservation, resource acquisition, power-seeking – regardless of their ultimate objective, since these subgoals are useful for achieving almost any goal. This collapses the practical distinction between 'good' and merely competitive agents: any actor bound by ethical constraints must strategy-steal the same power-seeking behaviours as its least-constrained rivals just to remain competitive, or else be selected out."},
+    {id:'narrow-metric-cat', title:'Narrow Metric Optimisation &amp; Negative Externalities', shortTitle:'Negative Externalities', group:'category', catType:'systems-theoretic', desc:"A small set of legible proxy metrics – GDP, quarterly profit, engagement – is relentlessly maximised as a stand-in for genuine wellbeing, since once a measure becomes the target it ceases to be a good one, as Goodhart's Law predicts. Whatever the proxy fails to capture is blindly sacrificed, degrading unmeasured dimensions of the system until those hidden costs accumulate silently and surface as catastrophic, systemic failures."},
+    {id:'positive-feedback', title:'Positive Feedback Loops &amp; Power Asymmetries', group:'category', catType:'systems-theoretic', desc:"Early, often small advantages compound through self-reinforcing feedback loops – exponential finance, network effects, data and compute advantages – concentrating capital and capability into the hands of an ever-smaller set of hyper-agents (states, corporations, or individuals) whose scale then lets them further tilt the system's rules in their own favour."},
+    {id:'perverse-incentives', title:'Perverse Incentive Structures', group:'category', catType:'behavioural-economic', desc:'Economic and structural frameworks systematically reward extractive and harmful behaviour over regenerative action, externalising the costs of degradation onto others while good-faith actors who refuse to defect are competitively disadvantaged and driven out.'},
+    {id:'modernist-paradigm', title:'Modernist Cultural Paradigm', group:'category', catType:'cultural-psychological', desc:"Secular modernity's dominant paradigm of scientism, mechanism, anthropocentrism, individualism and economism, which reduces reality to separable, measurable components and legitimises an instrumental, utilitarian relationship to the world and to other people."},
+    {id:'scarcity-rivalry', title:'Scarcity-Rivalry Orientation', group:'category', catType:'cultural-psychological', desc:'Perceiving the world through a lens of fundamental scarcity, this orientation frames existence as zero-sum, generating and legitimising hierarchy, competition and conflict as natural, inevitable features of life rather than as contingent, changeable arrangements.'},
+    {id:'psychopathic-selection', title:'Psychopathic Selection Hypothesis', group:'category', catType:'cultural-psychological', desc:'Systems structured around zero-sum competition and extractive incentives systematically reward ruthlessness, a lack of empathy, and a willingness to externalise harm over prosocial restraint, selecting those best adapted to exploit the system into its positions of greatest power.'},
+    {id:'wisdom-gaps', title:'The Wisdom Gap(s)', group:'category', catType:'mytho-poetic', desc:"The widening gap between humanity's technological and economic power and its collective wisdom to wield that power well – expressed as parallel gaps in our moral, structural and epistemic capacities, long mythologised across cultures as the perennial warning against power outrunning wisdom."},
+    {id:'moloch', title:'Moloch: God of Game-Theory', group:'category', catType:'mytho-poetic', desc:"Moloch is Scott Alexander's mythic personification of the meta-pattern underlying every multipolar trap and race-to-the-bottom dynamic in this map – the emergent, god-like entity to which competing agents sacrifice their own values, one by one, because no single agent can unilaterally refuse without simply losing to a rival who won't. Named after the god demanding child sacrifice in the Old Testament (and Allen Ginsberg's poem 'Howl'), Moloch names coordination failure itself as a force powerful enough to be worshipped."}
+];
+
+const genConceptById = {};
+genConcepts.forEach(c => genConceptById[c.id] = c);
+
+const genFlowPos = {
+    'exp-tech-accel': {x:250, y:125}, 'abstraction-cycle': {x:750, y:125}, 'collective-alienation': {x:1250, y:125},
+    'arms-races': {x:250, y:400}, 'embedded-growth': {x:750, y:400}, 'left-hemispheric': {x:1250, y:400},
+    'multipolar-traps': {x:250, y:675}, 'narrow-metric-chain': {x:750, y:675}, 'life-blind-search': {x:1250, y:675},
+    'structural-separation': {x:250, y:950}, 'isolated-problem-solving': {x:750, y:950}, 'reductionist-modelling': {x:1250, y:950}
+};
+
+const genChainLanes = [
+    {ids: ['arms-races', 'multipolar-traps', 'structural-separation']},
+    {ids: ['embedded-growth', 'narrow-metric-chain', 'isolated-problem-solving']},
+    {ids: ['left-hemispheric', 'life-blind-search', 'reductionist-modelling']}
+];
+
+const genCategoryGroups = [
+    {label: 'Game-Theoretic', ids: ['multipolar-traps', 'instrumental-convergence']},
+    {label: 'Systems-Theoretic', ids: ['narrow-metric-cat', 'positive-feedback']},
+    {label: 'Behavioural-Economic', ids: ['embedded-growth', 'perverse-incentives']},
+    {label: 'Cultural-Psychological', ids: ['left-hemispheric', 'modernist-paradigm', 'scarcity-rivalry', 'psychopathic-selection']},
+    {label: 'Mytho-Poetic', ids: ['wisdom-gaps', 'moloch']}
+];
+
+const genChainEdges = [
+    ['exp-tech-accel','arms-races'], ['exp-tech-accel','embedded-growth'], ['exp-tech-accel','left-hemispheric'],
+    ['abstraction-cycle','arms-races'], ['abstraction-cycle','embedded-growth'], ['abstraction-cycle','left-hemispheric'],
+    ['collective-alienation','arms-races'], ['collective-alienation','embedded-growth'], ['collective-alienation','left-hemispheric'],
+    ['arms-races','multipolar-traps'], ['embedded-growth','narrow-metric-chain'], ['left-hemispheric','life-blind-search'],
+    ['multipolar-traps','structural-separation'], ['narrow-metric-chain','isolated-problem-solving'], ['life-blind-search','reductionist-modelling']
+];
+
+const genInterconnections = {
+    'exp-tech-accel-arms-races': "Compounding technological and economic acceleration raises the stakes and speed of competitive escalation, turning what were once slow-moving rivalries into high-velocity arms races no actor can afford to unilaterally exit.",
+    'exp-tech-accel-embedded-growth': "Every increment of technological capability is immediately absorbed into the compounding growth targets of compound interest and GDP, so acceleration never slackens the underlying obligation to expand, it only raises the ceiling.",
+    'exp-tech-accel-left-hemispheric': "The tools accelerating fastest are those that reward narrow, decontextualised, control-seeking cognition, so each new wave of technological power further entrenches the left-hemispheric mode of attention that built it.",
+    'abstraction-cycle-arms-races': "Reducing complex realities to narrow, comparable metrics lets rival actors directly benchmark and escalate against one another, turning abstraction into the scoreboard that fuels competitive arms races.",
+    'abstraction-cycle-embedded-growth': "Once extraction has been made legible as a single accumulating number, further extraction becomes an obligation the system must keep meeting, hard-coding perpetual growth into its own accounting.",
+    'abstraction-cycle-left-hemispheric': "Abstraction, extraction and accumulation are themselves the signature moves of left-hemispheric attention, so the cycle both requires and continuously re-trains a civilisation-wide bias toward that narrow mode of perception.",
+    'collective-alienation-arms-races': "A civilisation disconnected from Self, Other and World loses the relational trust that coordination requires, leaving competitive escalation as the only mode of interaction that still feels reliable.",
+    'collective-alienation-embedded-growth': "Alienated from genuine relationship and meaning, individuals and institutions substitute quantitative growth for the qualitative wellbeing they can no longer sense or measure directly.",
+    'collective-alienation-left-hemispheric': "A global intimacy disorder is itself a left-hemispheric disorder: disconnection from Self, Other and World is what happens when the brain's narrow, controlling mode of attention dominates the holistic, relational one.",
+    'arms-races-multipolar-traps': "Escalating investment in extractive or destructive capacity is the concrete mechanism by which many independent actors find themselves locked into a zero-sum, structurally inescapable multi-polar trap.",
+    'embedded-growth-narrow-metric-chain': "The obligation to keep expanding quantitatively channels every institution toward whichever proxy metric best demonstrates that expansion, collapsing genuine wellbeing into narrow, legible targets.",
+    'left-hemispheric-life-blind-search': "A civilisation-wide bias toward narrow, decontextualised attention builds search and selection processes, markets, algorithms, competitive institutions, that inherit the same blindness to life itself.",
+    'multipolar-traps-structural-separation': "Because no actor can unilaterally exit a multi-polar trap without ceding advantage, the trap itself legitimises and hardens the nation-state and corporate boundaries that keep rivals structurally separated.",
+    'narrow-metric-chain-isolated-problem-solving': "Once a single proxy metric becomes each institution's target, every institution optimises its own metric in isolation, with no shared model of the interconnected whole its 'solution' is embedded in.",
+    'life-blind-search-reductionist-modelling': "Search processes indifferent to life itself can only optimise what they can model, so they default to treating reality as a set of separable, context-free components rather than a living system.",
+    'instrumental-convergence-multipolar-traps': "Because self-preservation, resource acquisition and power-seeking are useful for almost any goal, every sufficiently capable actor converges on the same subgoals, turning what could be diverse strategies into one more zero-sum, mutually-defeating race.",
+    'narrow-metric-cat-narrow-metric-chain': "The same Goodhart's Law dynamic, a proxy ceasing to be a good measure once it becomes the target, plays out at both the civilisational and institutional scale, so the category-level pathology and the chain's own narrow-metric step are the same mechanism recurring at different resolutions.",
+    'positive-feedback-structural-separation': "Self-reinforcing feedback loops concentrate capital and capability into an ever-smaller set of hyper-agents, and those hyper-agents then have every incentive to entrench the separated, sovereign boundaries that let them keep the advantage to themselves.",
+    'perverse-incentives-embedded-growth': "Rewarding extractive behaviour over regenerative action gives every actor a competitive reason to keep expanding output regardless of ecological limits, reinforcing growth as a structural obligation rather than a choice.",
+    'modernist-paradigm-left-hemispheric': "Scientism, mechanism and instrumentalism are the cultural expression of left-hemispheric attention at civilisational scale, so modernity's dominant paradigm both grows from and continuously re-legitimises that narrow mode of perceiving the world.",
+    'scarcity-rivalry-arms-races': "Framing existence as fundamentally zero-sum makes competitive escalation look like the only rational response to a rival's move, turning a scarcity mindset directly into an arms race.",
+    'psychopathic-selection-structural-separation': "Systems that reward ruthlessness over empathy select leadership and institutions least willing to dissolve the boundaries that let them externalise harm, entrenching rather than healing structural separation.",
+    'wisdom-gaps-reductionist-modelling': "An epistemic capacity that lags behind the complexity of what must be understood defaults to modelling reality in whatever simplified, reductionist terms it can still manage, at the cost of everything that simplification omits."
+};
+
+function genFirstSentence(text) {
+    const plain = text.replace(/<[^>]*>/g, '');
+    const idx = plain.indexOf('. ');
+    return idx === -1 ? plain : plain.slice(0, idx + 1);
+}
+
+function genConcise(text, maxLen) {
+    maxLen = maxLen || 130;
+    if (text.length <= maxLen) return text;
+    const cut = text.slice(0, maxLen);
+    const lastSpace = cut.lastIndexOf(' ');
+    return (lastSpace > 0 ? cut.slice(0, lastSpace) : cut) + '…';
+}
+
+function generatePairText(a, b) {
+    const bLead = genConcise(genFirstSentence(b.desc));
+    const bLower = bLead.charAt(0).toLowerCase() + bLead.slice(1);
+    const verb = (a.catType && a.catType === b.catType) ? 'reinforces' : 'feeds into';
+    return `${a.title} ${verb} ${b.title}, where ${bLower}`;
+}
+
+function getPairTexts(srcId, tgtId) {
+    const src = genConceptById[srcId], tgt = genConceptById[tgtId];
+    const a1 = genInterconnections[srcId+'-'+tgtId] || generatePairText(src, tgt);
+    const a2 = genInterconnections[tgtId+'-'+srcId] || generatePairText(tgt, src);
+    return {a1, a2};
+}
+
+function genNodeBoxHtml(id, x, y, w, h, opts) {
+    w = w || 260;
+    h = h || 68;
+    opts = opts || {};
+    const c = genConceptById[id];
+    const label = opts.useShortTitle && c.shortTitle ? c.shortTitle : c.title;
+    const fontSize = opts.fontSize || (w >= 280 ? '1.05rem' : '0.95rem');
+    const interactive = opts.interactive !== false;
+    const groupClass = interactive ? 'gen-concept-node hoverable' : 'gen-chain-box';
+    const dataAttr = interactive ? ` data-concept="${id}"` : '';
+    const cursorStyle = interactive ? 'cursor:pointer;' : '';
+    return `<g class="${groupClass}"${dataAttr} style="${cursorStyle}">
+        <rect x="${x - w/2}" y="${y - h/2}" width="${w}" height="${h}" rx="10" fill="var(--bg-color)" stroke="var(--indicator-color-solid)" stroke-width="2" />
+        <foreignObject x="${x - w/2 + 8}" y="${y - h/2}" width="${w - 16}" height="${h}">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; text-align:center;">
+                <span style="color:var(--text-color); font-weight:500; font-size:${fontSize}; line-height:1.25;">${label}</span>
+            </div>
+        </foreignObject>
+    </g>`;
+}
+
+const genRadialCx = 620, genRadialCy = 620, genRadialR = 385;
+
+function genRadialLayout() {
+    const cx = genRadialCx, cy = genRadialCy, r = genRadialR;
+    const nodes = genConcepts.filter(c => c.id !== 'moloch');
+    const n = nodes.length;
+    return nodes.map((c, i) => {
+        const angle = (i / n) * 2 * Math.PI - Math.PI / 2;
+        return {id: c.id, x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle};
+    });
+}
+
+function genRadialNodeHtml(id, x, y, angle) {
+    const c = genConceptById[id];
+    const label = c.shortTitle || c.title;
+    const labelOffset = 18;
+    const lx = x + labelOffset * Math.cos(angle);
+    const ly = y + labelOffset * Math.sin(angle);
+    const isLeft = Math.cos(angle) < -0.05;
+    const anchor = isLeft ? 'end' : 'start';
+    return `<g class="gen-concept-node hoverable" data-concept="${id}" style="cursor:pointer;">
+        <circle cx="${x}" cy="${y}" r="9" fill="var(--bg-color)" stroke="var(--indicator-color-solid)" stroke-width="2.5" />
+        <text x="${lx}" y="${ly}" text-anchor="${anchor}" dominant-baseline="middle" style="font-size:16px; font-weight:500; fill:var(--text-color); font-family:var(--font-primary);">${label}</text>
+    </g>`;
+}
+
+function renderGenRadial() {
+    const positions = genRadialLayout();
+    let nodesHtml = '';
+    positions.forEach(p => { nodesHtml += genRadialNodeHtml(p.id, p.x, p.y, p.angle); });
+    document.getElementById('gen-ic-radial-nodes').innerHTML = nodesHtml;
+    let edgesHtml = '';
+    for (let i = 0; i < positions.length; i++) {
+        for (let j = i + 1; j < positions.length; j++) {
+            const a = positions[i], b = positions[j];
+            edgesHtml += `<g class="gen-edge-group hoverable" data-src="${a.id}" data-tgt="${b.id}" style="cursor:pointer;">
+                <line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="var(--indicator-color-solid)" stroke-width="1.5" class="gen-edge-line-vis" />
+                <line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="transparent" stroke-width="14" pointer-events="stroke" />
+            </g>`;
+        }
+    }
+    document.getElementById('gen-ic-radial-edges').innerHTML = edgesHtml;
+}
+
+function drawGenEdgeLine(x1, y1, x2, y2, extra) {
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--indicator-color-solid)" stroke-width="2" marker-end="url(#gen-arrowhead)" ${extra||''} />`;
+}
+
+function genCatRowLabelHtml(y, h, label) {
+    return `<foreignObject x="0" y="${y - h/2}" width="330" height="${h}">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%; height:100%; box-sizing:border-box; display:flex; align-items:center; justify-content:flex-end; text-align:right; text-transform:uppercase; font-size:1.275rem; letter-spacing:0.06em; font-weight:600; opacity:0.7; border-right:4px solid var(--interactive-color); padding-right:1.8rem; line-height:1.3; color:var(--text-color); font-family:var(--font-primary);">${label}</div>
+    </foreignObject>`;
+}
+
+const genCatRowBoxW = 345, genCatRowBoxH = 120, genCatRowGap = 30, genCatRowPitch = genCatRowBoxW + genCatRowGap, genCatRowContentX = 375;
+
+const genChainBoxW = 400, genChainBoxH = 112, genChainLanePad = 26;
+
+function renderGenChain() {
+    let edgesHtml = '';
+    genChainEdges.forEach(([a, b]) => {
+        const A = genFlowPos[a], B = genFlowPos[b];
+        edgesHtml += drawGenEdgeLine(A.x, A.y + genChainBoxH / 2, B.x, B.y - genChainBoxH / 2);
+    });
+    document.getElementById('gen-chain-edges').innerHTML = edgesHtml;
+
+    let nodesHtml = '';
+    genConcepts.filter(c => c.group === 'origin').forEach(c => {
+        const p = genFlowPos[c.id];
+        nodesHtml += genNodeBoxHtml(c.id, p.x, p.y, genChainBoxW, genChainBoxH, {fontSize: '1.1rem', interactive: false});
+    });
+
+    genChainLanes.forEach((lane, i) => {
+        const positions = lane.ids.map(id => genFlowPos[id]);
+        const x = positions[0].x;
+        const topY = positions[0].y - genChainBoxH / 2 - genChainLanePad;
+        const bottomY = positions[positions.length - 1].y + genChainBoxH / 2 + genChainLanePad;
+        const bgX = x - genChainBoxW / 2 - genChainLanePad;
+        const bgW = genChainBoxW + genChainLanePad * 2;
+        let laneHtml = `<rect class="gen-chain-lane-bg" x="${bgX}" y="${topY}" width="${bgW}" height="${bottomY - topY}" rx="18" />`;
+        lane.ids.forEach(id => {
+            const p = genFlowPos[id];
+            laneHtml += genNodeBoxHtml(id, p.x, p.y, genChainBoxW, genChainBoxH, {fontSize: '1.1rem', interactive: false});
+        });
+        nodesHtml += `<g class="gen-chain-lane hoverable" data-lane="${i}" style="cursor:pointer;">${laneHtml}</g>`;
+    });
+    document.getElementById('gen-chain-nodes').innerHTML = nodesHtml;
+}
+
+function renderGenCategories() {
+    let nodesHtml = '';
+    genCategoryGroups.forEach((grp, i) => {
+        const y = 135 + i * 195;
+        nodesHtml += genCatRowLabelHtml(y, genCatRowBoxH, grp.label);
+        grp.ids.forEach((id, j) => {
+            const x = genCatRowContentX + j * genCatRowPitch + genCatRowBoxW / 2;
+            nodesHtml += genNodeBoxHtml(id, x, y, genCatRowBoxW, genCatRowBoxH, {fontSize: '1.275rem'});
+        });
+    });
+    document.getElementById('gen-categories-nodes').innerHTML = nodesHtml;
+}
+renderGenRadial();
+renderGenChain();
+renderGenCategories();
 let attrTriEdgesHtml = '';
 for (let i = 0; i < attrTriNodesData.length; i++) {
     for (let j = i + 1; j < attrTriNodesData.length; j++) {
@@ -1019,13 +1363,13 @@ function fanHorizontalBus(points,busY,dir,r){const xs=points.map(p=>p.x),minX=Ma
 function ensureGenDynamicsOverlay(){let overlay=document.getElementById("gen-dynamics-overlay");if(overlay)return overlay;overlay=document.createElement("div"),overlay.id="gen-dynamics-overlay",overlay.style.cssText="position:absolute;top:0;left:0;pointer-events:none;",overlay.innerHTML=`<svg id="gen-dynamics-connector-svg" style="position:absolute;top:0;left:0;overflow:visible;pointer-events:none;"></svg><div id="gen-dynamics-merged-row" style="position:absolute;display:flex;pointer-events:none;"></div>`;const row=overlay.querySelector("#gen-dynamics-merged-row");return sharedGenDynNodes.forEach(n=>{row.insertAdjacentHTML("beforeend",`<div class="css-tree" style="padding:0;pointer-events:auto;"><ul>${generateMapTree(n,4)}</ul></div>`)}),treeZoomWrapper.appendChild(overlay),overlay}
 function updateGenDynamicsConnector(){if("map"!==currentView||0===sharedGenDynNodes.length){const ov=document.getElementById("gen-dynamics-overlay");ov&&(ov.style.display="none",ov.dataset.active="0");return}const l3Ids=genDynDupeIds,l3Boxes=l3Ids.map(id=>document.querySelector(`.css-tree [data-trigger="${id}"]`)),overlay=ensureGenDynamicsOverlay();if(l3Boxes.some(b=>!b)||l3Boxes.some(b=>null===b.offsetParent))return overlay.style.display="none",void(overlay.dataset.active="0");const genDynBox=document.querySelector(`.css-tree [data-trigger="${genDynMergeParentId}"]`),genDynWrapper=genDynBox&&genDynBox.closest(".map-node-wrapper"),genDynSingle=genDynWrapper&&genDynWrapper.querySelector(".map-single-arrow"),genDynDouble=genDynWrapper&&genDynWrapper.querySelector(".map-double-arrow"),genDynTriple=genDynWrapper&&genDynWrapper.querySelector(".map-triple-arrow"),genDynLevel=genDynTriple&&!genDynTriple.classList.contains("collapsed")?3:genDynDouble&&!genDynDouble.classList.contains("collapsed")?2:genDynSingle&&!genDynSingle.classList.contains("collapsed")?1:0,expanded=genDynLevel>=2;document.querySelectorAll(".map-proxy-arrow").forEach(p=>p.classList.toggle("collapsed",genDynLevel<2));if(genDynLevel!==lastGenDynLevel){lastGenDynLevel=genDynLevel;const sharedState=3===genDynLevel?1:0;Array.from(overlay.querySelectorAll("#gen-dynamics-merged-row > .css-tree > ul > li")).forEach(li=>setMapState(li,sharedState))}overlay.style.display="block";const wrapRect=treeZoomWrapper.getBoundingClientRect(),scale=mapScale||1,toLocal=r=>({left:(r.left-wrapRect.left)/scale,top:(r.top-wrapRect.top)/scale,width:r.width/scale,height:r.height/scale}),l3Local=l3Boxes.map(b=>toLocal(b.getBoundingClientRect()));l3Local.forEach(r=>{r.right=r.left+r.width,r.bottom=r.top+r.height,r.cx=r.left+r.width/2,r.cy=r.top+r.height/2});const horizontal=document.querySelector(".css-tree").classList.contains("horizontal"),row=overlay.querySelector("#gen-dynamics-merged-row"),svg=overlay.querySelector("#gen-dynamics-connector-svg"),STUB=22,TRUNK=40,ROUND=9;const minLeft=Math.min(...l3Local.map(r=>r.left)),maxRight=Math.max(...l3Local.map(r=>r.right)),minTop=Math.min(...l3Local.map(r=>r.top)),maxBottom=Math.max(...l3Local.map(r=>r.bottom)),midX=(minLeft+maxRight)/2,midY=(minTop+maxBottom)/2;let boundsX=[minLeft,maxRight],boundsY=[minTop,maxBottom],rawPaths=[];if(!expanded)row.style.display="none",svg.innerHTML="",svg.setAttribute("width",0),svg.setAttribute("height",0);else if(horizontal){row.style.display="flex",row.style.flexDirection="column",row.style.gap="1.25rem",row.style.alignItems="flex-start",row.style.left="0px",row.style.top="0px",Array.from(row.children).forEach(w=>w.classList.toggle("horizontal",horizontal));const rowW=row.offsetWidth,rowH=row.offsetHeight,rowTop=midY-rowH/2,rowLeft=maxRight+STUB+TRUNK+STUB;row.style.left=`${rowLeft}px`,row.style.top=`${rowTop}px`;const rowLocal=Array.from(row.children).map(w=>toLocal(w.querySelector(".node-box").getBoundingClientRect()));rowLocal.forEach(r=>{r.right=r.left+r.width,r.bottom=r.top+r.height,r.cx=r.left+r.width/2,r.cy=r.top+r.height/2});const busIn=maxRight+STUB,busOut=rowLeft-STUB;rawPaths.push(...fanVerticalBus(l3Local.map(r=>({x:r.right,y:r.cy})),busIn,1,ROUND)),rawPaths.push(`M ${busIn} ${midY} L ${busOut} ${midY}`),rawPaths.push(...fanVerticalBus(rowLocal.map(r=>({x:r.left,y:r.cy})),busOut,-1,ROUND)),boundsX.push(rowLeft+rowW),boundsY.push(rowTop,rowTop+rowH)}else{row.style.display="flex",row.style.flexDirection="row",row.style.gap="1.5rem",row.style.alignItems="stretch",row.style.left="0px",row.style.top="0px",Array.from(row.children).forEach(w=>w.classList.toggle("horizontal",horizontal));const rowW=row.offsetWidth,rowH=row.offsetHeight,rowLeft=midX-rowW/2,rowTop=maxBottom+STUB+TRUNK+STUB;row.style.left=`${rowLeft}px`,row.style.top=`${rowTop}px`;const rowLocal=Array.from(row.children).map(w=>toLocal(w.querySelector(".node-box").getBoundingClientRect()));rowLocal.forEach(r=>{r.right=r.left+r.width,r.bottom=r.top+r.height,r.cx=r.left+r.width/2,r.cy=r.top+r.height/2});const busIn=maxBottom+STUB,busOut=rowTop-STUB;rawPaths.push(...fanHorizontalBus(l3Local.map(r=>({x:r.cx,y:r.bottom})),busIn,1,ROUND)),rawPaths.push(`M ${midX} ${busIn} L ${midX} ${busOut}`),rawPaths.push(...fanHorizontalBus(rowLocal.map(r=>({x:r.cx,y:r.top})),busOut,-1,ROUND)),boundsY.push(rowTop+rowH),boundsX.push(rowLeft,rowLeft+rowW)}if(!expanded)return void(overlay.dataset.active="0");const svgLeft=Math.min(...boundsX)-2,svgTop=Math.min(...boundsY)-2,svgRight=Math.max(...boundsX)+2,svgBottom=Math.max(...boundsY)+2;svg.setAttribute("width",svgRight-svgLeft),svg.setAttribute("height",svgBottom-svgTop),svg.style.left=`${svgLeft}px`,svg.style.top=`${svgTop}px`;const shiftCoords=d=>d.replace(/(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)/g,(m,a,b)=>`${parseFloat(a)-svgLeft} ${parseFloat(b)-svgTop}`);svg.innerHTML=rawPaths.map(d=>`<path d="${shiftCoords(d)}" fill="none" stroke="var(--indicator-color-solid)" stroke-width="2" stroke-linecap="round" />`).join(""),overlay.dataset.active="1",overlay.dataset.left=svgLeft,overlay.dataset.top=svgTop,overlay.dataset.right=svgRight,overlay.dataset.bottom=svgBottom}
 document.getElementById("recenter-map-btn").addEventListener("click",resetMapView),mapContainer.addEventListener("mousedown",e=>{"map"===currentView&&!e.target.closest(".nav-item")&&!e.target.closest("#toggle-container")&&!e.target.closest(".br-action-btn")&&(e.preventDefault(),panStartX=e.clientX-pointX,panStartY=e.clientY-pointY,isPanning=!0,document.body.classList.add("is-panning"))}),window.addEventListener("mousemove",e=>{isPanning&&"map"===currentView&&(e.preventDefault(),pointX=e.clientX-panStartX,pointY=e.clientY-panStartY,updateMapTransform())}),window.addEventListener("mouseup",()=>{isPanning&&(isPanning=!1,document.body.classList.remove("is-panning"))}),mapContainer.addEventListener("wheel",e=>{if("map"!==currentView)return;e.preventDefault();const t=(e.clientX-pointX)/mapScale,o=(e.clientY-pointY)/mapScale;(e.wheelDelta?e.wheelDelta:-e.deltaY)>0?(mapScale*=1.05,triggerZoomCursor("in")):(mapScale/=1.05,triggerZoomCursor("out")),mapScale=Math.max(.15,Math.min(mapScale,4)),pointX=e.clientX-t*mapScale,pointY=e.clientY-o*mapScale,updateMapTransform()},{passive:!1});let initialPinchDistance=null,initialScale=1;mapContainer.addEventListener("touchstart",e=>{"map"===currentView&&!e.target.closest(".br-action-btn")&&(1===e.touches.length?(panStartX=e.touches[0].clientX-pointX,panStartY=e.touches[0].clientY-pointY,isPanning=!0,document.body.classList.add("is-panning")):2===e.touches.length&&(isPanning=!1,initialPinchDistance=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),initialScale=mapScale))},{passive:!1}),mapContainer.addEventListener("touchmove",e=>{if("map"===currentView)if(isPanning&&1===e.touches.length)e.preventDefault(),pointX=e.touches[0].clientX-panStartX,pointY=e.touches[0].clientY-panStartY,updateMapTransform();else if(2===e.touches.length){e.preventDefault();const t=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),o=(e.touches[0].clientX+e.touches[1].clientX)/2,n=(e.touches[0].clientY+e.touches[1].clientY)/2,c=(o-pointX)/mapScale,l=(n-pointY)/mapScale,r=initialScale*(t/initialPinchDistance);r>mapScale?triggerZoomCursor("in"):r<mapScale&&triggerZoomCursor("out"),mapScale=Math.max(.15,Math.min(r,4)),pointX=o-c*mapScale,pointY=n-l*mapScale,updateMapTransform()}},{passive:!1}),mapContainer.addEventListener("touchend",()=>{isPanning=!1,initialPinchDistance=null,document.body.classList.remove("is-panning")});
-function updateProgress(){const e=document.getElementById("main-breadcrumbs");document.getElementById("module-nav-fixed").classList.toggle("visible","glossary"===currentView&&"none"===document.getElementById("glossary-detail-view").style.display);if("app"===currentView){let arr=[];const defWrapper=document.getElementById("def-wrapper"),l2Panel=document.querySelector("#stage-2-contents > .content-panel.active");if(defWrapper&&defWrapper.classList.contains("active")){arr.push("The Metacrisis");if(l2Panel){arr.push(l2Panel.querySelector("h2.hoverable").textContent.split(":")[0].split("&")[0].trim());let l3Panel=l2Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l3Panel){arr.push(l3Panel.querySelector("h3.hoverable").textContent.split(":")[0].split("&")[0].trim());let l4Panel=l3Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l4Panel){arr.push(l4Panel.querySelector("h4.hoverable").textContent.split(":")[0].split("&")[0].trim());let l5Panel=l4Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l5Panel){arr.push(l5Panel.querySelector("h5.hoverable").textContent.split(":")[0].split("&")[0].trim());let l6Panel=l5Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l6Panel){arr.push(l6Panel.querySelector("h6.hoverable").textContent.split(":")[0].split("&")[0].trim());let l7Panel=l6Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l7Panel){arr.push(l7Panel.querySelector("h6.hoverable").textContent.split(":")[0].split("&")[0].trim())}}}}}}}e&&(arr.length>0?(e.innerHTML=arr.join('<span style="color: var(--interactive-color); font-weight: 600; margin: 0 0.5rem;">&gt;</span>'),e.classList.add("visible")):e.classList.remove("visible"))}else"glossary"===currentView&&"none"!==document.getElementById("glossary-detail-view").style.display?e&&e.classList.add("visible"):e&&e.classList.remove("visible");let t=0;if("app"===currentView){const defWrapper=document.getElementById("def-wrapper"),l2Panel=document.querySelector("#stage-2-contents > .content-panel.active");if(defWrapper&&defWrapper.classList.contains("active")){t=20;if(l2Panel){t=40;const l3Panel=l2Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l3Panel){t=60;const hasL4=!!l3Panel.querySelector(":scope > .content-panel-inner > .l4-menu");const l4Panel=l3Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l4Panel||!hasL4){t=80;const hasL5=l4Panel?!!l4Panel.querySelector(":scope > .content-panel-inner > .l5-menu"):false;const l5Panel=l4Panel?l4Panel.querySelector(":scope > .content-panel-inner > .content-panel.active"):null;if(l5Panel||(l4Panel&&!hasL5)||!hasL4){t=100}}}}}}else if("maximal"===currentView||"glossary"===currentView||"problem"===currentView||"generators"===currentView||"attractors"===currentView){const scrollY=window.scrollY||document.documentElement.scrollTop,maxScroll=document.documentElement.scrollHeight-document.documentElement.clientHeight;t=maxScroll>0?scrollY/maxScroll*100:100;scrollY>200?document.getElementById("scroll-top-btn").classList.add("visible"):document.getElementById("scroll-top-btn").classList.remove("visible")}else document.getElementById("scroll-top-btn").classList.remove("visible");const o=document.getElementById("scroll-progress-fill");o&&(o.style.height=`${Math.min(100,Math.max(0,t))}%`)}window.addEventListener("scroll",()=>{window.scrollY>40?document.body.classList.add("scrolled-down"):document.body.classList.remove("scrolled-down"),updateProgress()}),window.addEventListener("resize",updateProgress);if(window.ResizeObserver)new ResizeObserver(()=>updateProgress()).observe(document.body);document.getElementById("scroll-top-btn").addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})});
+function updateProgress(){const e=document.getElementById("main-breadcrumbs");document.getElementById("module-nav-fixed").classList.toggle("visible","glossary"===currentView&&"none"===document.getElementById("glossary-detail-view").style.display);if("app"===currentView){let arr=[];const defWrapper=document.getElementById("def-wrapper"),l2Panel=document.querySelector("#stage-2-contents > .content-panel.active");if(defWrapper&&defWrapper.classList.contains("active")){arr.push("The Metacrisis");if(l2Panel){arr.push(l2Panel.querySelector("h2.hoverable").textContent.split(":")[0].split("&")[0].trim());let l3Panel=l2Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l3Panel){arr.push(l3Panel.querySelector("h3.hoverable").textContent.split(":")[0].split("&")[0].trim());let l4Panel=l3Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l4Panel){arr.push(l4Panel.querySelector("h4.hoverable").textContent.split(":")[0].split("&")[0].trim());let l5Panel=l4Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l5Panel){arr.push(l5Panel.querySelector("h5.hoverable").textContent.split(":")[0].split("&")[0].trim());let l6Panel=l5Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l6Panel){arr.push(l6Panel.querySelector("h6.hoverable").textContent.split(":")[0].split("&")[0].trim());let l7Panel=l6Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l7Panel){arr.push(l7Panel.querySelector("h6.hoverable").textContent.split(":")[0].split("&")[0].trim())}}}}}}}e&&(arr.length>0?(e.innerHTML=arr.join('<span style="color: var(--interactive-color); font-weight: 600; margin: 0 0.5rem;">&gt;</span>'),e.classList.add("visible")):e.classList.remove("visible"))}else"glossary"===currentView&&"none"!==document.getElementById("glossary-detail-view").style.display?e&&e.classList.add("visible"):e&&e.classList.remove("visible");let t=0;if("app"===currentView){const defWrapper=document.getElementById("def-wrapper"),l2Panel=document.querySelector("#stage-2-contents > .content-panel.active");if(defWrapper&&defWrapper.classList.contains("active")){t=20;if(l2Panel){t=40;const l3Panel=l2Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l3Panel){t=60;const hasL4=!!l3Panel.querySelector(":scope > .content-panel-inner > .l4-menu");const l4Panel=l3Panel.querySelector(":scope > .content-panel-inner > .content-panel.active");if(l4Panel||!hasL4){t=80;const hasL5=l4Panel?!!l4Panel.querySelector(":scope > .content-panel-inner > .l5-menu"):false;const l5Panel=l4Panel?l4Panel.querySelector(":scope > .content-panel-inner > .content-panel.active"):null;if(l5Panel||(l4Panel&&!hasL5)||!hasL4){t=100}}}}}}else if("maximal"===currentView||"glossary"===currentView||"problem"===currentView||"generators"===currentView||"attractors"===currentView||"landscape"===currentView){const scrollY=window.scrollY||document.documentElement.scrollTop,maxScroll=document.documentElement.scrollHeight-document.documentElement.clientHeight;t=maxScroll>0?scrollY/maxScroll*100:100;scrollY>200?document.getElementById("scroll-top-btn").classList.add("visible"):document.getElementById("scroll-top-btn").classList.remove("visible")}else document.getElementById("scroll-top-btn").classList.remove("visible");const o=document.getElementById("scroll-progress-fill");o&&(o.style.height=`${Math.min(100,Math.max(0,t))}%`)}window.addEventListener("scroll",()=>{window.scrollY>40?document.body.classList.add("scrolled-down"):document.body.classList.remove("scrolled-down"),updateProgress()}),window.addEventListener("resize",updateProgress);if(window.ResizeObserver)new ResizeObserver(()=>updateProgress()).observe(document.body);document.getElementById("scroll-top-btn").addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})});
 let menuBalanceResizeTimer;window.addEventListener("resize",()=>{clearTimeout(menuBalanceResizeTimer),menuBalanceResizeTimer=setTimeout(balanceMenuRows,150)});
 let currentView="app",glossarySourceView="glossary",viewScrollStates={app:0,map:0,glossary:0,maximal:0,problem:0,generators:0,attractors:0},glossaryListScroll=0,isHorizontalMap=!0,appLeftAlign=!1;
 function instantResetAppView(){document.getElementById("title").classList.remove("active"),document.getElementById("title").classList.add("auto-pulse"),document.getElementById("def-wrapper").classList.remove("active"),document.getElementById("menu-2").classList.remove("visible"),document.getElementById("menu-2").querySelectorAll(".menu-item").forEach(e=>e.classList.remove("active","greyed-out","auto-pulse")),document.getElementById("collapse-tree-btn").classList.remove("visible"),document.getElementById("stage-2-contents").innerHTML=generateAppPanels(treeData.children,2),balanceMenuRows()}
 function switchView(e){if(currentView===e)return;viewScrollStates[currentView]=window.scrollY,document.querySelectorAll(".nav-item").forEach(e=>e.classList.remove("active"));const t=document.querySelector(`.nav-item[data-target="${e}"]`);t&&t.classList.add("active"),currentView=e,document.body.setAttribute("data-view",e),document.querySelectorAll(".view-panel").forEach(t=>{t.id===e+"-container"?(t.style.display="flex","map"===e&&(t.style.display="block"),void t.offsetWidth,t.classList.add("active")):(t.classList.remove("active"),setTimeout(()=>{t.classList.contains("active")||(t.style.display="none")},600))}),window.scrollTo({top:viewScrollStates[e]||0,behavior:"instant"}),"map"===e&&(document.querySelector(".css-tree").innerHTML=`<ul>${generateMapTree(viewTreeData,1)}</ul>`,document.querySelector(".css-tree").classList.add("horizontal"),isHorizontalMap=!0,setMapState(document.querySelector(".css-tree > ul > li"),1),mapContainer.dataset.initialized?setTimeout(resetMapView,50):(treeZoomWrapper.style.transition="none",setTimeout(()=>{resetMapView(),requestAnimationFrame(()=>{treeZoomWrapper.style.transition=""})},50),mapContainer.dataset.initialized="true")),"glossary"===e&&(document.getElementById("glossary-list-view").style.display="block",document.getElementById("glossary-detail-view").style.display="none",document.getElementById("main-breadcrumbs").classList.remove("visible"));
 if("maximal"===e||("glossary"===e&&"block"===document.getElementById("glossary-list-view").style.display)){document.getElementById("footer").classList.add("header-mode");document.getElementById("footer").style.display="block"}else if("app"===e){document.getElementById("footer").style.display="none"}else{document.getElementById("footer").classList.remove("header-mode");document.getElementById("footer").style.display="none"}
-document.getElementById("attractors-tabs").classList.toggle("visible","attractors"===e);if("app"===e){document.getElementById("scroll-progress-container").classList.add("active");document.getElementById("def-wrapper").classList.contains("active")&&document.getElementById("collapse-tree-btn").classList.add("visible");document.getElementById("recenter-map-btn").classList.remove("visible");document.getElementById("toggle-map-layout-btn").classList.remove("visible");document.getElementById("toggle-expand-all-btn").classList.remove("visible");document.getElementById("toggle-app-align-btn").classList.add("visible")}else if("map"===e){document.getElementById("scroll-progress-container").classList.remove("active");document.getElementById("collapse-tree-btn").classList.remove("visible");document.getElementById("recenter-map-btn").classList.add("visible");document.getElementById("toggle-map-layout-btn").classList.add("visible");document.getElementById("toggle-expand-all-btn").classList.add("visible");document.getElementById("toggle-app-align-btn").classList.remove("visible")}else if("glossary"===e||"maximal"===e||"problem"===e||"generators"===e||"attractors"===e){document.getElementById("scroll-progress-container").classList.add("active");document.getElementById("collapse-tree-btn").classList.remove("visible");document.getElementById("recenter-map-btn").classList.remove("visible");document.getElementById("toggle-map-layout-btn").classList.remove("visible");document.getElementById("toggle-expand-all-btn").classList.remove("visible");document.getElementById("toggle-app-align-btn").classList.remove("visible");if("attractors"===e&&!document.querySelector(".attr-node.active, .attr-edge-group.active")){setTimeout(()=>{const w=document.querySelector('.attr-node[data-attr="world-system"]');w&&w.dispatchEvent(new MouseEvent("click",{bubbles:!0}))},1000)}}updateProgress()}
+document.getElementById("attractors-tabs").classList.toggle("visible","attractors"===e);document.getElementById("generators-tabs").classList.toggle("visible","generators"===e);document.getElementById("landscape-tabs").classList.toggle("visible","landscape"===e);if("app"===e){document.getElementById("scroll-progress-container").classList.add("active");document.getElementById("def-wrapper").classList.contains("active")&&document.getElementById("collapse-tree-btn").classList.add("visible");document.getElementById("recenter-map-btn").classList.remove("visible");document.getElementById("toggle-map-layout-btn").classList.remove("visible");document.getElementById("toggle-expand-all-btn").classList.remove("visible");document.getElementById("toggle-app-align-btn").classList.add("visible")}else if("map"===e){document.getElementById("scroll-progress-container").classList.remove("active");document.getElementById("collapse-tree-btn").classList.remove("visible");document.getElementById("recenter-map-btn").classList.add("visible");document.getElementById("toggle-map-layout-btn").classList.add("visible");document.getElementById("toggle-expand-all-btn").classList.add("visible");document.getElementById("toggle-app-align-btn").classList.remove("visible")}else if("glossary"===e||"maximal"===e||"problem"===e||"generators"===e||"attractors"===e||"landscape"===e){document.getElementById("scroll-progress-container").classList.add("active");document.getElementById("collapse-tree-btn").classList.remove("visible");document.getElementById("recenter-map-btn").classList.remove("visible");document.getElementById("toggle-map-layout-btn").classList.remove("visible");document.getElementById("toggle-expand-all-btn").classList.remove("visible");document.getElementById("toggle-app-align-btn").classList.remove("visible");if("attractors"===e&&!document.querySelector(".attr-node.active, .attr-edge-group.active")){setTimeout(()=>{const w=document.querySelector('.attr-node[data-attr="world-system"]');w&&w.dispatchEvent(new MouseEvent("click",{bubbles:!0}))},1000)}}updateProgress()}
 document.querySelectorAll(".nav-item").forEach(e=>{e.addEventListener("click",()=>{const t=e.getAttribute("data-target");if(t===currentView){window.scrollTo({top:0,behavior:"smooth"});"app"===t&&instantResetAppView(),"map"===t&&(document.querySelector(".css-tree").innerHTML=`<ul>${generateMapTree(viewTreeData,1)}</ul>`,document.querySelector(".css-tree").classList.add("horizontal"),isHorizontalMap=!0,setMapState(document.querySelector(".css-tree > ul > li"),1),(()=>{const btn=document.getElementById("toggle-expand-all-btn");btn.dataset.state="collapsed";btn.setAttribute("aria-label","Expand All")})(),setTimeout(resetMapView,50)),"glossary"===t&&(document.getElementById("glossary-list-view").style.display="block",document.getElementById("glossary-detail-view").style.display="none",document.getElementById("main-breadcrumbs").classList.remove("visible"),document.getElementById("footer").classList.add("header-mode"),document.getElementById("footer").style.display="block"),"maximal"===t&&(document.querySelector(".maximal-list").innerHTML=generateMaximalList(viewTreeData,0),setMaxState(document.querySelector(".maximal-list > li"),2),viewScrollStates.maximal=0);return}switchView(t)})});
 const root=document.documentElement,accents=[null,"green","orange","blue","red"];let accentIndex=0;document.getElementById("site-title").addEventListener("click",()=>{playSound("click"),switchView("app")}),document.getElementById("theme-toggle").addEventListener("click",()=>{root.getAttribute("data-theme")==="dark"?root.removeAttribute("data-theme"):root.setAttribute("data-theme","dark"),updateFavicon()}),document.getElementById("accent-toggle").addEventListener("click",()=>{accentIndex=(accentIndex+1)%accents.length;const e=accents[accentIndex];e?root.setAttribute("data-accent",e):root.removeAttribute("data-accent"),updateFavicon()}),document.getElementById("toggle-map-layout-btn").addEventListener("click",()=>{playSound("click");const e=document.querySelector(".css-tree");isHorizontalMap=!isHorizontalMap,isHorizontalMap?e.classList.add("horizontal"):e.classList.remove("horizontal"),setTimeout(resetMapView,50)}),document.getElementById("toggle-app-align-btn").addEventListener("click",()=>{playSound("click");appLeftAlign=!appLeftAlign;const btn=document.getElementById("toggle-app-align-btn");btn.dataset.state=appLeftAlign?"left":"center";btn.querySelector(".icon-align-center").style.display=appLeftAlign?"none":"";btn.querySelector(".icon-align-left").style.display=appLeftAlign?"":"none";document.body.classList.toggle("app-left-align",appLeftAlign)}),document.addEventListener("keydown",e=>{let t=!1;"1"===e.key?(root.removeAttribute("data-theme"),t=!0):"2"===e.key?(root.setAttribute("data-theme","dark"),t=!0):"3"===e.key?(root.setAttribute("data-accent","green"),accentIndex=1,t=!0):"4"===e.key?(root.setAttribute("data-accent","orange"),accentIndex=2,t=!0):"5"===e.key?(root.setAttribute("data-accent","blue"),accentIndex=3,t=!0):"6"===e.key?(root.setAttribute("data-accent","red"),accentIndex=4,t=!0):"7"===e.key?(root.removeAttribute("data-accent"),accentIndex=0,t=!0):"f"!==e.key&&"F"!==e.key||(root.getAttribute("data-font")==="garamond"?root.removeAttribute("data-font"):root.setAttribute("data-font","garamond"),t=!0),t&&updateFavicon()});
 function collapseMainTree(){if(!document.getElementById("def-wrapper").classList.contains("active"))return;document.querySelectorAll("#stage-2-contents > .content-panel.active").forEach(e=>{const t=e.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");t&&t.click()});const e=document.getElementById("title"),t=document.getElementById("def-wrapper");e.classList.remove("active"),t.classList.remove("active");const o=document.getElementById("menu-2");o.classList.remove("visible"),o.querySelectorAll(".clickable-indicator").forEach(e=>e.classList.remove("auto-pulse")),document.getElementById("collapse-tree-btn").classList.remove("visible"),window.scrollTo({top:0,behavior:"smooth"}),updateProgress(),document.getElementById("title-corners").classList.remove("visible"),setTimeout(()=>{if("app"===currentView){e.classList.remove("auto-pulse");void e.offsetWidth;e.classList.add("auto-pulse");playSound("underline");}},800)}
@@ -1044,9 +1388,9 @@ if(e.target.closest('#hamburger-btn')){
 // --- Generative Dynamics Controls ---
 let isGenExpanded = false;
 function updateGlobalToggleIcon() { 
-    const btn = document.getElementById('gen-global-toggle'); 
-    const activeTab = document.querySelector('.gen-tab-content.active'); 
-    if (!activeTab) return; 
+    const btn = document.getElementById('gen-global-toggle');
+    const activeTab = document.querySelector('.gen-subtab-content.active');
+    if (!activeTab) return;
     const anyCollapsed = activeTab.querySelectorAll('.gen-tier-top-1.gen-collapsed, .gen-tier-top-2.gen-collapsed, .gen-tier-bottom-1.gen-collapsed').length > 0; 
     const iconExpand = btn.querySelector('.icon-expand'); 
     const iconCollapse = btn.querySelector('.icon-collapse'); 
@@ -1097,7 +1441,7 @@ function toggleGenTier(tabId, tier, btnElement, forceState) {
 if(e.target.closest('.gen-local-toggle')){
     playSound("click");
     const btn=e.target.closest('.gen-local-toggle');
-    const tabId=btn.closest('.gen-tab-content').id;
+    const tabId=btn.closest('.gen-subtab-content').id;
     const targetTier=btn.getAttribute('data-target');
     toggleGenTier(tabId, targetTier, btn);
     updateGlobalToggleIcon();
@@ -1105,7 +1449,7 @@ if(e.target.closest('.gen-local-toggle')){
 if(e.target.closest('#gen-global-toggle')){
     playSound("click");
     const btn = e.target.closest('#gen-global-toggle');
-    const activeTabId = document.querySelector('.gen-tab-content.active').id;
+    const activeTabId = document.querySelector('.gen-subtab-content.active').id;
     const tab = document.getElementById(activeTabId);
     const isExpanded = btn.dataset.state === 'expanded';
     const action = isExpanded ? 'collapse' : 'expand';
@@ -1120,9 +1464,13 @@ if(e.target.closest('.gen-tab') && !e.target.closest('#gen-global-toggle')){
     const btn=e.target.closest('.gen-tab');
     const t=btn.getAttribute('data-tab');
     const attrTabsWrap=document.getElementById('attractors-tabs');
+    const genTabsWrap=document.getElementById('generators-tabs');
+    const landscapeTabsWrap=document.getElementById('landscape-tabs');
     const isAttrTab=attrTabsWrap&&attrTabsWrap.contains(btn);
-    const buttonScope=isAttrTab?attrTabsWrap:(btn.closest('.view-panel')||document);
-    const contentScope=isAttrTab?document.getElementById('attractors-container'):(btn.closest('.view-panel')||document);
+    const isGenTab=genTabsWrap&&genTabsWrap.contains(btn);
+    const isLandscapeTab=landscapeTabsWrap&&landscapeTabsWrap.contains(btn);
+    const buttonScope=isAttrTab?attrTabsWrap:(isGenTab?genTabsWrap:(isLandscapeTab?landscapeTabsWrap:(btn.closest('.view-panel')||document)));
+    const contentScope=isAttrTab?document.getElementById('attractors-container'):(isGenTab?document.getElementById('generators-container'):(isLandscapeTab?document.getElementById('landscape-container'):(btn.closest('.view-panel')||document)));
     buttonScope.querySelectorAll('.gen-tab[data-tab]').forEach(el=>el.classList.remove('active'));
     btn.classList.add('active');
     const current=contentScope.querySelector('.gen-tab-content.active');
@@ -1165,17 +1513,120 @@ if("attr-tab-interconnections"===t&&!document.querySelector(".attr-tri-edge.acti
 if("attr-tab-matrix"===t&&!document.querySelector(".attr-matrix-cell.active")){
     setTimeout(()=>{const d=document.querySelector('.attr-matrix-cell[data-quadrant="mutual-reinforcement"]');d&&d.dispatchEvent(new MouseEvent("click",{bubbles:!0}));},350);
 }
+const genTabCopy={
+    "gen-tab-verticals":{title:"Generative Dynamics: Verticals",subtitle:"A hierarchical mapping of the structural traps driving civilisation towards catastrophe."},
+    "gen-tab-interconnections":{title:"Generative Dynamics: Interconnections",subtitle:"Explore the full-mesh interconnections between every generative dynamics concept."},
+    "gen-tab-chain":{title:"Generative Dynamics: Chains",subtitle:"Follow the causal sequence from originating drivers through the three chains of structural traps."},
+    "gen-tab-categories":{title:"Generative Dynamics: Categories",subtitle:"The twelve category concepts, grouped by their five underlying disciplinary lenses."}
+};
+if(genTabCopy[t]){
+    const titleEl=document.getElementById('gen-view-title');
+    const subtitleEl=document.getElementById('gen-view-subtitle');
+    if(titleEl)titleEl.textContent=genTabCopy[t].title;
+    if(subtitleEl)subtitleEl.textContent=genTabCopy[t].subtitle;
+    const globalToggle=document.getElementById('gen-global-toggle');
+    if(globalToggle)globalToggle.style.display=t==='gen-tab-verticals'?'flex':'none';
+}
+const landscapeTabCopy={
+    "landscape-tab-organisations":{title:"Research Landscape: Organisations",subtitle:"Institutes and initiatives producing dedicated research on the metacrisis and civilisational transition."},
+    "landscape-tab-individuals":{title:"Research Landscape: Individuals",subtitle:"Independent writers and thinkers whose work has significantly shaped the discourse on the metacrisis and civilisational transition."}
+};
+if(landscapeTabCopy[t]){
+    const titleEl=document.getElementById('landscape-view-title');
+    const subtitleEl=document.getElementById('landscape-view-subtitle');
+    if(titleEl)titleEl.textContent=landscapeTabCopy[t].title;
+    if(subtitleEl)subtitleEl.textContent=landscapeTabCopy[t].subtitle;
+}
     if(t.indexOf("gen-")===0)setTimeout(updateGlobalToggleIcon, 350);
+}
+if(e.target.closest('.gen-subtab')){
+    playSound("click");
+    const btn=e.target.closest('.gen-subtab');
+    const t=btn.getAttribute('data-subtab');
+    const wrap=btn.closest('.gen-tab-dropdown-wrap');
+    const targetId=wrap.getAttribute('data-content-target');
+    wrap.querySelectorAll('.gen-subtab').forEach(el=>el.classList.remove('active'));
+    btn.classList.add('active');
+    const contentScope=document.getElementById(targetId);
+    const current=contentScope.querySelector('.gen-subtab-content.active');
+    const next=document.getElementById(t);
+    if(current!==next){
+        if(current){
+            current.style.opacity='0';
+            if(next)next.style.opacity='0';
+            setTimeout(()=>{
+                current.style.display='none';
+                current.classList.remove('active');
+                if(next){
+                    next.style.display='block';
+                    void next.offsetWidth;
+                    next.classList.add('active');
+                    next.style.opacity='1';
+                }
+            },300);
+        }else if(next){
+            next.style.display='block';
+            next.classList.add('active');
+            next.style.opacity='1';
+        }
+    }
+    if(targetId==='gen-tab-verticals')setTimeout(updateGlobalToggleIcon, 350);
+}
+if(e.target.closest('.gen-concept-node')){
+    const node=e.target.closest('.gen-concept-node');
+    const tabContent=node.closest('.gen-tab-content')||document;
+    tabContent.querySelectorAll('.gen-concept-node.active, .gen-edge-group.active').forEach(el=>el.classList.remove('active'));
+    node.classList.add('active');
+    const cid=node.getAttribute('data-concept');
+    const c=genConceptById[cid];
+    const p=tabContent.querySelector('.gen-concept-panel');
+    if(c){p.querySelector('.gen-concept-content').innerHTML=`<div style="width:100%;"><span style="font-size: 1.8rem; font-weight: 500;">${c.title}</span><div style="font-size: 1.15rem; margin-top: 1rem; line-height: 1.6; opacity: 0.9;">${c.desc}</div></div>`;}
+    p.style.opacity='1';
+    e.isTrusted&&setTimeout(()=>{p.scrollIntoView({behavior:'smooth',block:'start'});},150);
+}
+if(e.target.closest('.gen-edge-group')){
+    const eg=e.target.closest('.gen-edge-group');
+    const tabContent=eg.closest('.gen-tab-content')||document;
+    tabContent.querySelectorAll('.gen-concept-node.active, .gen-edge-group.active').forEach(el=>el.classList.remove('active'));
+    eg.classList.add('active');
+    const srcId=eg.getAttribute('data-src'),tgtId=eg.getAttribute('data-tgt');
+    const src=genConceptById[srcId],tgt=genConceptById[tgtId];
+    const p=tabContent.querySelector('.gen-concept-panel');
+    const contentEl=p.querySelector('.gen-concept-content');
+    if(src&&tgt){const{a1,a2}=getPairTexts(srcId,tgtId);contentEl.innerHTML=`<div style="width:100%; display:flex; flex-direction:column; align-items:center;"><div class="gen-pair-title"><div class="gen-pair-title-item">${src.title}</div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><polyline points="18 7 12 1 6 7"></polyline><polyline points="18 17 12 23 6 17"></polyline></svg><div class="gen-pair-title-item">${tgt.title}</div></div><div class="gen-pair-flow"><div class="gen-pair-block"><div class="gen-pair-flow-label">${src.title} <span class="gen-pair-arrow">&#8594;</span> ${tgt.title}</div><p class="gen-pair-para">${a1}</p></div><div class="gen-pair-block"><div class="gen-pair-flow-label">${tgt.title} <span class="gen-pair-arrow">&#8594;</span> ${src.title}</div><p class="gen-pair-para">${a2}</p></div></div></div>`;}else{contentEl.innerHTML="<div style='font-size: 1.25rem; font-style: italic; opacity: 0.8;'>Interaction dynamics currently being mapped...</div>";}
+    p.style.opacity='1';
+    e.isTrusted&&setTimeout(()=>{p.scrollIntoView({behavior:'smooth',block:'start'});},150);
+}
+if(e.target.closest('.gen-chain-lane')){
+    const laneEl=e.target.closest('.gen-chain-lane');
+    const tabContent=laneEl.closest('.gen-tab-content')||document;
+    tabContent.querySelectorAll('.gen-chain-lane.active').forEach(el=>el.classList.remove('active'));
+    laneEl.classList.add('active');
+    const laneIdx=parseInt(laneEl.getAttribute('data-lane'),10);
+    const lane=genChainLanes[laneIdx];
+    const p=tabContent.querySelector('.gen-concept-panel');
+    const contentEl=p.querySelector('.gen-concept-content');
+    const downArrow=`<div style="display:flex; justify-content:center; margin:0.75rem 0;"><svg style="width:22px; height:22px; color:var(--text-color); opacity:0.5;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><polyline points="18 17 12 23 6 17"></polyline></svg></div>`;
+    let html=`<div style="width:100%;"><div style="font-size:0.85rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; opacity:0.55; margin-bottom:1.5rem;">Chain ${laneIdx+1} of 3</div>`;
+    lane.ids.forEach((id,i)=>{
+        const c=genConceptById[id];
+        html+=`<div><span style="font-size:1.5rem; font-weight:600;">${c.title}</span><div style="font-size:1.1rem; margin-top:0.5rem; line-height:1.6; opacity:0.9;">${c.desc}</div></div>`;
+        if(i<lane.ids.length-1)html+=downArrow;
+    });
+    html+='</div>';
+    contentEl.innerHTML=html;
+    p.style.opacity='1';
+    e.isTrusted&&setTimeout(()=>{p.scrollIntoView({behavior:'smooth',block:'start'});},150);
 }
 if(e.target.closest('.prev-slide')){playSound("click");const row=e.target.closest('.gen-row');const viewport=row.querySelector('.gen-slider-viewport');const slides=viewport.querySelectorAll('.gen-slide');let activeIdx=Array.from(slides).findIndex(s=>s.classList.contains('active'));slides[activeIdx].classList.remove('active');activeIdx=(activeIdx-1+slides.length)%slides.length;slides[activeIdx].classList.add('active');}
 if(e.target.closest('.next-slide')){playSound("click");const row=e.target.closest('.gen-row');const viewport=row.querySelector('.gen-slider-viewport');const slides=viewport.querySelectorAll('.gen-slide');let activeIdx=Array.from(slides).findIndex(s=>s.classList.contains('active'));slides[activeIdx].classList.remove('active');activeIdx=(activeIdx+1)%slides.length;slides[activeIdx].classList.add('active');}
 
-if(e.target.closest(".menu-item")||e.target.closest(".local-back-btn")||e.target.closest("#theme-toggle")||e.target.closest("#accent-toggle")||e.target.closest(".nav-item")||e.target.closest("#title")||e.target.closest(".selected-header h2")||e.target.closest(".selected-header h3")||e.target.closest(".selected-header h4")||e.target.closest(".selected-header h5")||e.target.closest(".node-box")||e.target.closest(".glossary-item")||e.target.closest(".br-action-btn")||e.target.closest(".single-arrow")||e.target.closest(".double-arrow")||e.target.closest(".triple-arrow")||e.target.closest(".max-title")||e.target.closest(".map-arrow")||e.target.closest(".hex-edge-group")||e.target.closest(".attr-edge-group")||e.target.closest(".attr-node")||e.target.closest(".attr-tri-edge")||e.target.closest(".attr-matrix-cell")||e.target.closest(".module-nav-item"))e.target.closest(".local-back-btn")||playSound("click");if(e.target.closest(".module-nav-item")){const t=e.target.closest(".module-nav-item").getAttribute("data-section-target"),h=document.querySelector(`.module-heading[data-gid="${t}"]`);h&&h.scrollIntoView({behavior:"smooth",block:"start"})}if(e.target.closest("#title")){if(isTyping)return;if(titleElement.classList.contains("active"))return void collapseMainTree();document.getElementById("title-corners").classList.remove("visible"),titleElement.classList.remove("auto-pulse"),titleElement.classList.add("active"),defWrapper.classList.add("active"),document.getElementById("collapse-tree-btn").classList.add("visible"),updateProgress(),setTimeout(()=>{const e=document.getElementById("menu-2");e.classList.add("visible"),setTimeout(()=>{e.querySelectorAll(".clickable-indicator").forEach(e=>{e.classList.remove("auto-pulse"),void e.offsetWidth,e.classList.add("auto-pulse")})},400)},1200)}
-if(e.target.closest(".hex-edge-group")){const eg=e.target.closest(".hex-edge-group");document.querySelectorAll(".hex-edge-group").forEach(el=>el.classList.remove("active"));eg.classList.add("active");const eid=eg.getAttribute("data-edge"),n1=eg.getAttribute("data-n1"),n2=eg.getAttribute("data-n2");const data=hexInteractions[eid]||hexInteractions[eid.split("-").reverse().join("-")];const p=document.getElementById("hex-interaction-panel");if(data){document.getElementById("hex-int-content").innerHTML=`<div style="width:100%; display:flex; flex-direction:column; align-items:center;"><h2 class="focused-title hex-main-title"><span>${n1}</span><svg style="width: 40px; height: 40px; flex-shrink: 0; color: var(--text-color);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="12" x2="23" y2="12"></line><polyline points="17 6 23 12 17 18"></polyline><polyline points="7 6 1 12 7 18"></polyline></svg><span>${n2}</span></h2><div class="hex-int-flow"><div class="hex-int-side-label">Crisis</div><div class="hex-int-flow-content"><div class="hex-int-block align-left"><div class="hex-int-flow-label">${n1}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n2}</div><p class="hex-int-para">${data.c1.join(" ")}</p></div><div class="hex-int-block align-right"><div class="hex-int-flow-label">${n2}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n1}</div><p class="hex-int-para">${data.c2.join(" ")}</p></div></div><div class="hex-int-side-label" style="color: var(--interactive-color);">Chrysalis</div><div class="hex-int-flow-content"><div class="hex-int-block align-left"><div class="hex-int-flow-label">${n1}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n2}</div><p class="hex-int-para">${data.ch1.join(" ")}</p></div><div class="hex-int-block align-right"><div class="hex-int-flow-label">${n2}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n1}</div><p class="hex-int-para">${data.ch2.join(" ")}</p></div></div></div></div>`;}else{document.getElementById("hex-int-content").innerHTML="<div style='font-size: 1.25rem; font-style: italic; opacity: 0.8;'>Interaction dynamics currently being mapped...</div>";}p.style.opacity="1";setTimeout(()=>{p.scrollIntoView({behavior:'smooth',block:'start'});},150);}
-if(e.target.closest(".attr-edge-group")||e.target.closest(".attr-node")){const ag=e.target.closest(".attr-edge-group")||e.target.closest(".attr-node");document.querySelectorAll(".attr-edge-group, .attr-node").forEach(el=>el.classList.remove("active"));ag.classList.add("active");const aid=ag.getAttribute("data-attr");const data=attractorData[aid];const p=document.getElementById("attractors-info-panel");if(data){let pts=data.points.map(pt=>`<li style="font-size: 1.2rem; margin: 0.8rem 0; opacity: 0.9;">&bull; ${pt}</li>`).join("");document.getElementById("attr-int-content").innerHTML=`<div style="width:100%;"><ul style="list-style: none; padding-left: 0; margin: 0;"><li style="margin-bottom: 2.5rem;"><span style="font-size: 1.8rem; font-weight: 500;">${data.title}</span><div style="font-size: 1.15rem; margin-top: 0.5rem; line-height: 1.6; opacity: 0.9;">${data.desc}</div><ul style="padding-left: 0; margin-left: 0; border-left: none; margin-top: 1rem; list-style: none;">${pts}</ul></li></ul></div>`;}else{document.getElementById("attr-int-content").innerHTML="<div style='font-size: 1.25rem; font-style: italic; opacity: 0.8;'>Interaction dynamics currently being mapped...</div>";}p.style.opacity="1";setTimeout(()=>{p.scrollIntoView({behavior:'smooth',block:'start'});},150);}
-if(e.target.closest(".attr-tri-edge")){const teg=e.target.closest(".attr-tri-edge");document.querySelectorAll(".attr-tri-edge").forEach(el=>el.classList.remove("active"));teg.classList.add("active");const eid=teg.getAttribute("data-edge"),n1=teg.getAttribute("data-n1"),n2=teg.getAttribute("data-n2");const data=attrInterconnections[eid]||attrInterconnections[eid.split("-").reverse().join("-")];const p2=document.getElementById("attr-interconnect-panel");if(data){document.getElementById("attr-interconnect-content").innerHTML=`<div style="width:100%; display:flex; flex-direction:column; align-items:center;"><h2 class="focused-title hex-main-title"><span>${n1}</span><svg style="width: 40px; height: 40px; flex-shrink: 0; color: var(--text-color);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="12" x2="23" y2="12"></line><polyline points="17 6 23 12 17 18"></polyline><polyline points="7 6 1 12 7 18"></polyline></svg><span>${n2}</span></h2><div class="hex-int-flow-content" style="width:100%;"><div class="hex-int-block align-left"><div class="hex-int-flow-label">${n1}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n2}</div><p class="hex-int-para">${data.a1.join(" ")}</p></div><div class="hex-int-block align-right"><div class="hex-int-flow-label">${n2}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n1}</div><p class="hex-int-para">${data.a2.join(" ")}</p></div></div></div>`;}else{document.getElementById("attr-interconnect-content").innerHTML="<div style='font-size: 1.25rem; font-style: italic; opacity: 0.8;'>Interaction dynamics currently being mapped...</div>";}p2.style.opacity="1";setTimeout(()=>{p2.scrollIntoView({behavior:'smooth',block:'start'});},150);}
-if(e.target.closest(".attr-matrix-cell")){const mc=e.target.closest(".attr-matrix-cell");document.querySelectorAll(".attr-matrix-cell").forEach(el=>el.classList.remove("active"));mc.classList.add("active");const q=mc.getAttribute("data-quadrant");const mdata=attrMatrixData[q];const p4=document.getElementById("attr-matrix-panel");if(mdata){let pts=(mdata.points||[]).map(pt=>`<li style="font-size: 1.2rem; margin: 0.8rem 0; opacity: 0.9;">&bull; ${pt}</li>`).join("");document.getElementById("attr-matrix-content").innerHTML=`<div style="width:100%;"><ul style="list-style: none; padding-left: 0; margin: 0;"><li><span style="font-size: 1.8rem; font-weight: 500;">${mdata.title}</span><div style="font-size: 1.15rem; margin-top: 0.5rem; line-height: 1.6; opacity: 0.9;">${mdata.desc}</div><ul style="padding-left: 0; margin-left: 0; margin-top: 1rem; list-style: none;">${pts}</ul></li></ul></div>`;}p4.style.opacity="1";setTimeout(()=>{p4.scrollIntoView({behavior:'smooth',block:'start'});},150);}
-const t=e.target.closest(".menu-item");if(t&&!t.classList.contains("nav-item")){const e=t.closest(".menu-row"),o=document.getElementById(t.getAttribute("data-target"));if(t.classList.contains("active")){if(o){const e=o.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");e&&e.click()}return}const n=e.querySelector(".menu-item.active");if(n){const e=document.getElementById(n.getAttribute("data-target"));if(e){e.classList.remove("active");const t=e.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");t&&t.classList.remove("visible"),e.querySelectorAll(".l3-menu, .l4-menu, .l5-menu, .l6-menu").forEach(e=>e.classList.remove("visible")),e.querySelectorAll(".content-panel.active > .content-panel-inner > .selected-header > .local-back-btn").forEach(e=>e.click())}n.classList.remove("active")}e.querySelectorAll(".menu-item").forEach(e=>{e!==t&&(e.classList.add("greyed-out"),e.classList.remove("active","auto-pulse"))}),t.classList.remove("greyed-out","auto-pulse"),t.classList.add("active"),cursorOutline.classList.remove("hovered"),o&&(o.classList.add("active"),updateProgress(),setTimeout(()=>{const e=o.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");e&&e.classList.add("visible")},400),setTimeout(()=>{const e=o.querySelector(".l3-menu, .l4-menu, .l5-menu, .l6-menu");e&&(e.classList.add("visible"),setTimeout(()=>{e.querySelectorAll(".menu-item").forEach(e=>{e.classList.remove("auto-pulse"),void e.offsetWidth,e.classList.add("auto-pulse")})},400))},1200),setTimeout(()=>{if("app"===currentView){const e=o.querySelector(".selected-header");e&&window.scrollTo({top:Math.max(0,e.getBoundingClientRect().top+window.scrollY-60),behavior:"smooth"})}},400))}if(e.target.closest(".selected-header h2, .selected-header h3, .selected-header h4, .selected-header h5")){const t=e.target.closest(".selected-header").querySelector(".local-back-btn");t&&t.click()}const o=e.target.closest(".local-back-btn:not(#glossary-back-btn)");if(o){e.stopPropagation(),e.isTrusted&&playSound("click");const t=o.closest(".content-panel"),n=document.querySelector(`.menu-item[data-target="${t.id}"]`);o.classList.remove("visible"),cursorOutline.classList.remove("hovered"),t.classList.remove("active"),t.querySelectorAll(".l3-menu, .l4-menu, .l5-menu, .l6-menu").forEach(e=>e.classList.remove("visible")),t.querySelectorAll(".content-panel.active > .content-panel-inner > .selected-header > .local-back-btn").forEach(e=>e.click()),n.classList.remove("active"),updateProgress(),setTimeout(()=>{n.closest(".menu-row").querySelectorAll(".menu-item").forEach(e=>e.classList.remove("greyed-out"))},600),setTimeout(()=>{if("app"===currentView){const e=t.parentElement.closest(".content-panel");if(e){const t=e.querySelector(".selected-header");t?window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+window.scrollY-60),behavior:"smooth"}):window.scrollTo({top:0,behavior:"smooth"})}}},400)}const n=e.target.closest(".glossary-item");if(n){const t=flatGlossary[n.getAttribute("data-gid")];if(t){"glossary"===currentView?(glossaryListScroll=window.scrollY,glossarySourceView="glossary",window.scrollTo({top:0,behavior:"instant"})):(glossarySourceView=currentView,switchView("glossary"));const e=document.getElementById("main-breadcrumbs");e.innerHTML="",t.breadcrumbs.forEach((o,n)=>{const c=t.breadcrumbs.length-n,l=document.createElement("span");l.className="breadcrumb-layer",c>=3?(l.style.fontSize="0.85rem",l.style.opacity="0.6"):2===c?(l.style.fontSize="0.95rem",l.style.opacity="0.8"):1===c&&(l.style.fontSize="1.05rem",l.style.opacity="1"),l.textContent=o.split(":")[0].split("&")[0].trim(),e.appendChild(l);if(n<t.breadcrumbs.length-1){const t=document.createElement("span");t.innerHTML="&nbsp;&gt;&nbsp;",t.style.opacity="0.4",e.appendChild(t)}}),e.classList.add("visible"),document.getElementById("footer").classList.remove("header-mode"),document.getElementById("footer").style.display="none",document.getElementById("g-title").textContent=t.title,document.getElementById("g-desc").innerHTML=t.desc+(t.source?`<div class="g-source">Source: this text is taken from <a href="${t.source.url}" target="_blank" style="color:var(--interactive-color)">${t.source.site}</a></div>`:"")+(t.references&&t.references.length?`<div class="g-references"><h4 class="g-references-heading">References</h4><ul class="g-references-list">${t.references.map(r=>`<li>${r}</li>`).join("")}</ul></div>`:""),document.getElementById("glossary-list-view").style.display="none",document.getElementById("glossary-detail-view").style.display="flex",document.getElementById("glossary-detail-view").animate([{opacity:0,transform:"translateY(10px)"},{opacity:1,transform:"translateY(0)"}],{duration:600,easing:"ease",fill:"forwards"})}}if(e.target.closest("#glossary-back-btn"))e.stopPropagation(),e.isTrusted&&playSound("click"),document.getElementById("main-breadcrumbs").classList.remove("visible"),"glossary"!==glossarySourceView?(switchView(glossarySourceView),setTimeout(()=>{document.getElementById("glossary-list-view").style.display="block",document.getElementById("glossary-detail-view").style.display="none"},600)):(document.getElementById("glossary-list-view").style.display="block",document.getElementById("glossary-detail-view").style.display="none",document.getElementById("footer").classList.add("header-mode"),document.getElementById("footer").style.display="block",requestAnimationFrame(()=>window.scrollTo({top:glossaryListScroll,behavior:"instant"})),document.getElementById("glossary-list-view").animate([{opacity:0},{opacity:1}],{duration:600,easing:"ease",fill:"forwards"}));if(e.target.closest("#maximal-list-view .single-arrow")){e.stopPropagation(),e.isTrusted&&playSound("click");const t=e.target.closest("li"),cur=getMaxArrowLevel(t);setMaxState(t,1===cur?0:1),setTimeout(updateProgress,400)}if(e.target.closest("#maximal-list-view .double-arrow")){e.stopPropagation(),e.isTrusted&&playSound("click");const t=e.target.closest("li"),cur=getMaxArrowLevel(t);setMaxState(t,2===cur?0:2),setTimeout(updateProgress,400)}if(e.target.closest("#maximal-list-view .triple-arrow")){e.stopPropagation(),e.isTrusted&&playSound("click");const t=e.target.closest("li"),cur=getMaxArrowLevel(t);setMaxState(t,3===cur?0:3),setTimeout(updateProgress,400)}const p=e.target.closest(".map-proxy-arrow");if(p){e.stopPropagation(),e.isTrusted&&playSound("click");const t=document.querySelector(`.css-tree [data-trigger="${p.dataset.proxyTarget}"]`).closest("li"),d=t.querySelector(":scope > .map-node-wrapper > .map-arrows > .map-double-arrow"),o=d.classList.contains("collapsed");setMapState(t,o?2:0),setTimeout(resetMapView,50),setTimeout(updateProgress,400)}else{const l=e.target.closest(".map-arrow");if(l){e.stopPropagation(),e.isTrusted&&playSound("click");const t=l.closest("li"),o=l.classList.contains("collapsed");l.classList.contains("map-single-arrow")?setMapState(t,o?1:0):l.classList.contains("map-double-arrow")?setMapState(t,o?2:0):l.classList.contains("map-triple-arrow")&&setMapState(t,o?3:0),setTimeout(resetMapView,50),setTimeout(updateProgress,400)}}const c=e.target.closest("[data-trigger]:not(.nav-item)");if(c){e.stopPropagation();const t=c.getAttribute("data-trigger");instantResetAppView(),switchView("app"),setTimeout(()=>{if(document.getElementById("title").click(),"root"===t)return void updateProgress();setTimeout(()=>{const o=t.split("-"),n=[];o.length>=2&&n.push(`s2-${o[1]}`),o.length>=3&&n.push(`s3-${o[1]}-${o[2]}`),o.length>=4&&n.push(`s4-${o[1]}-${o[2]}-${o[3]}`),o.length>=5&&n.push(`s5-${o[1]}-${o[2]}-${o[3]}-${o[4]}`),o.length>=6&&n.push(`s6-${o[1]}-${o[2]}-${o[3]}-${o[4]}-${o[5]}`),o.length>=7&&n.push(`s7-${o[1]}-${o[2]}-${o[3]}-${o[4]}-${o[5]}-${o[6]}`);!function e(t){if(t>=n.length)return;const o=document.querySelector(`.menu-row .menu-item[data-target="${n[t]}"]`);o&&!o.classList.contains("active")?(o.click(),setTimeout(()=>e(t+1),1300)):e(t+1)}(0)},1300)},100)}});
+if(e.target.closest(".menu-item")||e.target.closest(".local-back-btn")||e.target.closest("#theme-toggle")||e.target.closest("#accent-toggle")||e.target.closest(".nav-item")||e.target.closest("#title")||e.target.closest(".selected-header h2")||e.target.closest(".selected-header h3")||e.target.closest(".selected-header h4")||e.target.closest(".selected-header h5")||e.target.closest(".node-box")||e.target.closest(".glossary-item")||e.target.closest(".br-action-btn")||e.target.closest(".single-arrow")||e.target.closest(".double-arrow")||e.target.closest(".triple-arrow")||e.target.closest(".max-title")||e.target.closest(".map-arrow")||e.target.closest(".hex-edge-group")||e.target.closest(".attr-edge-group")||e.target.closest(".attr-node")||e.target.closest(".attr-tri-edge")||e.target.closest(".attr-matrix-cell")||e.target.closest(".module-nav-item")||e.target.closest(".gen-concept-node")||e.target.closest(".gen-edge-group")||e.target.closest(".gen-chain-lane"))e.target.closest(".local-back-btn")||playSound("click");if(e.target.closest(".module-nav-item")){const t=e.target.closest(".module-nav-item").getAttribute("data-section-target"),h=document.querySelector(`.module-heading[data-gid="${t}"]`);h&&h.scrollIntoView({behavior:"smooth",block:"start"})}if(e.target.closest("#title")){if(isTyping)return;if(titleElement.classList.contains("active"))return void collapseMainTree();document.getElementById("title-corners").classList.remove("visible"),titleElement.classList.remove("auto-pulse"),titleElement.classList.add("active"),defWrapper.classList.add("active"),document.getElementById("collapse-tree-btn").classList.add("visible"),updateProgress(),setTimeout(()=>{const e=document.getElementById("menu-2");e.classList.add("visible"),setTimeout(()=>{e.querySelectorAll(".clickable-indicator").forEach(e=>{e.classList.remove("auto-pulse"),void e.offsetWidth,e.classList.add("auto-pulse")})},400)},1200)}
+if(e.target.closest(".hex-edge-group")){const eg=e.target.closest(".hex-edge-group");document.querySelectorAll(".hex-edge-group").forEach(el=>el.classList.remove("active"));eg.classList.add("active");const eid=eg.getAttribute("data-edge"),n1=eg.getAttribute("data-n1"),n2=eg.getAttribute("data-n2");const data=hexInteractions[eid]||hexInteractions[eid.split("-").reverse().join("-")];const p=document.getElementById("hex-interaction-panel");if(data){document.getElementById("hex-int-content").innerHTML=`<div style="width:100%; display:flex; flex-direction:column; align-items:center;"><h2 class="focused-title hex-main-title"><span>${n1}</span><svg style="width: 40px; height: 40px; flex-shrink: 0; color: var(--text-color);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="12" x2="23" y2="12"></line><polyline points="17 6 23 12 17 18"></polyline><polyline points="7 6 1 12 7 18"></polyline></svg><span>${n2}</span></h2><div class="hex-int-flow"><div class="hex-int-side-label">Crisis</div><div class="hex-int-flow-content"><div class="hex-int-block align-left"><div class="hex-int-flow-label">${n1}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n2}</div><p class="hex-int-para">${data.c1.join(" ")}</p></div><div class="hex-int-block align-right"><div class="hex-int-flow-label">${n2}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n1}</div><p class="hex-int-para">${data.c2.join(" ")}</p></div></div><div class="hex-int-side-label">Chrysalis</div><div class="hex-int-flow-content"><div class="hex-int-block align-left"><div class="hex-int-flow-label">${n1}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n2}</div><p class="hex-int-para">${data.ch1.join(" ")}</p></div><div class="hex-int-block align-right"><div class="hex-int-flow-label">${n2}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n1}</div><p class="hex-int-para">${data.ch2.join(" ")}</p></div></div></div></div>`;}else{document.getElementById("hex-int-content").innerHTML="<div style='font-size: 1.25rem; font-style: italic; opacity: 0.8;'>Interaction dynamics currently being mapped...</div>";}p.style.opacity="1";setTimeout(()=>{p.scrollIntoView({behavior:'smooth',block:'start'});},150);}
+if(e.target.closest(".attr-edge-group")||e.target.closest(".attr-node")){const ag=e.target.closest(".attr-edge-group")||e.target.closest(".attr-node");document.querySelectorAll(".attr-edge-group, .attr-node").forEach(el=>el.classList.remove("active"));ag.classList.add("active");const aid=ag.getAttribute("data-attr");const data=attractorData[aid];const p=document.getElementById("attractors-info-panel");if(data){let pts=data.points.map(pt=>`<li style="font-size: 1.2rem; margin: 0.8rem 0; opacity: 0.9;">&bull; ${pt}</li>`).join("");document.getElementById("attr-int-content").innerHTML=`<div style="width:100%;"><ul style="list-style: none; padding-left: 0; margin: 0;"><li style="margin-bottom: 2.5rem;"><span style="font-size: 1.8rem; font-weight: 500;">${data.title}</span><div style="font-size: 1.15rem; margin-top: 0.5rem; line-height: 1.6; opacity: 0.9;">${data.desc}</div><ul style="padding-left: 0; margin-left: 0; border-left: none; margin-top: 1rem; list-style: none;">${pts}</ul></li></ul></div>`;}else{document.getElementById("attr-int-content").innerHTML="<div style='font-size: 1.25rem; font-style: italic; opacity: 0.8;'>Interaction dynamics currently being mapped...</div>";}p.style.opacity="1";e.isTrusted&&setTimeout(()=>{p.scrollIntoView({behavior:'smooth',block:'start'});},150);}
+if(e.target.closest(".attr-tri-edge")){const teg=e.target.closest(".attr-tri-edge");document.querySelectorAll(".attr-tri-edge").forEach(el=>el.classList.remove("active"));teg.classList.add("active");const eid=teg.getAttribute("data-edge"),n1=teg.getAttribute("data-n1"),n2=teg.getAttribute("data-n2");const data=attrInterconnections[eid]||attrInterconnections[eid.split("-").reverse().join("-")];const p2=document.getElementById("attr-interconnect-panel");if(data){document.getElementById("attr-interconnect-content").innerHTML=`<div style="width:100%; display:flex; flex-direction:column; align-items:center;"><h2 class="focused-title hex-main-title"><span>${n1}</span><svg style="width: 40px; height: 40px; flex-shrink: 0; color: var(--text-color);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="12" x2="23" y2="12"></line><polyline points="17 6 23 12 17 18"></polyline><polyline points="7 6 1 12 7 18"></polyline></svg><span>${n2}</span></h2><div class="hex-int-flow-content" style="width:100%;"><div class="hex-int-block align-left"><div class="hex-int-flow-label">${n1}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n2}</div><p class="hex-int-para">${data.a1.join(" ")}</p></div><div class="hex-int-block align-right"><div class="hex-int-flow-label">${n2}<svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="2" y1="12" x2="19" y2="12"></line><polyline points="13 6 19 12 13 18"></polyline></svg>${n1}</div><p class="hex-int-para">${data.a2.join(" ")}</p></div></div></div>`;}else{document.getElementById("attr-interconnect-content").innerHTML="<div style='font-size: 1.25rem; font-style: italic; opacity: 0.8;'>Interaction dynamics currently being mapped...</div>";}p2.style.opacity="1";e.isTrusted&&setTimeout(()=>{p2.scrollIntoView({behavior:'smooth',block:'start'});},150);}
+if(e.target.closest(".attr-matrix-cell")){const mc=e.target.closest(".attr-matrix-cell");document.querySelectorAll(".attr-matrix-cell").forEach(el=>el.classList.remove("active"));mc.classList.add("active");const q=mc.getAttribute("data-quadrant");const mdata=attrMatrixData[q];const p4=document.getElementById("attr-matrix-panel");if(mdata){let pts=(mdata.points||[]).map(pt=>`<li style="font-size: 1.2rem; margin: 0.8rem 0; opacity: 0.9;">&bull; ${pt}</li>`).join("");document.getElementById("attr-matrix-content").innerHTML=`<div style="width:100%;"><ul style="list-style: none; padding-left: 0; margin: 0;"><li><span style="font-size: 1.8rem; font-weight: 500;">${mdata.title}</span><div style="font-size: 1.15rem; margin-top: 0.5rem; line-height: 1.6; opacity: 0.9;">${mdata.desc}</div><ul style="padding-left: 0; margin-left: 0; margin-top: 1rem; list-style: none;">${pts}</ul></li></ul></div>`;}p4.style.opacity="1";e.isTrusted&&setTimeout(()=>{p4.scrollIntoView({behavior:'smooth',block:'start'});},150);}
+const t=e.target.closest(".menu-item");if(t&&!t.classList.contains("nav-item")){const e=t.closest(".menu-row"),o=document.getElementById(t.getAttribute("data-target"));if(t.classList.contains("active")){if(o){const e=o.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");e&&e.click()}return}const n=e.querySelector(".menu-item.active");if(n){const e=document.getElementById(n.getAttribute("data-target"));if(e){e.classList.remove("active");const t=e.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");t&&t.classList.remove("visible"),e.querySelectorAll(".l3-menu, .l4-menu, .l5-menu, .l6-menu").forEach(e=>e.classList.remove("visible")),e.querySelectorAll(".content-panel.active > .content-panel-inner > .selected-header > .local-back-btn").forEach(e=>e.click())}n.classList.remove("active")}e.querySelectorAll(".menu-item").forEach(e=>{e!==t&&(e.classList.add("greyed-out"),e.classList.remove("active","auto-pulse"))}),t.classList.remove("greyed-out","auto-pulse"),t.classList.add("active"),cursorOutline.classList.remove("hovered"),o&&(o.classList.add("active"),updateProgress(),setTimeout(()=>{const e=o.querySelector(":scope > .content-panel-inner > .selected-header > .local-back-btn");e&&e.classList.add("visible")},400),setTimeout(()=>{const e=o.querySelector(".l3-menu, .l4-menu, .l5-menu, .l6-menu");e&&(e.classList.add("visible"),setTimeout(()=>{e.querySelectorAll(".menu-item").forEach(e=>{e.classList.remove("auto-pulse"),void e.offsetWidth,e.classList.add("auto-pulse")})},400))},1200),setTimeout(()=>{if("app"===currentView){const e=o.querySelector(".selected-header");e&&window.scrollTo({top:Math.max(0,e.getBoundingClientRect().top+window.scrollY-60),behavior:"smooth"})}},400))}if(e.target.closest(".selected-header h2, .selected-header h3, .selected-header h4, .selected-header h5")){const t=e.target.closest(".selected-header").querySelector(".local-back-btn");t&&t.click()}const o=e.target.closest(".local-back-btn:not(#glossary-back-btn)");if(o){e.stopPropagation(),e.isTrusted&&playSound("click");const t=o.closest(".content-panel"),n=document.querySelector(`.menu-item[data-target="${t.id}"]`);o.classList.remove("visible"),cursorOutline.classList.remove("hovered"),t.classList.remove("active"),t.querySelectorAll(".l3-menu, .l4-menu, .l5-menu, .l6-menu").forEach(e=>e.classList.remove("visible")),t.querySelectorAll(".content-panel.active > .content-panel-inner > .selected-header > .local-back-btn").forEach(e=>e.click()),n.classList.remove("active"),updateProgress(),setTimeout(()=>{n.closest(".menu-row").querySelectorAll(".menu-item").forEach(e=>e.classList.remove("greyed-out"))},600),setTimeout(()=>{if("app"===currentView){const e=t.parentElement.closest(".content-panel");if(e){const t=e.querySelector(".selected-header");t?window.scrollTo({top:Math.max(0,t.getBoundingClientRect().top+window.scrollY-60),behavior:"smooth"}):window.scrollTo({top:0,behavior:"smooth"})}}},400)}const n=e.target.closest(".glossary-item");if(n){const t=flatGlossary[n.getAttribute("data-gid")];if(t){"glossary"===currentView?(glossaryListScroll=window.scrollY,glossarySourceView="glossary",window.scrollTo({top:0,behavior:"instant"})):(glossarySourceView=currentView,switchView("glossary"));const e=document.getElementById("main-breadcrumbs");e.innerHTML="",t.breadcrumbs.forEach((o,n)=>{const c=t.breadcrumbs.length-n,l=document.createElement("span");l.className="breadcrumb-layer",c>=3?(l.style.fontSize="0.85rem",l.style.opacity="0.6"):2===c?(l.style.fontSize="0.95rem",l.style.opacity="0.8"):1===c&&(l.style.fontSize="1.05rem",l.style.opacity="1"),l.textContent=o.split(":")[0].split("&")[0].trim(),e.appendChild(l);if(n<t.breadcrumbs.length-1){const t=document.createElement("span");t.innerHTML="&nbsp;&gt;&nbsp;",t.style.opacity="0.4",e.appendChild(t)}}),e.classList.add("visible"),document.getElementById("footer").classList.remove("header-mode"),document.getElementById("footer").style.display="none",document.getElementById("g-title").textContent=t.title,document.getElementById("g-desc").innerHTML=t.desc+(t.source?`<div class="g-source">Source: this text is taken from <a href="${t.source.url}" target="_blank" class="g-source-link">${t.source.site}</a></div>`:"")+(t.references&&t.references.length?`<div class="g-references"><h4 class="g-references-heading">References</h4><ul class="g-references-list">${t.references.map(r=>`<li>${r}</li>`).join("")}</ul></div>`:""),document.getElementById("glossary-list-view").style.display="none",document.getElementById("glossary-detail-view").style.display="flex",document.getElementById("glossary-detail-view").animate([{opacity:0,transform:"translateY(10px)"},{opacity:1,transform:"translateY(0)"}],{duration:600,easing:"ease",fill:"forwards"})}}if(e.target.closest("#glossary-back-btn"))e.stopPropagation(),e.isTrusted&&playSound("click"),document.getElementById("main-breadcrumbs").classList.remove("visible"),"glossary"!==glossarySourceView?(switchView(glossarySourceView),setTimeout(()=>{document.getElementById("glossary-list-view").style.display="block",document.getElementById("glossary-detail-view").style.display="none"},600)):(document.getElementById("glossary-list-view").style.display="block",document.getElementById("glossary-detail-view").style.display="none",document.getElementById("footer").classList.add("header-mode"),document.getElementById("footer").style.display="block",requestAnimationFrame(()=>window.scrollTo({top:glossaryListScroll,behavior:"instant"})),document.getElementById("glossary-list-view").animate([{opacity:0},{opacity:1}],{duration:600,easing:"ease",fill:"forwards"}));if(e.target.closest("#maximal-list-view .single-arrow")){e.stopPropagation(),e.isTrusted&&playSound("click");const t=e.target.closest("li"),cur=getMaxArrowLevel(t);setMaxState(t,1===cur?0:1),setTimeout(updateProgress,400)}if(e.target.closest("#maximal-list-view .double-arrow")){e.stopPropagation(),e.isTrusted&&playSound("click");const t=e.target.closest("li"),cur=getMaxArrowLevel(t);setMaxState(t,2===cur?0:2),setTimeout(updateProgress,400)}if(e.target.closest("#maximal-list-view .triple-arrow")){e.stopPropagation(),e.isTrusted&&playSound("click");const t=e.target.closest("li"),cur=getMaxArrowLevel(t);setMaxState(t,3===cur?0:3),setTimeout(updateProgress,400)}const p=e.target.closest(".map-proxy-arrow");if(p){e.stopPropagation(),e.isTrusted&&playSound("click");const t=document.querySelector(`.css-tree [data-trigger="${p.dataset.proxyTarget}"]`).closest("li"),d=t.querySelector(":scope > .map-node-wrapper > .map-arrows > .map-double-arrow"),o=d.classList.contains("collapsed");setMapState(t,o?2:0),setTimeout(resetMapView,50),setTimeout(updateProgress,400)}else{const l=e.target.closest(".map-arrow");if(l){e.stopPropagation(),e.isTrusted&&playSound("click");const t=l.closest("li"),o=l.classList.contains("collapsed");l.classList.contains("map-single-arrow")?setMapState(t,o?1:0):l.classList.contains("map-double-arrow")?setMapState(t,o?2:0):l.classList.contains("map-triple-arrow")&&setMapState(t,o?3:0),setTimeout(resetMapView,50),setTimeout(updateProgress,400)}}const c=e.target.closest("[data-trigger]:not(.nav-item)");if(c){e.stopPropagation();const t=c.getAttribute("data-trigger");instantResetAppView(),switchView("app"),setTimeout(()=>{if(document.getElementById("title").click(),"root"===t)return void updateProgress();setTimeout(()=>{const o=t.split("-"),n=[];o.length>=2&&n.push(`s2-${o[1]}`),o.length>=3&&n.push(`s3-${o[1]}-${o[2]}`),o.length>=4&&n.push(`s4-${o[1]}-${o[2]}-${o[3]}`),o.length>=5&&n.push(`s5-${o[1]}-${o[2]}-${o[3]}-${o[4]}`),o.length>=6&&n.push(`s6-${o[1]}-${o[2]}-${o[3]}-${o[4]}-${o[5]}`),o.length>=7&&n.push(`s7-${o[1]}-${o[2]}-${o[3]}-${o[4]}-${o[5]}-${o[6]}`);!function e(t){if(t>=n.length)return;const o=document.querySelector(`.menu-row .menu-item[data-target="${n[t]}"]`);o&&!o.classList.contains("active")?(o.click(),setTimeout(()=>e(t+1),1300)):e(t+1)}(0)},1300)},100)}});
 </script>
 </body>
 </html>
